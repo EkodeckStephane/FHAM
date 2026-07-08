@@ -21,8 +21,7 @@ maintained and submitted separately and is **not** included here.
 9. [Reproducibility guarantees](#reproducibility-guarantees)
 10. [Known limitations (by design)](#known-limitations-by-design)
 11. [Authors](#authors)
-12. [Use of AI assistance](#use-of-ai-assistance)
-13. [License](#license)
+12. [License](#license)
 
 ## What FHAM is
 
@@ -251,15 +250,6 @@ Ebele, Leonel Moyou Metcheka, René Ndoundam (corresponding author).
 University of Yaoundé I (LIRIMA, Team GRIMCAPE); IRD, UMI UMMISCO, IRD
 France Nord; UMI 209 UMMISCO, Sorbonne Université; Institut Supérieur des
 Technologies de Mamou.
-
-## Use of AI assistance
-
-An AI coding assistant (Claude, Anthropic) was used under author supervision
-to help implement and run the experimental pipeline, and to draft parts of
-this repository's documentation from author-reviewed results. All
-experimental results in this repository were produced by the disclosed,
-version-controlled code and raw output files; the named authors reviewed
-the scientific content and take full responsibility for the work.
 
 ## License
 

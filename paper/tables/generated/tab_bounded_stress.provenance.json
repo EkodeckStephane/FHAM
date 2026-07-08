@@ -1,0 +1,16 @@
+{
+  "generated_at_utc": "2026-07-08T16:41:34.441365+00:00",
+  "git_commit": "3005af06263a24261fe153c54f0eec7ceb7a3f2b",
+  "input_files": [
+    "results\\bounded_assignment.csv",
+    "results\\stress_bounded_assignment.csv"
+  ],
+  "input_sha256": {
+    "results\\bounded_assignment.csv": "8ada451e555f396548420bf776b9a3ce5fedb32c264ef7ade5636ac26daa6f59",
+    "results\\stress_bounded_assignment.csv": "9cc789db2c767db9822e58986b11e06afa59f38684b8f12bf26ad250f79fcbd6"
+  },
+  "output_file": "paper\\tables\\generated\\tab_bounded_stress.tex",
+  "output_sha256": "cf649b1c3455a6e48c0c3f0c1ade2b4ca3afca41e18e4eed890ac428318b34cc",
+  "script": "scripts/generate_tables.py",
+  "table": "tab_bounded_stress"
+}

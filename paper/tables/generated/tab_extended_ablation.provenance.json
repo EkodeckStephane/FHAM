@@ -1,0 +1,14 @@
+{
+  "generated_at_utc": "2026-07-08T16:41:34.387608+00:00",
+  "git_commit": "3005af06263a24261fe153c54f0eec7ceb7a3f2b",
+  "input_files": [
+    "results\\assignment_method_comparison.csv"
+  ],
+  "input_sha256": {
+    "results\\assignment_method_comparison.csv": "fa429a95958c2c015ee08dd13e4d54e894df1d80033742fa7be4540c5b8fc95c"
+  },
+  "output_file": "paper\\tables\\generated\\tab_extended_ablation.tex",
+  "output_sha256": "03946ae8c638deb57c83106b455adb06a07f42327d7f1af366df6a1377baf095",
+  "script": "scripts/generate_tables.py",
+  "table": "tab_extended_ablation"
+}

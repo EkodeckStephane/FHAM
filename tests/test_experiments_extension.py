@@ -10,6 +10,7 @@ from fham.experiments import (
     leakage_experiment,
     message_family_experiment,
     stability_aware_lambda_sweep_experiment,
+    traffic_detectability_experiment,
 )
 
 
@@ -107,6 +108,24 @@ def test_extended_transformation_robustness_covers_36_conditions_plus_identity()
     assert set(summary["transform"]) == set(EXTENDED_TRANSFORMS) | {"identity"}
     identity_row = summary.loc[summary["transform"] == "identity"].iloc[0]
     assert identity_row["exact_recovery"] == 1.0
+
+
+def test_traffic_detectability_reports_all_classifiers_and_baseline():
+    image = np.arange(96 * 96, dtype=np.uint16).reshape(96, 96).astype(np.uint8)
+    images = {"a": image, "b": np.roll(image, 7)}
+    summary, raw = traffic_detectability_experiment(
+        images, lengths=(5, 10), trials=10, bound=255
+    )
+    assert set(summary["classifier"]) == {
+        "logistic_regression",
+        "random_forest",
+        "gradient_boosting",
+        "mlp",
+        "random_baseline",
+    }
+    assert set(raw["label"]) == {0, 1}
+    baseline = summary.loc[summary["classifier"] == "random_baseline"].iloc[0]
+    assert baseline["auc"] == 0.5
 
 
 def test_message_family_experiment_reads_real_manifest():

@@ -1,0 +1,14 @@
+{
+  "generated_at_utc": "2026-07-08T16:41:34.647760+00:00",
+  "git_commit": "3005af06263a24261fe153c54f0eec7ceb7a3f2b",
+  "input_files": [
+    "results\\processed\\stratified_robustness\\stratified_robustness.csv"
+  ],
+  "input_sha256": {
+    "results\\processed\\stratified_robustness\\stratified_robustness.csv": "cc3bbf63a8e026a18ddddb9d11e8e5f6f2e88fe71fe841751b306c25d012eb43"
+  },
+  "output_file": "paper\\tables\\generated\\tab_stratified_robustness.tex",
+  "output_sha256": "0929e3c89ebe32144dcb4aad6f12a73590857ff71451142eb71a947772fe6405",
+  "script": "scripts/generate_tables.py",
+  "table": "tab_stratified_robustness"
+}

@@ -1,0 +1,14 @@
+{
+  "command": "python scripts/generate_figures.py",
+  "generated_at_utc": "2026-07-08T16:43:13.261786+00:00",
+  "git_commit": "3005af06263a24261fe153c54f0eec7ceb7a3f2b",
+  "input_files": [
+    "results\\bounded_assignment.csv"
+  ],
+  "input_sha256": {
+    "results\\bounded_assignment.csv": "8ada451e555f396548420bf776b9a3ce5fedb32c264ef7ade5636ac26daa6f59"
+  },
+  "output_file": "paper\\figures\\generated\\fig_bounded_assignment.png",
+  "output_sha256": "67ed2704bf83c93c07123a77abbe4ccdb31e05fae7a1347a317d2e75f38fbcc2",
+  "script": "scripts/generate_figures.py"
+}

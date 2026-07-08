@@ -1,0 +1,14 @@
+{
+  "command": "python scripts/generate_figures.py",
+  "generated_at_utc": "2026-07-08T16:43:13.261786+00:00",
+  "git_commit": "3005af06263a24261fe153c54f0eec7ceb7a3f2b",
+  "input_files": [
+    "results\\capacity.csv"
+  ],
+  "input_sha256": {
+    "results\\capacity.csv": "7cdd9ad4e4dc05a7ad44be7bf789a9a7b899fcbde442dc67e446ac3b0370d30f"
+  },
+  "output_file": "paper\\figures\\generated\\fig_capacity.png",
+  "output_sha256": "670b96237fef2cf8675212ff3a988a63356df7593dabe83ac6d68632f8bc2f94",
+  "script": "scripts/generate_figures.py"
+}

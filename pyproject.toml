@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fham"
+version = "1.0.0"
+description = "FHAM: A Formal Bounded Assignment Model for Intra-Cover Hash Mapping"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { file = "LICENSE" }
+authors = [
+    { name = "Habibatou Mindja" },
+    { name = "Ibrahima Touré" },
+    { name = "Stéphane Gaël R. Ekodeck" },
+    { name = "Serge Alain Ebele" },
+    { name = "Leonel Moyou Metcheka" },
+    { name = "René Ndoundam", email = "ndoundam@gmail.com" },
+]
+dependencies = [
+    "cryptography>=45",
+    "matplotlib>=3.10",
+    "numpy>=2.2",
+    "pandas>=2.2",
+    "Pillow>=11",
+    "PyYAML>=6",
+    "scikit-image>=0.25",
+    "scikit-learn>=1.7",
+    "scipy>=1.17",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+
+[project.urls]
+Repository = "https://github.com/EkodeckStephane/FHAM"
+
+[tool.setuptools.packages.find]
+where = ["src"]

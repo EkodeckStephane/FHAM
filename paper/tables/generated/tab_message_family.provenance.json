@@ -1,0 +1,14 @@
+{
+  "generated_at_utc": "2026-07-08T16:41:34.501320+00:00",
+  "git_commit": "3005af06263a24261fe153c54f0eec7ceb7a3f2b",
+  "input_files": [
+    "results\\message_family_coverage.csv"
+  ],
+  "input_sha256": {
+    "results\\message_family_coverage.csv": "a65f74c7eaad779d70df607202c7cae1e72abfb2b9259f84527bc80479a60104"
+  },
+  "output_file": "paper\\tables\\generated\\tab_message_family.tex",
+  "output_sha256": "7d65d03560f6c5519ad255ac85449980cafab38e2b594d40ca380ed502d536ad",
+  "script": "scripts/generate_tables.py",
+  "table": "tab_message_family"
+}

@@ -1,0 +1,14 @@
+{
+  "command": "python scripts/generate_figures.py",
+  "generated_at_utc": "2026-07-08T16:43:13.261786+00:00",
+  "git_commit": "3005af06263a24261fe153c54f0eec7ceb7a3f2b",
+  "input_files": [
+    "results\\robustness.csv"
+  ],
+  "input_sha256": {
+    "results\\robustness.csv": "e0758b32eeb89428f74b499c4c0c2f8a9c1b6f4bdf785627155c7db629d68cea"
+  },
+  "output_file": "paper\\figures\\generated\\fig_robustness.png",
+  "output_sha256": "5e5dfaeca93b31eb1555c5a0aa21d0c3a05ba322f8b610b620f7fa244ff06699",
+  "script": "scripts/generate_figures.py"
+}

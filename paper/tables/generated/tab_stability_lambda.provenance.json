@@ -1,0 +1,14 @@
+{
+  "generated_at_utc": "2026-07-08T16:41:34.401285+00:00",
+  "git_commit": "3005af06263a24261fe153c54f0eec7ceb7a3f2b",
+  "input_files": [
+    "results\\stability_lambda_sweep.csv"
+  ],
+  "input_sha256": {
+    "results\\stability_lambda_sweep.csv": "a92bbfbadca51c14e0025b16a99a891d26ce76c8a1d5843a7d2c59ed267bd4ec"
+  },
+  "output_file": "paper\\tables\\generated\\tab_stability_lambda.tex",
+  "output_sha256": "97bbba21cd85e675ea29b5d343892b19281ca995841d9746156c52bf055b1a2e",
+  "script": "scripts/generate_tables.py",
+  "table": "tab_stability_lambda"
+}

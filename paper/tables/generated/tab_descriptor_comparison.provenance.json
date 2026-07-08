@@ -1,0 +1,14 @@
+{
+  "generated_at_utc": "2026-07-08T16:41:34.458155+00:00",
+  "git_commit": "3005af06263a24261fe153c54f0eec7ceb7a3f2b",
+  "input_files": [
+    "results\\descriptor_comparison.csv"
+  ],
+  "input_sha256": {
+    "results\\descriptor_comparison.csv": "208d3c3c64f7a0190fe6da2c3d17a520d01d5343f77b49ffefdceb65787ad52f"
+  },
+  "output_file": "paper\\tables\\generated\\tab_descriptor_comparison.tex",
+  "output_sha256": "06ef2b2d42f7635aa0ae34a10a43fc41ef818e67be34982fdafc1213c3192979",
+  "script": "scripts/generate_tables.py",
+  "table": "tab_descriptor_comparison"
+}

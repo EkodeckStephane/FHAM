@@ -1,0 +1,14 @@
+{
+  "generated_at_utc": "2026-07-08T16:41:34.367810+00:00",
+  "git_commit": "3005af06263a24261fe153c54f0eec7ceb7a3f2b",
+  "input_files": [
+    "results\\formulation_comparison.csv"
+  ],
+  "input_sha256": {
+    "results\\formulation_comparison.csv": "cb548523bc582472812e971f9277448e9ab629f631a44c38762e10a70f328fd1"
+  },
+  "output_file": "paper\\tables\\generated\\tab_formulation_comparison.tex",
+  "output_sha256": "4f05a3800cda118cb42879287cff75f5f417e882c7a0902f2b813d301d38bb49",
+  "script": "scripts/generate_tables.py",
+  "table": "tab_formulation_comparison"
+}

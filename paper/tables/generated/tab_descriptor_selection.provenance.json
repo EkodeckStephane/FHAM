@@ -1,0 +1,16 @@
+{
+  "generated_at_utc": "2026-07-08T16:41:34.471645+00:00",
+  "git_commit": "3005af06263a24261fe153c54f0eec7ceb7a3f2b",
+  "input_files": [
+    "results\\descriptor_selection_validation.csv",
+    "results\\acceptance\\frozen_descriptor.json"
+  ],
+  "input_sha256": {
+    "results\\acceptance\\frozen_descriptor.json": "b279cc9b925f5d789029aa608a9cf2561ee8cef64fcdb03602f45d9973ee9b13",
+    "results\\descriptor_selection_validation.csv": "200bedb21254c744e9cfbcb6dbab0c1b3c4e872c0b3e7bf1589992dcd5163d70"
+  },
+  "output_file": "paper\\tables\\generated\\tab_descriptor_selection.tex",
+  "output_sha256": "505da8fdfbeaf632539a21e63d68ed4b50ff95f75ed04b1ff50c678fa74c1d89",
+  "script": "scripts/generate_tables.py",
+  "table": "tab_descriptor_selection"
+}

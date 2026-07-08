@@ -1,0 +1,14 @@
+{
+  "generated_at_utc": "2026-07-08T16:41:34.421229+00:00",
+  "git_commit": "3005af06263a24261fe153c54f0eec7ceb7a3f2b",
+  "input_files": [
+    "results\\causal_codebook_ablation.csv"
+  ],
+  "input_sha256": {
+    "results\\causal_codebook_ablation.csv": "b3c4f8f2172f81d74aed977d9467fbbbd66e4bb60f890925fef9c3a2dff5359c"
+  },
+  "output_file": "paper\\tables\\generated\\tab_causal_ablation.tex",
+  "output_sha256": "23168c23925b9ad56ee569654b6f9439ce499e7bff735ff4d04c4f0573fb4a90",
+  "script": "scripts/generate_tables.py",
+  "table": "tab_causal_ablation"
+}

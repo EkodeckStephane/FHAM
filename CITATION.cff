@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: "If you use this software or its results, please cite it as below."
+title: "FHAM: A Formal Bounded Assignment Model for Intra-Cover Hash Mapping (reproducible artefact)"
+type: software
+authors:
+  - family-names: Mindja
+    given-names: Habibatou
+  - family-names: Touré
+    given-names: Ibrahima
+    affiliation: "Institut Supérieur des Technologies de Mamou, Republic of Guinea"
+  - family-names: Ekodeck
+    given-names: "Stéphane Gaël R."
+  - family-names: Ebele
+    given-names: "Serge Alain"
+  - family-names: Moyou Metcheka
+    given-names: Leonel
+    orcid: "https://orcid.org/0009-0005-5749-0543"
+    email: leonelmoyou@gmail.com
+  - family-names: Ndoundam
+    given-names: René
+    email: ndoundam@gmail.com
+repository-code: "https://github.com/EkodeckStephane/FHAM"
+license: MIT
+version: 1.0.0
+date-released: "2026-07-08"
+keywords:
+  - coverless steganography
+  - intra-cover mapping
+  - bounded assignment
+  - bipartite matching
+  - combinatorial optimization
+  - information hiding

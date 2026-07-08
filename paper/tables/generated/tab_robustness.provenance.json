@@ -1,0 +1,14 @@
+{
+  "generated_at_utc": "2026-07-08T16:41:34.553843+00:00",
+  "git_commit": "3005af06263a24261fe153c54f0eec7ceb7a3f2b",
+  "input_files": [
+    "results\\robustness.csv"
+  ],
+  "input_sha256": {
+    "results\\robustness.csv": "e0758b32eeb89428f74b499c4c0c2f8a9c1b6f4bdf785627155c7db629d68cea"
+  },
+  "output_file": "paper\\tables\\generated\\tab_robustness.tex",
+  "output_sha256": "8f91c7cba539792a3deb20a92096709b34d547de5ba96c11424fd726be65caed",
+  "script": "scripts/generate_tables.py",
+  "table": "tab_robustness"
+}

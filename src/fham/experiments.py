@@ -13,7 +13,16 @@ from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 from PIL import Image
 from scipy import stats as scipy_stats
 from scipy.ndimage import gaussian_filter, median_filter
-from sklearn.metrics import mutual_info_score
+from sklearn.ensemble import GradientBoostingClassifier, RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import (
+    balanced_accuracy_score,
+    mutual_info_score,
+    roc_auc_score,
+    roc_curve,
+)
+from sklearn.model_selection import train_test_split
+from sklearn.neural_network import MLPClassifier
 
 from .abdulsattar import AbdulsattarMethod
 from .assignment import (
@@ -27,6 +36,7 @@ from .channel import AuxiliaryChannel
 from .config import DATASET_DIR, MESSAGE_LENGTHS, PRINTABLE_ASCII, RANDOM_SEED, ROOT
 from .descriptors import descriptor_hashes
 from .methods import (
+    Assignment,
     BottleneckAssignmentMethod,
     BoundedAssignmentMethod,
     ExactMatchMethod,
@@ -1278,4 +1288,138 @@ def extended_transformation_robustness_experiment(
         character_accuracy=("character_accuracy", "mean"),
         character_accuracy_std=("character_accuracy", "std"),
     )
+    return summary, raw
+
+
+def _decoy_assignment(length, lookup, bound, rng):
+    """A format- and length-matched decoy: `length` distinct locations drawn
+    from the same codebook location pool as a real assignment, with random
+    residuals in the same bound, but not tied to any real message. Used to
+    build the H0 traffic-analysis class."""
+    all_locations = [
+        location
+        for locations in lookup.lookup_table.values()
+        for location in locations
+    ]
+    if length > len(all_locations):
+        return None
+    locations = rng.sample(all_locations, length)
+    displacements = [rng.randint(-bound, bound) for _ in range(length)]
+    return Assignment(lookup.image_shape, lookup.block_size, locations, displacements)
+
+
+def traffic_detectability_experiment(
+    images, lengths=(50, 100, 200), trials=40, bound=2, seed=RANDOM_SEED
+):
+    """H0-versus-H1 traffic-analysis check. H1 traces are real protected
+    envelopes (``AuxiliaryChannel.protect``) of genuine FHAM assignments; H0
+    traces are protected envelopes of a format- and length-matched decoy
+    assignment (same record count, same residual bound, random content) for
+    the same image and length, so that the two classes cannot be separated
+    by record count alone (the envelope header's raw-size field is
+    identical by construction). Four classifiers (logistic regression,
+    random forest, gradient boosting, MLP) are trained on the only features
+    an observer could measure without breaking AES-GCM -- envelope size and
+    processing time -- with a single stratified train/test split (no
+    hyperparameter tuning, so no separate validation split is used). This
+    tests empirical distinguishability of ciphertext-level ``size, timing``
+    traces at matched message length, not general traffic undetectability;
+    the message length itself is already shown to leak through observable
+    envelope size in ``leakage_experiment``."""
+    key = os.urandom(32)
+    rows = []
+    for image_name, image in images.items():
+        method = BoundedAssignmentMethod(bound)
+        method.build_lookup_table(image)
+        for length in lengths:
+            for trial in range(trials):
+                message = _message(length, image_name, trial)
+                assignment = method.embed(message, image)
+                if assignment is None:
+                    continue
+
+                start = time.perf_counter()
+                envelope_h1 = AuxiliaryChannel.protect(assignment, key)
+                time_h1_ms = (time.perf_counter() - start) * 1000
+                rows.append(
+                    {
+                        "label": 1,
+                        "image": image_name,
+                        "length": length,
+                        "trial": trial,
+                        "size": len(envelope_h1),
+                        "time_ms": time_h1_ms,
+                    }
+                )
+
+                decoy_seed = seed + trial * 97 + length * 1009 + zlib.crc32(
+                    image_name.encode()
+                )
+                decoy = _decoy_assignment(
+                    length, method, bound, random.Random(decoy_seed)
+                )
+                if decoy is None:
+                    continue
+                start = time.perf_counter()
+                envelope_h0 = AuxiliaryChannel.protect(decoy, key)
+                time_h0_ms = (time.perf_counter() - start) * 1000
+                rows.append(
+                    {
+                        "label": 0,
+                        "image": image_name,
+                        "length": length,
+                        "trial": trial,
+                        "size": len(envelope_h0),
+                        "time_ms": time_h0_ms,
+                    }
+                )
+
+    raw = pd.DataFrame(rows)
+    strata = raw["label"].astype(str) + "-" + raw["length"].astype(str)
+    train_df, test_df = train_test_split(
+        raw, test_size=0.3, stratify=strata, random_state=seed
+    )
+
+    feature_cols = ["length", "size", "time_ms"]
+    x_train, y_train = train_df[feature_cols], train_df["label"]
+    x_test, y_test = test_df[feature_cols], test_df["label"]
+
+    classifiers = {
+        "logistic_regression": LogisticRegression(max_iter=1000),
+        "random_forest": RandomForestClassifier(n_estimators=200, random_state=seed),
+        "gradient_boosting": GradientBoostingClassifier(random_state=seed),
+        "mlp": MLPClassifier(hidden_layer_sizes=(16,), max_iter=2000, random_state=seed),
+    }
+
+    summary_rows = []
+    for name, clf in classifiers.items():
+        clf.fit(x_train, y_train)
+        proba = clf.predict_proba(x_test)[:, 1]
+        preds = clf.predict(x_test)
+        auc = roc_auc_score(y_test, proba)
+        balanced_accuracy = balanced_accuracy_score(y_test, preds)
+        fpr, tpr, _ = roc_curve(y_test, proba)
+        low_fpr = fpr <= 0.05
+        tpr_at_5pct_fpr = float(tpr[low_fpr].max()) if low_fpr.any() else 0.0
+        summary_rows.append(
+            {
+                "classifier": name,
+                "n_train": len(train_df),
+                "n_test": len(test_df),
+                "auc": auc,
+                "balanced_accuracy": balanced_accuracy,
+                "tpr_at_5pct_fpr": tpr_at_5pct_fpr,
+            }
+        )
+    summary_rows.append(
+        {
+            "classifier": "random_baseline",
+            "n_train": len(train_df),
+            "n_test": len(test_df),
+            "auc": 0.5,
+            "balanced_accuracy": 0.5,
+            "tpr_at_5pct_fpr": 0.05,
+        }
+    )
+    summary = pd.DataFrame(summary_rows)
     return summary, raw

@@ -26,6 +26,7 @@ from fham.experiments import (
     robustness_experiment,
     stability_aware_lambda_sweep_experiment,
     stress_capacity_experiment,
+    traffic_detectability_experiment,
 )
 from fham.visualization import (
     bounded_plot,
@@ -158,6 +159,13 @@ def main():
     )
     save_pair("extended_robustness", extended_robustness, extended_robustness_raw)
 
+    traffic_detectability, traffic_detectability_raw = (
+        traffic_detectability_experiment(images)
+    )
+    save_pair(
+        "traffic_detectability", traffic_detectability, traffic_detectability_raw
+    )
+
     print(capacity.to_string(index=False))
     print()
     print(ablation.to_string(index=False))
@@ -193,6 +201,8 @@ def main():
     print(causal_ablation.to_string(index=False))
     print()
     print(extended_robustness.to_string(index=False))
+    print()
+    print(traffic_detectability.to_string(index=False))
     return 0
 
 

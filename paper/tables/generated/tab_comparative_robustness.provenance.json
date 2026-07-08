@@ -1,0 +1,14 @@
+{
+  "generated_at_utc": "2026-07-08T16:41:34.575009+00:00",
+  "git_commit": "3005af06263a24261fe153c54f0eec7ceb7a3f2b",
+  "input_files": [
+    "results\\comparative_robustness.csv"
+  ],
+  "input_sha256": {
+    "results\\comparative_robustness.csv": "193ec2f214a8d4faa1eccf9dfc1fb40c1f92361c4cfdd07d02778d0b689934d1"
+  },
+  "output_file": "paper\\tables\\generated\\tab_comparative_robustness.tex",
+  "output_sha256": "a13e00a8611abc722bf7aa494dfeb1ecdde0d5ff8060a4913bea3b4e47048a10",
+  "script": "scripts/generate_tables.py",
+  "table": "tab_comparative_robustness"
+}

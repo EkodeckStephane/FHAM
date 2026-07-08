@@ -5,7 +5,7 @@ results underlying the FHAM manuscript.
 
 **This repository contains the reproducible artefact only** (code, tests,
 configuration, dataset manifests, generated figures, and raw/processed
-results). The manuscript itself, in its several venue-specific versions, is
+results). The manuscript itself, is
 maintained and submitted separately and is **not** included here.
 
 ## Table of contents

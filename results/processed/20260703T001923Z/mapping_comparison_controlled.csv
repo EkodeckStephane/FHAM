@@ -1,0 +1,4 @@
+length,images,wysawis_adequacy,fham_success,wysawis_success,abdulsattar_success,fham_records,wysawis_cloud_records,abdulsattar_records,wysawis_location_lower_bound_bits
+50,8,0.375,1.0,0.375,0.55,50.0,28.0,50.0,460.06666666666666
+100,8,0.375,1.0,0.375,0.325,100.0,55.0,100.0,904.5333333333333
+200,8,0.375,1.0,0.375,0.0,200.0,108.0,,1789.8

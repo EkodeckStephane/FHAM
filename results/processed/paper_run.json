@@ -1,0 +1,20 @@
+{
+  "config_hash": "2e106f94dfd9a990c8480831f61f0306415e9cb59fe1deb59f9fc9cfa65aa8c1",
+  "date_utc": "2026-07-06T12:09:37.728417+00:00",
+  "justification": "latest strict pipeline run",
+  "results": [
+    "assignment_ablation.csv",
+    "auxiliary_channel.csv",
+    "bounded_assignment.csv",
+    "capacity.csv",
+    "codebook_geometry.csv",
+    "comparative_robustness.csv",
+    "mapping_comparison_controlled.csv",
+    "mapping_comparison_stress.csv",
+    "robustness.csv",
+    "stress_bounded_assignment.csv",
+    "stress_capacity.csv",
+    "stress_codebook_geometry.csv"
+  ],
+  "run_id": "20260706T120931Z"
+}

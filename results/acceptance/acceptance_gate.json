@@ -1,0 +1,48 @@
+{
+  "checked_at_utc": "2026-07-08T14:38:13.729404+00:00",
+  "failures": [],
+  "passed_checks": [
+    {
+      "condition": "bossbase_manifest",
+      "observed_rows": 10000,
+      "path": "dataset\\manifests\\bossbase.csv"
+    },
+    {
+      "condition": "bows2_manifest",
+      "observed_rows": 10000,
+      "path": "dataset\\manifests\\bows2.csv"
+    },
+    {
+      "condition": "coco2017_val_manifest",
+      "observed_rows": 5000,
+      "path": "dataset\\manifests\\coco2017_val.csv"
+    },
+    {
+      "condition": "messages",
+      "observed_rows": 160,
+      "path": "dataset\\message_manifests\\message_seeds.csv"
+    },
+    {
+      "condition": "reference_audit",
+      "observed_rows": 14,
+      "path": "references\\reference_audit.csv"
+    },
+    {
+      "condition": "supplement_pdf",
+      "observed_rows": null,
+      "path": "paper\\build\\supplement_fham.pdf"
+    },
+    {
+      "condition": "article_pdf",
+      "observed_rows": null,
+      "path": "paper\\build\\article_fham.pdf"
+    },
+    {
+      "condition": "claim_matrix",
+      "observed_rows": 21,
+      "path": "results\\acceptance\\claim_evidence_matrix.csv"
+    }
+  ],
+  "status": "PASS",
+  "verdict": "MANUSCRIT PRET POUR SOUMISSION"
+}

@@ -1,0 +1,16 @@
+codebook,strategy,trials,success,mean_total_displacement
+abdulsattar_arr4,bounded_global_l1,80,1.0,6.3
+abdulsattar_arr4,exact_matching,80,0.0,
+abdulsattar_arr4,unbounded_global_l1,80,1.0,6.3
+dct_ordinal,bounded_global_l1,80,0.9875,26.82278481012658
+dct_ordinal,exact_matching,80,0.0,
+dct_ordinal,stability_aware,80,0.9875,101.87341772151899
+dct_ordinal,unbounded_global_l1,80,1.0,26.825
+spectral,bounded_global_l1,80,1.0,23.725
+spectral,exact_matching,80,0.0,
+spectral,stability_aware,80,1.0,90.5625
+spectral,unbounded_global_l1,80,1.0,23.725
+wavelet_gradient,bounded_global_l1,80,0.925,34.067567567567565
+wavelet_gradient,exact_matching,80,0.0,
+wavelet_gradient,stability_aware,80,0.925,100.24324324324324
+wavelet_gradient,unbounded_global_l1,80,1.0,40.5

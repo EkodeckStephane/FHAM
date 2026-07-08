@@ -1,0 +1,44 @@
+parameter,declared_value,exercised,exercised_in_files
+descriptor,spectral,True,results/descriptor_comparison_raw.csv; results/descriptor_selection_validation_raw.csv
+descriptor,dct_ordinal,True,results/descriptor_comparison_raw.csv; results/descriptor_selection_validation_raw.csv
+descriptor,wavelet_gradient,True,results/descriptor_comparison_raw.csv; results/descriptor_selection_validation_raw.csv
+assignment_method,exact_matching,True,results/assignment_method_comparison_raw.csv
+assignment_method,greedy,True,results/assignment_method_comparison_raw.csv
+assignment_method,global_l1,True,results/assignment_method_comparison_raw.csv
+assignment_method,bottleneck,True,results/assignment_method_comparison_raw.csv
+assignment_method,stability_aware,False,
+assignment_method,random_feasible,True,results/assignment_method_comparison_raw.csv
+message_family,uniform_bytes,True,results/message_family_coverage_raw.csv
+message_family,printable_ascii,True,results/message_family_coverage_raw.csv
+message_family,natural_text,True,results/message_family_coverage_raw.csv
+message_family,adversarial_repeated,True,results/message_family_coverage_raw.csv
+message_length_bytes,10,True,results/auxiliary_channel_raw.csv; results/capacity_raw.csv; results/message_family_coverage_raw.csv
+message_length_bytes,50,True,results/assignment_ablation_raw.csv; results/assignment_method_comparison_raw.csv; results/auxiliary_channel_raw.csv; results/bounded_assignment_raw.csv; results/capacity_raw.csv; results/descriptor_comparison_raw.csv; results/formulation_comparison_raw.csv; results/mapping_comparison_controlled_raw.csv; results/mapping_comparison_stress_raw.csv; results/message_family_coverage_raw.csv
+message_length_bytes,100,True,results/assignment_ablation_raw.csv; results/assignment_method_comparison_raw.csv; results/auxiliary_channel_raw.csv; results/bounded_assignment_raw.csv; results/capacity_raw.csv; results/descriptor_comparison_raw.csv; results/formulation_comparison_raw.csv; results/mapping_comparison_controlled_raw.csv; results/mapping_comparison_stress_raw.csv; results/message_family_coverage_raw.csv; results/stress_capacity_raw.csv
+message_length_bytes,200,True,results/assignment_ablation_raw.csv; results/assignment_method_comparison_raw.csv; results/auxiliary_channel_raw.csv; results/bounded_assignment_raw.csv; results/capacity_raw.csv; results/causal_codebook_ablation_raw.csv; results/descriptor_comparison_raw.csv; results/descriptor_selection_validation_raw.csv; results/formulation_comparison_raw.csv; results/mapping_comparison_controlled_raw.csv; results/mapping_comparison_stress_raw.csv; results/message_family_coverage_raw.csv; results/stress_bounded_assignment_raw.csv; results/stress_capacity_raw.csv
+message_length_bytes,400,True,results/formulation_comparison_raw.csv; results/message_family_coverage_raw.csv
+message_length_bytes,800,True,results/message_family_coverage_raw.csv
+message_length_bytes,1200,True,results/message_family_coverage_raw.csv
+message_length_bytes,1600,True,results/message_family_coverage_raw.csv
+bound,0,True,results/bounded_assignment_raw.csv; results/stress_bounded_assignment_raw.csv
+bound,1,True,results/bounded_assignment_raw.csv; results/stress_bounded_assignment_raw.csv
+bound,2,True,results/bounded_assignment_raw.csv; results/stress_bounded_assignment_raw.csv
+bound,4,True,results/bounded_assignment_raw.csv; results/stress_bounded_assignment_raw.csv
+bound,8,True,results/bounded_assignment_raw.csv; results/stress_bounded_assignment_raw.csv
+bound,16,True,results/bounded_assignment_raw.csv; results/stress_bounded_assignment_raw.csv
+bound,32,True,results/bounded_assignment_raw.csv; results/stress_bounded_assignment_raw.csv
+bound,64,False,
+bound,128,False,
+bound,255,True,results/bounded_assignment_raw.csv; results/stress_bounded_assignment_raw.csv
+lambda,0.0,True,results/stability_lambda_sweep_raw.csv
+lambda,0.25,True,results/stability_lambda_sweep_raw.csv
+lambda,0.5,True,results/stability_lambda_sweep_raw.csv
+lambda,0.75,True,results/stability_lambda_sweep_raw.csv
+lambda,1.0,True,results/stability_lambda_sweep_raw.csv
+transform,identity,True,results/comparative_robustness_raw.csv; results/robustness_raw.csv
+transform,jpeg90,True,results/robustness_raw.csv
+transform,jpeg75,True,results/robustness_raw.csv
+transform,resize90,True,results/robustness_raw.csv
+transform,rotate1,True,results/robustness_raw.csv
+transform,noise1,True,results/robustness_raw.csv
+transform,noise2,True,results/robustness_raw.csv

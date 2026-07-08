@@ -1,0 +1,38 @@
+# --- The manuscript, in all its venue versions, is intentionally excluded ---
+# --- from this reproducibility repository.                                ---
+paper/*.tex
+paper/*.bib
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.synctex.gz
+paper/*.pdf
+paper/build/
+paper/Springer/
+paper/Oxford/
+paper/Wiley/
+paper/rapport_critique_q1.md
+paper/rapport_fact_check.md
+paper/strategie_soumission.md
+
+# Article-strategy / narrative / positioning documents (not experiments or results)
+docs/
+revision_ultime.md
+template_cover_letter_page.png
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.benchmarks/
+
+# Large external datasets are referenced by manifest + SHA-256, never copied here
+dataset_external/
+
+# OS / editor
+.DS_Store
+Thumbs.db

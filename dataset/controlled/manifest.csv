@@ -1,0 +1,9 @@
+file,name,subset,source,content_type,width,height,channels,preprocessing
+camera.png,camera,controlled,scikit-image:data.camera,photograph,512,512,1,grayscale conversion and Lanczos resize
+astronaut.png,astronaut,controlled,scikit-image:data.astronaut,photograph,512,512,1,grayscale conversion and Lanczos resize
+chelsea.png,chelsea,controlled,scikit-image:data.chelsea,photograph,512,512,1,grayscale conversion and Lanczos resize
+coffee.png,coffee,controlled,scikit-image:data.coffee,photograph,512,512,1,grayscale conversion and Lanczos resize
+coins.png,coins,controlled,scikit-image:data.coins,photograph,512,512,1,grayscale conversion and Lanczos resize
+moon.png,moon,controlled,scikit-image:data.moon,scientific photograph,512,512,1,grayscale conversion and Lanczos resize
+clock.png,clock,controlled,scikit-image:data.clock,photograph,512,512,1,grayscale conversion and Lanczos resize
+page.png,page,controlled,scikit-image:data.page,scanned document,512,512,1,grayscale conversion and Lanczos resize

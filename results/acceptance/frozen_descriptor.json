@@ -1,0 +1,43 @@
+{
+  "selected_descriptor": "spectral",
+  "selection_rule": "Eligibility: clean assignment success >= 99% at 200 bytes AND median B* <= 2 AND mean codebook-construction time <= 2x the spectral (D0) time, all measured on this validation sample only. Among eligible descriptors, ties broken by highest success, then lowest median B*, then lowest construction time. If no descriptor is eligible, the same ranking is applied to all three so a decision is still recorded, and this fallback is reported explicitly rather than silently defaulting to D0.",
+  "used_fallback_no_eligible_descriptor": false,
+  "sample": "BOSSBase 1.01 validation split (dataset/manifests/bossbase.csv, split=validation)",
+  "sample_size": 100,
+  "length_bytes": 200,
+  "bound": 2,
+  "candidates": [
+    {
+      "descriptor": "dct_ordinal",
+      "success": 0.99,
+      "b_star_median": 1.0,
+      "mean_build_ms": 131.6309379960876,
+      "mean_displacement": 22.145454545454545,
+      "meets_success_threshold": true,
+      "meets_radius_threshold": true,
+      "meets_time_threshold": true
+    },
+    {
+      "descriptor": "spectral",
+      "success": 0.992,
+      "b_star_median": 1.0,
+      "mean_build_ms": 182.86392198991962,
+      "mean_displacement": 19.655241935483872,
+      "meets_success_threshold": true,
+      "meets_radius_threshold": true,
+      "meets_time_threshold": true
+    },
+    {
+      "descriptor": "wavelet_gradient",
+      "success": 0.87,
+      "b_star_median": 2.0,
+      "mean_build_ms": 680.0375849986449,
+      "mean_displacement": 36.342528735632186,
+      "meets_success_threshold": false,
+      "meets_radius_threshold": true,
+      "meets_time_threshold": false
+    }
+  ],
+  "frozen_at_utc": "2026-07-08T09:51:15.758594+00:00",
+  "note": "This selection is frozen before any use of the BOSSBase test_internal split, BOWS2, or COCO 2017; it is independent of, and does not retroactively change, the spectral descriptor used as the default throughout the rest of this study."
+}

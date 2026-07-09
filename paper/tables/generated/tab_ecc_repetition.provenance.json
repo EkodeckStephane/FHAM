@@ -1,0 +1,14 @@
+{
+  "generated_at_utc": "2026-07-09T01:21:14.848742+00:00",
+  "git_commit": "159199740a7afacf01a127199317926ba0fa13e6",
+  "input_files": [
+    "results\\ecc_repetition.csv"
+  ],
+  "input_sha256": {
+    "results\\ecc_repetition.csv": "5bf077b6b7a9e02dbb06f2e7b39ef9d2f2c78560fe7097e8d01e910b2883a640"
+  },
+  "output_file": "paper\\tables\\generated\\tab_ecc_repetition.tex",
+  "output_sha256": "3bf1184027919ee9ba7907a967dc0c136df701e8c7b9895b2927292a1e5238b1",
+  "script": "scripts/generate_tables.py",
+  "table": "tab_ecc_repetition"
+}

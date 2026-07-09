@@ -19,6 +19,7 @@ from fham.experiments import (
     comparative_mapping_experiment,
     comparative_robustness_experiment,
     descriptor_comparison_experiment,
+    ecc_repetition_experiment,
     extended_transformation_robustness_experiment,
     formulation_comparison_experiment,
     leakage_experiment,
@@ -166,6 +167,9 @@ def main():
         "traffic_detectability", traffic_detectability, traffic_detectability_raw
     )
 
+    ecc_repetition, ecc_repetition_raw = ecc_repetition_experiment(images)
+    save_pair("ecc_repetition", ecc_repetition, ecc_repetition_raw)
+
     print(capacity.to_string(index=False))
     print()
     print(ablation.to_string(index=False))
@@ -203,6 +207,8 @@ def main():
     print(extended_robustness.to_string(index=False))
     print()
     print(traffic_detectability.to_string(index=False))
+    print()
+    print(ecc_repetition.to_string(index=False))
     return 0
 
 

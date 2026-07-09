@@ -494,6 +494,26 @@ def table_stratified_robustness(commit: str) -> None:
     write_table("tab_stratified_robustness", "lrrr", rows, [path], commit)
 
 
+def table_ecc_repetition(commit: str) -> None:
+    path = RESULTS / "ecc_repetition.csv"
+    df = pd.read_csv(path).set_index(["repeat", "domain"])
+    rows = [
+        "\\toprule",
+        "\\textbf{Repeat} & \\textbf{Value exact (\\%)} & \\textbf{Value char.\\ acc.\\ (\\%)} & "
+        "\\textbf{Geom.\\ exact (\\%)} & \\textbf{Geom.\\ char.\\ acc.\\ (\\%)} \\\\",
+        "\\midrule",
+    ]
+    for repeat in sorted(df.index.get_level_values("repeat").unique()):
+        value_row = df.loc[(repeat, "value")]
+        geom_row = df.loc[(repeat, "geometric")]
+        rows.append(
+            f"{int(repeat)} & {pct(value_row['exact_recovery'])} & {pct(value_row['character_accuracy'])} & "
+            f"{pct(geom_row['exact_recovery'])} & {pct(geom_row['character_accuracy'])} \\\\"
+        )
+    rows.append("\\bottomrule")
+    write_table("tab_ecc_repetition", "rrrrr", rows, [path], commit)
+
+
 def main() -> int:
     commit = git_commit()
     table_assignment_ablation(commit)
@@ -513,6 +533,7 @@ def main() -> int:
     table_extended_robustness(commit)
     table_external_corpus(commit)
     table_stratified_robustness(commit)
+    table_ecc_repetition(commit)
     print(
         "Note: tab_mapping_comparison and tab_codebook_geometry remain manually "
         "curated in paper/article_fham.tex (the former mixes structural, "

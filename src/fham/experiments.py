@@ -35,6 +35,7 @@ from .assignment import (
 from .channel import AuxiliaryChannel
 from .config import DATASET_DIR, MESSAGE_LENGTHS, PRINTABLE_ASCII, RANDOM_SEED, ROOT
 from .descriptors import descriptor_hashes
+from .ecc import repetition_decode, repetition_encode
 from .methods import (
     Assignment,
     BottleneckAssignmentMethod,
@@ -1422,4 +1423,84 @@ def traffic_detectability_experiment(
         }
     )
     summary = pd.DataFrame(summary_rows)
+    return summary, raw
+
+
+GEOMETRIC_TRANSFORMS = (
+    "rotate_neg1", "rotate_neg0_5", "rotate_pos0_5", "rotate_pos1",
+    "crop_restore_1pct", "crop_restore_5pct",
+)
+
+
+def ecc_repetition_experiment(
+    images,
+    repeats=(1, 3, 5),
+    transforms=("identity",) + EXTENDED_TRANSFORMS,
+    length=40,
+    trials=20,
+    bound=2,
+):
+    """Evaluates a message-layer repetition-code error-correction wrapper
+    (``fham.ecc.repetition_encode``/``repetition_decode``) against the same
+    extended 36-condition transformation matrix used by
+    ``extended_transformation_robustness_experiment``, at repeat factors
+    ``repeats``. The descriptor and ``Location`` model are unchanged: each
+    repeat factor only expands the embedded message and majority-decodes
+    the recovered one, at a capacity cost of one usable character per
+    ``repeat`` locations consumed.
+
+    This targets value-domain transformation sensitivity (JPEG, additive
+    noise, filtering, resizing, photometric change): redundancy corrects a
+    minority of corrupted copies. It is not expected to, and empirically
+    does not, help under geometric misalignment (``GEOMETRIC_TRANSFORMS``:
+    rotation and crop-restore), because those transforms decorrelate the
+    recomputed descriptor from its embed-time value at a fixed location, so
+    majority vote over decorrelated copies stays decorrelated rather than
+    converging on the original symbol."""
+    rows = []
+    for image_name, image in images.items():
+        method = BoundedAssignmentMethod(bound)
+        method.build_lookup_table(image)
+        for trial in range(trials):
+            message = _message(length, image_name, trial)
+            for repeat in repeats:
+                expanded_message = repetition_encode(message, repeat)
+                assignment = method.embed(expanded_message, image)
+                if assignment is None:
+                    continue
+                for transform_name in transforms:
+                    seed = RANDOM_SEED + trial + zlib.crc32(
+                        f"{image_name}:{transform_name}:ecc{repeat}".encode()
+                    )
+                    attacked = (
+                        image
+                        if transform_name == "identity"
+                        else _extended_attack(image, transform_name, seed)
+                    )
+                    recovered_expanded = method.extract(assignment, attacked)
+                    recovered = repetition_decode(recovered_expanded, length, repeat)
+                    correct = sum(a == b for a, b in zip(message, recovered))
+                    rows.append(
+                        {
+                            "image": image_name,
+                            "trial": trial,
+                            "transform": transform_name,
+                            "repeat": repeat,
+                            "domain": (
+                                "geometric"
+                                if transform_name in GEOMETRIC_TRANSFORMS
+                                else "identity"
+                                if transform_name == "identity"
+                                else "value"
+                            ),
+                            "exact_recovery": int(recovered == message),
+                            "character_accuracy": correct / length,
+                        }
+                    )
+    raw = pd.DataFrame(rows)
+    summary = raw.groupby(["repeat", "domain"], as_index=False).agg(
+        trials=("exact_recovery", "size"),
+        exact_recovery=("exact_recovery", "mean"),
+        character_accuracy=("character_accuracy", "mean"),
+    )
     return summary, raw

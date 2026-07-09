@@ -1,5 +1,5 @@
 {
-  "checked_at_utc": "2026-07-08T19:20:18.655101+00:00",
+  "checked_at_utc": "2026-07-09T01:28:17.397975+00:00",
   "failures": [],
   "passed_checks": [
     {
@@ -39,7 +39,7 @@
     },
     {
       "condition": "claim_matrix",
-      "observed_rows": 22,
+      "observed_rows": 23,
       "path": "results\\acceptance\\claim_evidence_matrix.csv"
     }
   ],

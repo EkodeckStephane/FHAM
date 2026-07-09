@@ -1,10 +1,13 @@
 import numpy as np
 
+from fham.ecc import repetition_decode, repetition_encode
 from fham.experiments import (
     EXTENDED_TRANSFORMS,
+    GEOMETRIC_TRANSFORMS,
     assignment_method_comparison_experiment,
     causal_codebook_ablation_experiment,
     descriptor_comparison_experiment,
+    ecc_repetition_experiment,
     extended_transformation_robustness_experiment,
     formulation_comparison_experiment,
     leakage_experiment,
@@ -138,3 +141,32 @@ def test_message_family_experiment_reads_real_manifest():
         "adversarial_repeated",
     }
     assert set(raw["length"]) == {10, 50, 100, 200, 400, 800, 1200, 1600}
+
+
+def test_repetition_encode_decode_roundtrip_without_noise():
+    message = "Hello, FHAM!"
+    for repeat in (1, 3, 5):
+        expanded = repetition_encode(message, repeat)
+        assert len(expanded) == len(message) * repeat
+        assert repetition_decode(expanded, len(message), repeat) == message
+
+
+def test_repetition_decode_corrects_a_minority_of_corrupted_copies():
+    expanded = list(repetition_encode("AB", 5))
+    expanded[0] = "X"
+    expanded[1] = "X"
+    assert repetition_decode("".join(expanded), 2, 5) == "AB"
+
+
+def test_ecc_repetition_experiment_covers_all_repeats_and_domains():
+    images = {"tiny": _tiny_image()}
+    summary, raw = ecc_repetition_experiment(
+        images, repeats=(1, 3), length=4, trials=1, bound=255
+    )
+    assert set(summary["repeat"]) == {1, 3}
+    assert set(summary["domain"]) == {"identity", "value", "geometric"}
+    assert set(raw["transform"]) == set(EXTENDED_TRANSFORMS) | {"identity"}
+    geometric_rows = raw.loc[raw["transform"].isin(GEOMETRIC_TRANSFORMS)]
+    assert set(geometric_rows["domain"]) == {"geometric"}
+    identity_rows = summary.loc[summary["domain"] == "identity"]
+    assert (identity_rows["exact_recovery"] == 1.0).all()

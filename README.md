@@ -70,7 +70,8 @@ hand-typed into the manuscript. See
 | Which descriptor is used, and why? | Spectral descriptor selected by a fixed eligibility rule (success >= 99%, median `B*` <= 2, build time <= 2x baseline) on a disjoint 100-image BOSSBase validation sample, frozen before external test use |
 | Protected envelope size at 200 bytes | Unbounded serialization sweep: compact 549.40 bytes (2.27x direct AES-GCM). Under the principal `B=2` assignment, a paired 80-message cohort is feasible in 80/80 cases and averages 549.88 bytes (2.27x direct). Traffic-shaped: fixed 852 bytes for all tested lengths up to 200 bytes. Direct AES-GCM is smaller in all these measurements. |
 | Does the envelope leak message length? | Compact: yes, raw size carries the full 2.32 bits at 5 tested lengths and 64-byte classes still leak 1.92 bits. Traffic-shaped fixed-capacity envelopes reduce the tested size-only leakage to 0.00 bits |
-| Robustness to transformations | No non-identity condition (36-condition matrix: JPEG, resize, rotation, noise, filtering, photometric, crop, combined) reaches exact recovery; rotation and cropping are the most damaging. Confirmed at ~2000-images-per-corpus scale on BOSSBase, BOWS2, and COCO 2017 |
+| Robustness to transformations | Fixed-coordinate extraction from transformed pixels reaches no exact recovery across the 36-condition matrix. A separate closed-set pilot identifies 8/8 covers in a 219-image canonical gallery and recovers 40/40 messages per tested geometric transform using the retrieved canonical cover. |
+| Authenticated session pilot | Across 40 records: session-key agreement, exact recovery, rejection of cover substitution, persistent replay rejection, and rejection of altered signed offers each succeed in 40/40 trials. |
 
 ## Security scope
 
@@ -83,16 +84,22 @@ make the observed cover distribution message-dependent. No image-only
 steganalysis classifier is claimed here.
 
 The assignment record is protected with AES-256-GCM. The current associated
-data is a constant format label: it authenticates the envelope contents, but
-does not bind the record to a specific reference image. A deployment that
-needs cover-to-record integrity should include a canonical cover digest in
-authenticated associated data. Because both endpoints already require the
-same reference, this binding can use a locally computed digest and need not
-add transmitted bytes. Key establishment and replay detection also belong to
-the application protocol; the current artefact does not implement them. The
-reported H0/H1 experiment concerns envelope-level features and matched-shape
-decoys. It does not evaluate ordinary-traffic detection, cover substitution,
-or replay across a complete communication chain.
+The compact and shaped envelope baselines use a constant format label as
+associated data. A separate session profile now binds AES-GCM authentication
+to a canonical reference-image digest, a session identifier, and a sequence
+number. It derives session keys from ephemeral X25519 exchanges, authenticates
+key offers with Ed25519, and uses HKDF for key derivation. It requires the
+peer identity public keys to be provisioned or pinned by the application. A
+durable SQLite replay guard rejects duplicate and out-of-order records for
+registered sessions. The pilot exercised key agreement, cover substitution,
+altered offers, and replay rejection in 40/40 trials. It does not evaluate
+identity-key compromise.
+
+The reported H0/H1 classifier still contrasts envelope-level features with
+matched-shape decoys. It does not evaluate FHAM records against captured
+ordinary network traffic, packet timing, or routing. The fixed-size record
+profile reduces the tested payload-size leakage; it is not evidence of
+indistinguishability within ordinary network traffic.
 
 The communication-size baseline also sets a clear limit on the claim: direct
 AES-GCM transmission of the message is smaller than the measured FHAM records.
@@ -103,11 +110,13 @@ direct encryption. Its controlled-codebook ablation shows the assignment
 gain relative to exact hash matching; it does not establish an end-to-end
 communication advantage over direct AES-GCM.
 
-Geometric recovery is evaluated in two conditions. If a canonical preprocessed
-cover is retained at the receiver, extraction uses that shared reference. If
-the transformed received image replaces it, the ORB/RANSAC pilot improves
-character accuracy but does not recover any tested message exactly. The pilot
-is an alignment baseline, not an end-to-end synchronization protocol.
+Geometric recovery is evaluated through transformed-pixel decoding and
+canonical-cover retrieval. In the closed-set pilot, ORB/RANSAC identifies all
+8 transformed query covers in a 219-image gallery for both tested attacks;
+the receiver then recovers all 40 messages per attack from canonical copies.
+Decoding the inverse-warped pixels themselves remains at 0/40 exact recovery.
+The retrieval result depends on the correct canonical cover being present in
+the gallery and does not measure open-set rejection or near-duplicate covers.
 
 ## Repository layout
 
@@ -198,15 +207,18 @@ Two focused revision experiments are also available:
 $env:PYTHONPATH = "src"
 python scripts/measure_bounded_channel.py
 python scripts/geometry_registration_pilot.py
+python scripts/secure_channel_pilot.py
 ```
 
 The first measures paired compact-record and direct-encryption sizes for the
 80-message, 200-character controlled cohort under `B=2`. The second runs an
 exploratory ORB/RANSAC global-registration pilot for 1-degree rotation and
-5% crop-restore and reports both alignment and downstream FHAM recovery. In
-both pilot conditions, alignment improved character accuracy but exact
-message recovery remained 0/40; the result is a limited registration baseline,
-not a validated synchronization protocol.
+5% crop-restore and reports transformed-pixel recovery and closed-set canonical
+cover retrieval. It identifies 8/8 query covers and recovers 40/40 messages
+per condition from the 219-image gallery; recovery from warped pixels remains
+0/40 exact. The secure-channel pilot runs the signed ephemeral key exchange,
+cover binding, and persistent replay guard, then records both data and
+amortized handshake sizes.
 
 ## Full reproduction and external datasets
 
@@ -294,8 +306,11 @@ message-manifest coverage.
 - The compact auxiliary envelope leaks most message-length information
   through its raw size, even after fixed-class padding; the traffic-shaped
   envelope removes the tested size-only leakage at a substantial byte cost.
-- Traffic analysis beyond the tested final-size and local protection-time-proxy H0-vs-H1 feature model
-  remains an integration target for deployment-specific transport policies.
+- Detection against captured ordinary network traffic, packet timing, routing,
+  and identity-key compromise remain outside the evaluated security profile.
+- Geometric catalog recovery is a closed-set result over the bundled 219-image
+  stress catalog; open-set rejection and near-duplicate references remain to
+  be measured.
 
 ## Authors
 

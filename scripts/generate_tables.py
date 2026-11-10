@@ -567,20 +567,54 @@ def table_geometry_registration_pilot(commit: str) -> None:
     }
     rows = [
         "\\toprule",
-        "\\textbf{Transform} & \\textbf{Matches} & \\textbf{Inliers} & "
-        "\\textbf{Registration (\\%)} & \\textbf{Char. accuracy, fixed (\\%)} & "
-        "\\textbf{Char. accuracy, aligned (\\%)} \\\\",
+        "\\textbf{Transform} & \\textbf{Gallery} & \\textbf{Cover ID} & "
+        "\\textbf{Exact messages} & \\textbf{Char. acc., fixed (\\%)} & "
+        "\\textbf{Char. acc., warped (\\%)} \\\\",
         "\\midrule",
     ]
     for transform in ("rotate_pos1", "crop_restore_5pct"):
         row = df.loc[transform]
         rows.append(
-            f"{display[transform]} & {fmt2(row['mean_matches'])} & {fmt2(row['mean_inliers'])} & "
-            f"{row['registration_rate'] * 100:.1f} & "
+            f"{display[transform]} & {int(row['catalog_size'])} & "
+            f"{int(row['catalog_queries'] * row['catalog_identification_rate'])}/"
+            f"{int(row['catalog_queries'])} & "
+            f"{int(row['trials'] * row['catalog_canonical_exact_recovery_rate'])}/"
+            f"{int(row['trials'])} & "
             f"{fmt_percent(row['fixed_coordinate_accuracy'])} & "
             f"{fmt_percent(row['mean_character_accuracy'])} \\\\")
     rows.append("\\bottomrule")
     write_table("tab_geometry_registration_pilot", "lrrrrr", rows, [path], commit, resize=True)
+
+
+def table_secure_channel_pilot(commit: str) -> None:
+    path = RESULTS / "secure_channel_pilot.csv"
+    row = pd.read_csv(path).iloc[0]
+    trials = int(row["trials"])
+    checks = [
+        ("X25519 session-key agreement", row["session_key_agreement"]),
+        ("Exact message recovery", row["exact_recovery"]),
+        ("Wrong-cover envelope rejection", row["cover_substitution_rejected"]),
+        ("Persistent replay rejection", row["replay_rejected"]),
+        ("Altered key-offer rejection", row["altered_key_offer_rejected"]),
+    ]
+    rows = [
+        "\\toprule",
+        "\\textbf{Protocol check} & \\textbf{Successful trials} " + "\\\\",
+        "\\midrule",
+    ]
+    rows.extend(
+        f"{label} & {int(round(rate * trials))}/{trials} \\\\" for label, rate in checks
+    )
+    rows.append(
+        f"Fixed record size ($r=40$) & {int(row['envelope_bytes_min'])} bytes \\\\")
+    rows.append(
+        f"Signed session setup (amortized over 5 records) & "
+        f"{int(row['handshake_bytes_per_session'])} bytes/session \\\\")
+    rows.append(
+        f"Record plus amortized setup per message & "
+        f"{row['amortized_protocol_bytes_per_message']:.2f} bytes \\\\")
+    rows.append("\\bottomrule")
+    write_table("tab_secure_channel_pilot", "lr", rows, [path], commit)
 
 
 def main() -> int:
@@ -605,6 +639,7 @@ def main() -> int:
     table_ecc_repetition(commit)
     table_channel_bounded(commit)
     table_geometry_registration_pilot(commit)
+    table_secure_channel_pilot(commit)
     print(
         "Note: tab_mapping_comparison and tab_codebook_geometry remain manually "
         "curated in paper/article_fham.tex (the former mixes structural, "

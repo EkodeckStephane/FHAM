@@ -1,6 +1,6 @@
 {
-  "generated_at_utc": "2026-07-09T15:16:18.388648+00:00",
-  "git_commit": "02c569271bd65f40a9ecaabaaad4fc0b7de521f5",
+  "generated_at_utc": "2026-11-10T12:36:14.722207+00:00",
+  "git_commit": "668a3561b1d0de0c71b64aa1f6be80509f4fbf74",
   "input_files": [
     "results\\extended_robustness.csv"
   ],

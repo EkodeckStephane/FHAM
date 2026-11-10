@@ -1,0 +1,14 @@
+{
+  "generated_at_utc": "2026-11-10T12:36:14.832936+00:00",
+  "git_commit": "668a3561b1d0de0c71b64aa1f6be80509f4fbf74",
+  "input_files": [
+    "results\\secure_channel_pilot.csv"
+  ],
+  "input_sha256": {
+    "results\\secure_channel_pilot.csv": "6d3c5e6b5f6bdbc0fbac67037fa8fa2b389d24b4b230e0cab9e4d8d20d16910c"
+  },
+  "output_file": "paper\\tables\\generated\\tab_secure_channel_pilot.tex",
+  "output_sha256": "fd4fed0f761d2c4842db09364a90802d449c838eb549b658e7a464f7f062df97",
+  "script": "scripts/generate_tables.py",
+  "table": "tab_secure_channel_pilot"
+}

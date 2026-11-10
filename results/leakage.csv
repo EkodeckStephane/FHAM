@@ -1,2 +1,3 @@
-size_class_bytes,trials,distinct_lengths,distinct_raw_sizes,distinct_size_classes,pearson_length_vs_raw_size,pearson_length_vs_padded_size,mutual_info_length_vs_raw_size_bits,mutual_info_length_vs_size_class_bits
-64,400,5,92,6,0.9993760091815806,0.9911090891980228,2.3219280948873617,1.9219280948873618
+envelope_mode,size_class_bytes,trials,record_capacity,distinct_lengths,distinct_raw_sizes,distinct_size_classes,pearson_length_vs_raw_size,pearson_length_vs_padded_size,mutual_info_length_vs_raw_size_bits,mutual_info_length_vs_size_class_bits
+compact,64,400,200,5,92,6,0.9993760091815806,0.9911090891980228,2.3219280948873617,1.9219280948873618
+shaped,64,400,200,5,1,1,0.0,0.0,0.0,0.0

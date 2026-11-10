@@ -73,6 +73,33 @@ def test_encrypted_channel_rejects_tampering():
         AuxiliaryChannel.recover(bytes(envelope), key)
 
 
+def test_shaped_channel_round_trip_and_constant_size():
+    image = np.arange(144, dtype=np.uint8).reshape(12, 12)
+    method = OptimalAssignmentMethod(block_size=6)
+    key = os.urandom(32)
+    short_assignment = method.embed("FHAM", image)
+    long_assignment = method.embed("FHAM!!", image)
+
+    short_envelope = AuxiliaryChannel.protect_shaped(
+        short_assignment, key, record_capacity=8
+    )
+    long_envelope = AuxiliaryChannel.protect_shaped(
+        long_assignment, key, record_capacity=8
+    )
+
+    assert len(short_envelope) == len(long_envelope)
+    assert AuxiliaryChannel.recover_shaped(short_envelope, key) == short_assignment
+    assert AuxiliaryChannel.recover_shaped(long_envelope, key) == long_assignment
+    assert method.extract(AuxiliaryChannel.recover_shaped(short_envelope, key), image) == "FHAM"
+
+
+def test_shaped_channel_rejects_oversized_assignment():
+    image = np.arange(144, dtype=np.uint8).reshape(12, 12)
+    assignment = OptimalAssignmentMethod(block_size=6).embed("FHAM", image)
+    with pytest.raises(ValueError, match="record capacity"):
+        AuxiliaryChannel.protect_shaped(assignment, os.urandom(32), record_capacity=3)
+
+
 def _wysawis_adequate_image():
     image = np.zeros((16, 16), dtype=np.uint8)
     for zero_count in range(16):

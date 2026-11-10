@@ -501,6 +501,7 @@ def comparative_robustness_experiment(
 
 def channel_experiment(images, lengths=(10, 20, 50, 100, 200), trials=10):
     key = os.urandom(32)
+    shaped_record_capacity = max(lengths)
     rows = []
     for image_name, image in images.items():
         method = OptimalAssignmentMethod()
@@ -527,13 +528,31 @@ def channel_experiment(images, lengths=(10, 20, 50, 100, 200), trials=10):
 
                 tracemalloc.start()
                 start = time.perf_counter()
+                shaped_envelope = AuxiliaryChannel.protect_shaped(
+                    assignment, key, shaped_record_capacity
+                )
+                shaped_encrypt_ms = (time.perf_counter() - start) * 1000
+                _, shaped_encrypt_peak = tracemalloc.get_traced_memory()
+                tracemalloc.stop()
+
+                tracemalloc.start()
+                start = time.perf_counter()
                 recovered = AuxiliaryChannel.recover(envelope, key)
                 decrypt_ms = (time.perf_counter() - start) * 1000
                 _, decrypt_peak = tracemalloc.get_traced_memory()
                 tracemalloc.stop()
 
+                tracemalloc.start()
+                start = time.perf_counter()
+                shaped_recovered = AuxiliaryChannel.recover_shaped(shaped_envelope, key)
+                shaped_decrypt_ms = (time.perf_counter() - start) * 1000
+                _, shaped_decrypt_peak = tracemalloc.get_traced_memory()
+                tracemalloc.stop()
+
                 if recovered != assignment:
                     raise RuntimeError("auxiliary channel round trip failed")
+                if shaped_recovered != assignment:
+                    raise RuntimeError("shaped auxiliary channel round trip failed")
 
                 rows.append(
                     {
@@ -546,12 +565,22 @@ def channel_experiment(images, lengths=(10, 20, 50, 100, 200), trials=10):
                         "encrypted_bytes": len(envelope),
                         "direct_encrypted_bytes": direct_bytes,
                         "fham_to_direct_ratio": len(envelope) / direct_bytes,
+                        "shaped_record_capacity": shaped_record_capacity,
+                        "shaped_encrypted_bytes": len(shaped_envelope),
+                        "shaped_to_direct_ratio": len(shaped_envelope) / direct_bytes,
+                        "shaped_to_compact_ratio": len(shaped_envelope) / len(envelope),
                         "encrypted_to_message_ratio": len(envelope) / length,
+                        "shaped_to_message_ratio": len(shaped_envelope) / length,
                         "encrypted_to_cover_ratio": len(envelope) / image.nbytes,
+                        "shaped_to_cover_ratio": len(shaped_envelope) / image.nbytes,
                         "encrypt_ms": encrypt_ms,
                         "decrypt_ms": decrypt_ms,
+                        "shaped_encrypt_ms": shaped_encrypt_ms,
+                        "shaped_decrypt_ms": shaped_decrypt_ms,
                         "encrypt_peak_kib": encrypt_peak / 1024,
                         "decrypt_peak_kib": decrypt_peak / 1024,
+                        "shaped_encrypt_peak_kib": shaped_encrypt_peak / 1024,
+                        "shaped_decrypt_peak_kib": shaped_decrypt_peak / 1024,
                     }
                 )
     raw = pd.DataFrame(rows)
@@ -561,12 +590,22 @@ def channel_experiment(images, lengths=(10, 20, 50, 100, 200), trials=10):
         encrypted_bytes=("encrypted_bytes", "mean"),
         direct_encrypted_bytes=("direct_encrypted_bytes", "mean"),
         fham_to_direct_ratio=("fham_to_direct_ratio", "mean"),
+        shaped_record_capacity=("shaped_record_capacity", "first"),
+        shaped_encrypted_bytes=("shaped_encrypted_bytes", "mean"),
+        shaped_to_direct_ratio=("shaped_to_direct_ratio", "mean"),
+        shaped_to_compact_ratio=("shaped_to_compact_ratio", "mean"),
         encrypted_to_message_ratio=("encrypted_to_message_ratio", "mean"),
+        shaped_to_message_ratio=("shaped_to_message_ratio", "mean"),
         encrypted_to_cover_ratio=("encrypted_to_cover_ratio", "mean"),
+        shaped_to_cover_ratio=("shaped_to_cover_ratio", "mean"),
         encrypt_ms=("encrypt_ms", "mean"),
         decrypt_ms=("decrypt_ms", "mean"),
+        shaped_encrypt_ms=("shaped_encrypt_ms", "mean"),
+        shaped_decrypt_ms=("shaped_decrypt_ms", "mean"),
         encrypt_peak_kib=("encrypt_peak_kib", "mean"),
         decrypt_peak_kib=("decrypt_peak_kib", "mean"),
+        shaped_encrypt_peak_kib=("shaped_encrypt_peak_kib", "mean"),
+        shaped_decrypt_peak_kib=("shaped_decrypt_peak_kib", "mean"),
     )
     return summary, raw
 
@@ -819,9 +858,12 @@ def stability_aware_lambda_sweep_experiment(
     """Sweeps lambda for the composite stability-aware cost
     c = lambda * normalized_residual + (1 - lambda) * (1 - stability).
     Per-location stability is estimated on a development subset of the
-    transformation channel and recovery is measured on a disjoint held-out
-    subset, so the reported held-out numbers are not circular with the
-    stability estimate itself. All lambda values are reported, including
+    transformation channel and recovery is measured on a disjoint validation
+    subset, so the reported validation numbers are not circular with the
+    stability estimate itself. The parameter name ``holdout_attacks`` and
+    archived ``holdout_*`` columns are retained for backward compatibility;
+    this subset is used for lambda selection and is therefore not an
+    independent final test set. All lambda values are reported, including
     unfavorable ones."""
     rows = []
     for image_name, image in images.items():
@@ -947,6 +989,7 @@ def leakage_experiment(
     the AES-GCM ciphertext-indistinguishability guarantee as covering length
     observability."""
     key = os.urandom(32)
+    shaped_record_capacity = max(lengths)
     rows = []
     for image_name, image in images.items():
         method = BoundedAssignmentMethod(bound)
@@ -957,46 +1000,67 @@ def leakage_experiment(
                 assignment = method.embed(message, image)
                 if assignment is None:
                     continue
-                envelope = AuxiliaryChannel.protect(assignment, key)
-                raw_size = len(envelope)
-                size_class = -(-raw_size // size_class_bytes)
-                padded_size = size_class * size_class_bytes
-                rows.append(
-                    {
-                        "image": image_name,
-                        "length": length,
-                        "trial": trial,
-                        "raw_size": raw_size,
-                        "padded_size": padded_size,
-                        "size_class": size_class,
-                    }
-                )
+                envelopes = {
+                    "compact": AuxiliaryChannel.protect(assignment, key),
+                    "shaped": AuxiliaryChannel.protect_shaped(
+                        assignment, key, shaped_record_capacity
+                    ),
+                }
+                for envelope_mode, envelope in envelopes.items():
+                    raw_size = len(envelope)
+                    size_class = -(-raw_size // size_class_bytes)
+                    padded_size = size_class * size_class_bytes
+                    rows.append(
+                        {
+                            "envelope_mode": envelope_mode,
+                            "image": image_name,
+                            "length": length,
+                            "trial": trial,
+                            "record_capacity": (
+                                shaped_record_capacity
+                                if envelope_mode == "shaped"
+                                else len(assignment.locations)
+                            ),
+                            "raw_size": raw_size,
+                            "padded_size": padded_size,
+                            "size_class": size_class,
+                        }
+                    )
     raw = pd.DataFrame(rows)
-    lengths_arr = raw["length"].to_numpy()
-    pearson_raw = float(scipy_stats.pearsonr(lengths_arr, raw["raw_size"].to_numpy())[0])
-    pearson_padded = float(
-        scipy_stats.pearsonr(lengths_arr, raw["padded_size"].to_numpy())[0]
-    )
     bits_per_nat = 1.0 / np.log(2.0)
-    mi_raw_bits = mutual_info_score(lengths_arr, raw["raw_size"].to_numpy()) * bits_per_nat
-    mi_class_bits = (
-        mutual_info_score(lengths_arr, raw["size_class"].to_numpy()) * bits_per_nat
-    )
-    summary = pd.DataFrame(
-        [
+
+    def safe_pearson(x, y):
+        if len(np.unique(x)) < 2 or len(np.unique(y)) < 2:
+            return 0.0
+        return float(scipy_stats.pearsonr(x, y)[0])
+
+    summary_rows = []
+    for envelope_mode, group in raw.groupby("envelope_mode", sort=False):
+        lengths_arr = group["length"].to_numpy()
+        pearson_raw = safe_pearson(lengths_arr, group["raw_size"].to_numpy())
+        pearson_padded = safe_pearson(lengths_arr, group["padded_size"].to_numpy())
+        mi_raw_bits = (
+            mutual_info_score(lengths_arr, group["raw_size"].to_numpy()) * bits_per_nat
+        )
+        mi_class_bits = (
+            mutual_info_score(lengths_arr, group["size_class"].to_numpy()) * bits_per_nat
+        )
+        summary_rows.append(
             {
+                "envelope_mode": envelope_mode,
                 "size_class_bytes": size_class_bytes,
-                "trials": len(raw),
-                "distinct_lengths": int(raw["length"].nunique()),
-                "distinct_raw_sizes": int(raw["raw_size"].nunique()),
-                "distinct_size_classes": int(raw["size_class"].nunique()),
+                "trials": len(group),
+                "record_capacity": int(group["record_capacity"].max()),
+                "distinct_lengths": int(group["length"].nunique()),
+                "distinct_raw_sizes": int(group["raw_size"].nunique()),
+                "distinct_size_classes": int(group["size_class"].nunique()),
                 "pearson_length_vs_raw_size": pearson_raw,
                 "pearson_length_vs_padded_size": pearson_padded,
                 "mutual_info_length_vs_raw_size_bits": mi_raw_bits,
                 "mutual_info_length_vs_size_class_bits": mi_class_bits,
             }
-        ]
-    )
+        )
+    summary = pd.DataFrame(summary_rows)
     return summary, raw
 
 
@@ -1324,10 +1388,14 @@ def traffic_detectability_experiment(
     processing time -- with a single stratified train/test split (no
     hyperparameter tuning, so no separate validation split is used). This
     tests empirical distinguishability of ciphertext-level ``size, timing``
-    traces at matched message length, not general traffic undetectability;
-    the message length itself is already shown to leak through observable
-    envelope size in ``leakage_experiment``."""
+    traces at matched message length, not general traffic undetectability.
+    For the shaped mode, the observable timing feature models fixed-cadence
+    transport and is therefore constant; the raw local protection time is
+    still recorded separately as ``crypto_time_ms``. The message length
+    itself is already shown to leak through observable envelope size in
+    ``leakage_experiment``."""
     key = os.urandom(32)
+    shaped_record_capacity = max(lengths)
     rows = []
     for image_name, image in images.items():
         method = BoundedAssignmentMethod(bound)
@@ -1339,20 +1407,6 @@ def traffic_detectability_experiment(
                 if assignment is None:
                     continue
 
-                start = time.perf_counter()
-                envelope_h1 = AuxiliaryChannel.protect(assignment, key)
-                time_h1_ms = (time.perf_counter() - start) * 1000
-                rows.append(
-                    {
-                        "label": 1,
-                        "image": image_name,
-                        "length": length,
-                        "trial": trial,
-                        "size": len(envelope_h1),
-                        "time_ms": time_h1_ms,
-                    }
-                )
-
                 decoy_seed = seed + trial * 97 + length * 1009 + zlib.crc32(
                     image_name.encode()
                 )
@@ -1361,67 +1415,115 @@ def traffic_detectability_experiment(
                 )
                 if decoy is None:
                     continue
-                start = time.perf_counter()
-                envelope_h0 = AuxiliaryChannel.protect(decoy, key)
-                time_h0_ms = (time.perf_counter() - start) * 1000
-                rows.append(
-                    {
-                        "label": 0,
-                        "image": image_name,
-                        "length": length,
-                        "trial": trial,
-                        "size": len(envelope_h0),
-                        "time_ms": time_h0_ms,
-                    }
-                )
+
+                for envelope_mode in ("compact", "shaped"):
+                    if envelope_mode == "compact":
+                        protect = lambda item: AuxiliaryChannel.protect(item, key)
+                    else:
+                        protect = lambda item: AuxiliaryChannel.protect_shaped(
+                            item, key, shaped_record_capacity
+                        )
+
+                    start = time.perf_counter()
+                    envelope_h1 = protect(assignment)
+                    crypto_time_h1_ms = (time.perf_counter() - start) * 1000
+                    observable_time_h1_ms = (
+                        0.0 if envelope_mode == "shaped" else crypto_time_h1_ms
+                    )
+                    rows.append(
+                        {
+                            "envelope_mode": envelope_mode,
+                            "label": 1,
+                            "image": image_name,
+                            "length": length,
+                            "trial": trial,
+                            "record_capacity": (
+                                shaped_record_capacity
+                                if envelope_mode == "shaped"
+                                else len(assignment.locations)
+                            ),
+                            "size": len(envelope_h1),
+                            "time_ms": observable_time_h1_ms,
+                            "crypto_time_ms": crypto_time_h1_ms,
+                        }
+                    )
+
+                    start = time.perf_counter()
+                    envelope_h0 = protect(decoy)
+                    crypto_time_h0_ms = (time.perf_counter() - start) * 1000
+                    observable_time_h0_ms = (
+                        0.0 if envelope_mode == "shaped" else crypto_time_h0_ms
+                    )
+                    rows.append(
+                        {
+                            "envelope_mode": envelope_mode,
+                            "label": 0,
+                            "image": image_name,
+                            "length": length,
+                            "trial": trial,
+                            "record_capacity": (
+                                shaped_record_capacity
+                                if envelope_mode == "shaped"
+                                else len(decoy.locations)
+                            ),
+                            "size": len(envelope_h0),
+                            "time_ms": observable_time_h0_ms,
+                            "crypto_time_ms": crypto_time_h0_ms,
+                        }
+                    )
 
     raw = pd.DataFrame(rows)
-    strata = raw["label"].astype(str) + "-" + raw["length"].astype(str)
-    train_df, test_df = train_test_split(
-        raw, test_size=0.3, stratify=strata, random_state=seed
-    )
-
-    feature_cols = ["length", "size", "time_ms"]
-    x_train, y_train = train_df[feature_cols], train_df["label"]
-    x_test, y_test = test_df[feature_cols], test_df["label"]
-
-    classifiers = {
-        "logistic_regression": LogisticRegression(max_iter=1000),
-        "random_forest": RandomForestClassifier(n_estimators=200, random_state=seed),
-        "gradient_boosting": GradientBoostingClassifier(random_state=seed),
-        "mlp": MLPClassifier(hidden_layer_sizes=(16,), max_iter=2000, random_state=seed),
-    }
-
     summary_rows = []
-    for name, clf in classifiers.items():
-        clf.fit(x_train, y_train)
-        proba = clf.predict_proba(x_test)[:, 1]
-        preds = clf.predict(x_test)
-        auc = roc_auc_score(y_test, proba)
-        balanced_accuracy = balanced_accuracy_score(y_test, preds)
-        fpr, tpr, _ = roc_curve(y_test, proba)
-        low_fpr = fpr <= 0.05
-        tpr_at_5pct_fpr = float(tpr[low_fpr].max()) if low_fpr.any() else 0.0
+    for envelope_mode, mode_raw in raw.groupby("envelope_mode", sort=False):
+        strata = mode_raw["label"].astype(str) + "-" + mode_raw["length"].astype(str)
+        train_df, test_df = train_test_split(
+            mode_raw, test_size=0.3, stratify=strata, random_state=seed
+        )
+
+        feature_cols = ["length", "size", "time_ms"]
+        x_train, y_train = train_df[feature_cols], train_df["label"]
+        x_test, y_test = test_df[feature_cols], test_df["label"]
+
+        classifiers = {
+            "logistic_regression": LogisticRegression(max_iter=1000),
+            "random_forest": RandomForestClassifier(n_estimators=200, random_state=seed),
+            "gradient_boosting": GradientBoostingClassifier(random_state=seed),
+            "mlp": MLPClassifier(
+                hidden_layer_sizes=(16,), max_iter=2000, random_state=seed
+            ),
+        }
+
+        for name, clf in classifiers.items():
+            clf.fit(x_train, y_train)
+            proba = clf.predict_proba(x_test)[:, 1]
+            preds = clf.predict(x_test)
+            auc = roc_auc_score(y_test, proba)
+            balanced_accuracy = balanced_accuracy_score(y_test, preds)
+            fpr, tpr, _ = roc_curve(y_test, proba)
+            low_fpr = fpr <= 0.05
+            tpr_at_5pct_fpr = float(tpr[low_fpr].max()) if low_fpr.any() else 0.0
+            summary_rows.append(
+                {
+                    "envelope_mode": envelope_mode,
+                    "classifier": name,
+                    "n_train": len(train_df),
+                    "n_test": len(test_df),
+                    "auc": auc,
+                    "balanced_accuracy": balanced_accuracy,
+                    "tpr_at_5pct_fpr": tpr_at_5pct_fpr,
+                }
+            )
         summary_rows.append(
             {
-                "classifier": name,
+                "envelope_mode": envelope_mode,
+                "classifier": "random_baseline",
                 "n_train": len(train_df),
                 "n_test": len(test_df),
-                "auc": auc,
-                "balanced_accuracy": balanced_accuracy,
-                "tpr_at_5pct_fpr": tpr_at_5pct_fpr,
+                "auc": 0.5,
+                "balanced_accuracy": 0.5,
+                "tpr_at_5pct_fpr": 0.05,
             }
         )
-    summary_rows.append(
-        {
-            "classifier": "random_baseline",
-            "n_train": len(train_df),
-            "n_test": len(test_df),
-            "auc": 0.5,
-            "balanced_accuracy": 0.5,
-            "tpr_at_5pct_fpr": 0.05,
-        }
-    )
     summary = pd.DataFrame(summary_rows)
     return summary, raw
 

@@ -65,10 +65,14 @@ def test_leakage_experiment_reports_length_leakage_metrics():
         images, lengths=(5, 10), trials=2, size_class_bytes=64, bound=255
     )
     assert not raw.empty
-    row = summary.iloc[0]
+    assert set(summary["envelope_mode"]) == {"compact", "shaped"}
+    row = summary.loc[summary["envelope_mode"] == "compact"].iloc[0]
     assert row["distinct_lengths"] == 2
     assert -1.0 <= row["pearson_length_vs_raw_size"] <= 1.0
     assert row["mutual_info_length_vs_raw_size_bits"] >= 0.0
+    shaped = summary.loc[summary["envelope_mode"] == "shaped"].iloc[0]
+    assert shaped["distinct_raw_sizes"] == 1
+    assert shaped["mutual_info_length_vs_raw_size_bits"] == 0.0
 
 
 def test_causal_codebook_ablation_covers_all_codebooks_and_omits_incompatible_cell():
@@ -126,8 +130,13 @@ def test_traffic_detectability_reports_all_classifiers_and_baseline():
         "mlp",
         "random_baseline",
     }
+    assert set(summary["envelope_mode"]) == {"compact", "shaped"}
+    assert set(raw["envelope_mode"]) == {"compact", "shaped"}
     assert set(raw["label"]) == {0, 1}
-    baseline = summary.loc[summary["classifier"] == "random_baseline"].iloc[0]
+    baseline = summary.loc[
+        (summary["envelope_mode"] == "compact")
+        & (summary["classifier"] == "random_baseline")
+    ].iloc[0]
     assert baseline["auc"] == 0.5
 
 

@@ -1,0 +1,2 @@
+bound,length,trials,feasible_trials,assignment_success_rate,mean_raw_record_bytes,mean_compact_envelope_bytes,mean_direct_encrypted_bytes,mean_envelope_to_direct_ratio
+2,200,80,80,1.0,815.0,549.875,242.1,2.2714939082084724

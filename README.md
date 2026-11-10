@@ -68,9 +68,46 @@ hand-typed into the manuscript. See
 | Same protocol, WYSAWIS cover adequacy | 37.5% / 50.7% |
 | Is the gain from the assignment rule or the descriptor? | Causal ablation across 4 codebooks (3 descriptors + Abdulsattar's own): exact matching fails on **all four** (0%); switching only the assignment rule restores **92.5-100%** on all four |
 | Which descriptor is used, and why? | Spectral descriptor selected by a fixed eligibility rule (success >= 99%, median `B*` <= 2, build time <= 2x baseline) on a disjoint 100-image BOSSBase validation sample, frozen before external test use |
-| Protected envelope size at 200 bytes | 549 bytes (2.27x a directly AES-GCM-encrypted message of the same length) |
-| Does the envelope leak message length? | Yes: raw envelope size carries the full 2.32 bits of length information at 5 tested lengths; 64-byte padding classes reduce this only to 1.92 bits — reported as a measured limitation, not hidden |
+| Protected envelope size at 200 bytes | Unbounded serialization sweep: compact 549.40 bytes (2.27x direct AES-GCM). Under the principal `B=2` assignment, a paired 80-message cohort is feasible in 80/80 cases and averages 549.88 bytes (2.27x direct). Traffic-shaped: fixed 852 bytes for all tested lengths up to 200 bytes. Direct AES-GCM is smaller in all these measurements. |
+| Does the envelope leak message length? | Compact: yes, raw size carries the full 2.32 bits at 5 tested lengths and 64-byte classes still leak 1.92 bits. Traffic-shaped fixed-capacity envelopes reduce the tested size-only leakage to 0.00 bits |
 | Robustness to transformations | No non-identity condition (36-condition matrix: JPEG, resize, rotation, noise, filtering, photometric, crop, combined) reaches exact recovery; rotation and cropping are the most damaging. Confirmed at ~2000-images-per-corpus scale on BOSSBase, BOWS2, and COCO 2017 |
+
+## Security scope
+
+FHAM leaves each cover's pixels unchanged. An image-only observer therefore
+sees no per-image signal caused by pixel modifications during assignment.
+An unchanged aggregate distribution of transmitted covers also requires
+cover inclusion to be independent of message feasibility: selecting a cover
+only after a successful assignment, or suppressing failed transmissions, can
+make the observed cover distribution message-dependent. No image-only
+steganalysis classifier is claimed here.
+
+The assignment record is protected with AES-256-GCM. The current associated
+data is a constant format label: it authenticates the envelope contents, but
+does not bind the record to a specific reference image. A deployment that
+needs cover-to-record integrity should include a canonical cover digest in
+authenticated associated data. Because both endpoints already require the
+same reference, this binding can use a locally computed digest and need not
+add transmitted bytes. Key establishment and replay detection also belong to
+the application protocol; the current artefact does not implement them. The
+reported H0/H1 experiment concerns envelope-level features and matched-shape
+decoys. It does not evaluate ordinary-traffic detection, cover substitution,
+or replay across a complete communication chain.
+
+The communication-size baseline also sets a clear limit on the claim: direct
+AES-GCM transmission of the message is smaller than the measured FHAM records.
+FHAM is evaluated for its fixed-cover assignment question—whether the
+message's symbol multiplicities admit an injective bounded mapping, and the
+minimum-cost mapping when feasible—not as a byte-efficient replacement for
+direct encryption. Its controlled-codebook ablation shows the assignment
+gain relative to exact hash matching; it does not establish an end-to-end
+communication advantage over direct AES-GCM.
+
+Geometric recovery is evaluated in two conditions. If a canonical preprocessed
+cover is retained at the receiver, extraction uses that shared reference. If
+the transformed received image replaces it, the ORB/RANSAC pilot improves
+character accuracy but does not recover any tested message exactly. The pilot
+is an alignment baseline, not an end-to-end synchronization protocol.
 
 ## Repository layout
 
@@ -142,7 +179,7 @@ python -m pip install -r requirements.txt
 ## Quick start
 
 ```powershell
-python -m pytest -q          # 26 tests, a few seconds
+python -m pytest -q          # 32 tests, a few seconds
 python run_pipeline.py       # regenerates every CSV and figure used in the paper
 ```
 
@@ -154,6 +191,22 @@ descriptor comparison, formulation equivalence (dense vs. aggregated flow),
 extended assignment ablation, stability-aware lambda sweep, causal codebook
 ablation, message-family coverage, message-length leakage, and the
 36-condition extended transformation matrix.
+
+Two focused revision experiments are also available:
+
+```powershell
+$env:PYTHONPATH = "src"
+python scripts/measure_bounded_channel.py
+python scripts/geometry_registration_pilot.py
+```
+
+The first measures paired compact-record and direct-encryption sizes for the
+80-message, 200-character controlled cohort under `B=2`. The second runs an
+exploratory ORB/RANSAC global-registration pilot for 1-degree rotation and
+5% crop-restore and reports both alignment and downstream FHAM recovery. In
+both pilot conditions, alignment improved character accuracy but exact
+message recovery remained 0/40; the result is a limited registration baseline,
+not a validated synchronization protocol.
 
 ## Full reproduction and external datasets
 
@@ -201,7 +254,7 @@ decision and the claim-to-evidence audit trail.
 python -m pytest -q
 ```
 
-26 tests cover: exact round-trips, residual bounds, non-reuse of locations,
+32 tests cover: exact round-trips, residual bounds, non-reuse of locations,
 bounded infeasibility, dense/aggregated cost equivalence, exact `B*`
 computation, AES-GCM tamper detection, nonce uniqueness, all three
 descriptor families, the bottleneck/random-feasible/stability-aware
@@ -211,9 +264,12 @@ message-manifest coverage.
 
 ## Reproducibility guarantees
 
-- No numeric result is hand-typed into a table: every figure/table in the
-  manuscript is generated from a raw CSV/JSON file present in this
-  repository.
+> **Terminology note:** the experimental family stored internally as `natural_text` is templated natural-language text generated deterministically from a sentence template. The internal identifier is retained for backward compatibility with archived CSV files. The lambda sweep uses disjoint development and validation transformations; archived columns named `holdout_*` are legacy field names and do not denote an independent final test set.
+
+- Quantitative table values and plotted measurements are generated from raw
+  CSV/JSON files in this repository. Conceptual tables (such as the threat
+  model and literature positioning) are maintained as structured manuscript
+  tables and contain no experimental measurements.
 - Every experiment uses deterministic seeds (`config/experiments.yaml`,
   `RANDOM_SEED`); message content is generated once by
   `scripts/generate_messages.py` and reused identically across compared
@@ -227,25 +283,24 @@ message-manifest coverage.
 - Unfavorable results are reported rather than omitted: e.g., the
   wavelet-gradient descriptor's lower success rate, the random-feasible
   baseline's poor displacement, the absence of exact recovery under any
-  tested geometric transformation, and the message-length leakage of the
-  protected envelope.
+  tested geometric transformation, and the compact envelope's message-length
+  leakage before traffic shaping.
 
 ## Known limitations (by design)
 
 - The spectral hash descriptor is **not** robust to geometric
   transformations (rotation, cropping) — this is measured and reported, not
   hidden.
-- The protected auxiliary envelope leaks most message-length information
-  through its raw size, even after fixed-class padding.
-- Traffic-analysis / detectability of the auxiliary channel (H0 vs. H1
-  classifiers) and full reproducibility scaffolding (citation file,
-  license, container image, locked environment) are tracked as ongoing
-  work; see the repository's issue history for status.
+- The compact auxiliary envelope leaks most message-length information
+  through its raw size, even after fixed-class padding; the traffic-shaped
+  envelope removes the tested size-only leakage at a substantial byte cost.
+- Traffic analysis beyond the tested final-size and local protection-time-proxy H0-vs-H1 feature model
+  remains an integration target for deployment-specific transport policies.
 
 ## Authors
 
 Habibatou Mindja, Ibrahima Touré, Stéphane Gaël R. Ekodeck, Serge Alain
-Ebele, Leonel Moyou Metcheka, René Ndoundam (corresponding author).
+Ebele, Leonel Moyou Metcheka, Daniel Tieudjo, René Ndoundam (corresponding author).
 
 University of Yaoundé I (LIRIMA, Team GRIMCAPE); IRD, UMI UMMISCO, IRD
 France Nord; UMI 209 UMMISCO, Sorbonne Université; Institut Supérieur des
@@ -253,4 +308,4 @@ Technologies de Mamou.
 
 ## License
 
-License to be added by the authors prior to first external release.
+See `LICENSE` in the repository root.

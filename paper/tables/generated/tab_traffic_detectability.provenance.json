@@ -1,14 +1,14 @@
 {
-  "generated_at_utc": "2026-07-09T01:21:13.822761+00:00",
-  "git_commit": "159199740a7afacf01a127199317926ba0fa13e6",
+  "generated_at_utc": "2026-07-09T15:16:18.351921+00:00",
+  "git_commit": "02c569271bd65f40a9ecaabaaad4fc0b7de521f5",
   "input_files": [
     "results\\traffic_detectability.csv"
   ],
   "input_sha256": {
-    "results\\traffic_detectability.csv": "447fb241435dba33c047274af1408615a5cdce88b63035da6ed934b1a4258528"
+    "results\\traffic_detectability.csv": "5c232084783b52067f424355d951d9f7c47e80d144133e6ced520ff5445c7f0c"
   },
   "output_file": "paper\\tables\\generated\\tab_traffic_detectability.tex",
-  "output_sha256": "21b8513030794a781c60282d19c1689a3193799f951b52bf2df14790bfacf6ef",
+  "output_sha256": "c6fcbca61668da2895d34119ad36168d6ea98cf2787ba669c69ba848e8905c15",
   "script": "scripts/generate_tables.py",
   "table": "tab_traffic_detectability"
 }

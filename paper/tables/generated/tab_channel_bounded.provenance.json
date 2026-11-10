@@ -1,0 +1,14 @@
+{
+  "generated_at_utc": "2026-11-10T10:44:17.376484+00:00",
+  "git_commit": "02c569271bd65f40a9ecaabaaad4fc0b7de521f5",
+  "input_files": [
+    "results\\auxiliary_channel_b2_200.csv"
+  ],
+  "input_sha256": {
+    "results\\auxiliary_channel_b2_200.csv": "15e6b5bd4ac59e4ffbfeacdee94add1225bad631c7a44fd3bc19d575cb0a41cc"
+  },
+  "output_file": "paper\\tables\\generated\\tab_channel_bounded.tex",
+  "output_sha256": "45e1a83ce5d6f93e8859bdd8d480b82f35cd6e5b356a18800a5e9dca4159a724",
+  "script": "scripts/generate_tables.py",
+  "table": "tab_channel_bounded"
+}

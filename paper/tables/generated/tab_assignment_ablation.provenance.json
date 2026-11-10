@@ -1,14 +1,14 @@
 {
-  "generated_at_utc": "2026-07-09T01:21:12.975412+00:00",
-  "git_commit": "159199740a7afacf01a127199317926ba0fa13e6",
+  "generated_at_utc": "2026-07-09T15:16:18.125617+00:00",
+  "git_commit": "02c569271bd65f40a9ecaabaaad4fc0b7de521f5",
   "input_files": [
     "results\\assignment_ablation.csv"
   ],
   "input_sha256": {
-    "results\\assignment_ablation.csv": "e5b2ab0b5dd9ffaa813b262aba0b0391c7f55f0fc2de5bb97c5666a2415f2bad"
+    "results\\assignment_ablation.csv": "17e42852e28d404e37a1b4f5eaac3c442363b893203eedac48de2a485947886c"
   },
   "output_file": "paper\\tables\\generated\\tab_assignment_ablation.tex",
-  "output_sha256": "6b1b2590f793744494944151144ae01ca3b5c8925bdb3bb37d4b6fa78df008be",
+  "output_sha256": "bb81a778769add2c58c8bde6c6b07585f591b82a5049a4822c29ceb7ebfd6e6f",
   "script": "scripts/generate_tables.py",
   "table": "tab_assignment_ablation"
 }

@@ -15,6 +15,7 @@ authors = [
     { name = "Stéphane Gaël R. Ekodeck" },
     { name = "Serge Alain Ebele" },
     { name = "Leonel Moyou Metcheka" },
+    { name = "Daniel Tieudjo" },
     { name = "René Ndoundam", email = "ndoundam@gmail.com" },
 ]
 dependencies = [

@@ -111,17 +111,25 @@ background distributions. This marginal overlap is not a trained classifier
 or an indistinguishability result. The background comprises labeled
 application sessions captured with unrelated applications closed, not mixed
 ordinary traffic. The positive captures are synthesized from controlled
-software exchanges; no live service or network traffic was used. Live TLS
-fingerprints, timing-based classification, routing, and message-conditioned
-cover selection remain unmeasured. A separate TLS 1.3 memory-BIO control
-paired 80 FHAM exchanges with same-length HTTP/JSON requests and responses:
-all 80 pairs had identical directional TLS record-length sequences, and no
-`FHAM\x01` marker appeared in the encrypted records. The variable-length
-client traffic still rose from 720 TLS bytes at 40 characters to 1,360 bytes
-at 200 characters. This isolates TLS record-size leakage; it is not a socket
-capture or an ordinary-traffic classifier. See
+software exchanges; the PCAPs in that pilot are synthesized. A second pilot
+uses real loopback TCP sockets and a transparent byte-stream relay to compare
+FHAM with HTTP/1.1 JSON controls of exactly matched request/response sizes.
+Each transport profile has 240 pairs across three independent runs. On raw
+TCP, the versioned FHAM marker appears in all 240 FHAM streams and in none of
+the 240 controls. Under TLS 1.3, the marker appears in neither class; all 240
+pairs have equal directional TLS record-length sequences and wire-byte totals.
+
+A logistic-regression detector trained on two runs and tested on the third
+gets AUC 0.500 from byte/record-size features. A detector using relay
+read-chunk and timing features gets held-out AUCs of 0.461, 0.498, and 0.481
+for raw TCP, and 0.514, 0.536, and 0.514 for TLS 1.3. All six paired-bootstrap
+95% intervals include 0.50. Message length remains visible in total volume:
+TLS client streams are 720 bytes at 40 characters and 1,360 bytes at 200.
+These results measure a controlled local TCP-flow comparison against matched
+HTTP controls; mixed public-network traffic and other client/TLS stacks remain
+outside the evaluation. See
 [`reports/traffic_transport_pilot.md`](reports/traffic_transport_pilot.md) and
-[`reports/matched_tls_control_pilot.md`](reports/matched_tls_control_pilot.md).
+[`reports/socket_tls_detectability_pilot.md`](reports/socket_tls_detectability_pilot.md).
 
 The fixed-size record profile reduces the tested payload-size leakage; it is
 not evidence of indistinguishability within ordinary network traffic.
@@ -235,6 +243,10 @@ python scripts/geometry_registration_pilot.py
 python scripts/secure_channel_pilot.py
 python scripts/traffic_transport_pilot.py --background D:\dataset --lengths 40 200 --trials-per-image 5
 python scripts/matched_tls_control_pilot.py
+python scripts/socket_tls_detectability_pilot.py --run-id rep1
+python scripts/socket_tls_detectability_pilot.py --run-id rep2
+python scripts/socket_tls_detectability_pilot.py --run-id rep3
+python scripts/evaluate_socket_tls_generalization.py
 ```
 
 The first measures paired compact-record and direct-encryption sizes for the

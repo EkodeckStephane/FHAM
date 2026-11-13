@@ -222,6 +222,30 @@ amortized handshake sizes.
 
 ## Full reproduction and external datasets
 
+### Non-VPN packet-marker baseline
+
+When the ISCXVPN2016 non-VPN PCAP/PCAPNG files are available locally, reproduce
+the packet-level signature baseline with:
+
+```powershell
+python scripts/analyze_nonvpn_traces.py D:\dataset --output results\nonvpn_trace_baseline.csv
+python scripts/analyze_nonvpn_traces.py D:\dataset `
+  --inspect-summary results\nonvpn_trace_baseline.csv `
+  --marker-details results\nonvpn_marker_occurrences.csv
+```
+
+The scan covers 109 labeled non-VPN application-session captures (21,919,108
+packets). It found 30 `FHMS`, 8 `FHME`, and 7 `FHMT` packet-marker hits in 9
+captures; none of the packet-local `FHMS` matches was followed by version byte
+`0x01`. The four-byte markers collide with benign payload contents, while no
+current `FHMS 0x01` candidate appeared in this packet-local scan. The dataset
+contains targeted application sessions rather than mixed background traffic.
+The scan has no FHAM-positive captures and does not measure stream reassembly,
+flow/timing classification, or TLS-encapsulated FHAM traffic. The PCAP files are
+not included here; obtain and cite the dataset from the [UNB CIC dataset
+page](https://www.unb.ca/cic/datasets/vpn.html) and the originating study
+(Draper-Gil et al., 2016, <https://doi.org/10.5220/0005740704070414>).
+
 Three additional stages need large external image corpora that are **not**
 bundled in this repository (only referenced by manifest and SHA-256 hash):
 
@@ -306,8 +330,10 @@ message-manifest coverage.
 - The compact auxiliary envelope leaks most message-length information
   through its raw size, even after fixed-class padding; the traffic-shaped
   envelope removes the tested size-only leakage at a substantial byte cost.
-- Detection against captured ordinary network traffic, packet timing, routing,
-  and identity-key compromise remain outside the evaluated security profile.
+- The ISCXVPN2016 baseline checks packet-local marker collisions only. No
+  FHAM-positive network traces, TCP-stream reassembly, flow/timing detection,
+  TLS encapsulation, image-only steganalysis, or identity-key lifecycle and
+  compromise study is included.
 - Geometric catalog recovery is a closed-set result over the bundled 219-image
   stress catalog; open-set rejection and near-duplicate references remain to
   be measured.

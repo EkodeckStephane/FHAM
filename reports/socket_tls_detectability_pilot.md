@@ -12,8 +12,9 @@ payload or ciphertext is written to the result files.
 The positive FHAM exchange uses the authenticated session and AES-GCM record
 implementation in the repository. The HTTP/1.1 JSON control has exactly the
 same plaintext request and response byte lengths as its paired FHAM exchange.
-Both use the same local endpoints, client/server code, and TLS 1.3/OpenSSL
-configuration. Each request and response is sent in one application write.
+Both use the same loopback client, relay, and server implementations and TLS
+1.3/OpenSSL configuration. Each request and response is sent in one
+application write.
 The experiment includes both raw TCP and TLS 1.3/TCP profiles, eight controlled
 covers, and message lengths of 40 and 200 characters.
 

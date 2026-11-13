@@ -113,8 +113,15 @@ application sessions captured with unrelated applications closed, not mixed
 ordinary traffic. The positive captures are synthesized from controlled
 software exchanges; no live service or network traffic was used. Live TLS
 fingerprints, timing-based classification, routing, and message-conditioned
-cover selection remain unmeasured. See
-[`reports/traffic_transport_pilot.md`](reports/traffic_transport_pilot.md).
+cover selection remain unmeasured. A separate TLS 1.3 memory-BIO control
+paired 80 FHAM exchanges with same-length HTTP/JSON requests and responses:
+all 80 pairs had identical directional TLS record-length sequences, and no
+`FHAM\x01` marker appeared in the encrypted records. The variable-length
+client traffic still rose from 720 TLS bytes at 40 characters to 1,360 bytes
+at 200 characters. This isolates TLS record-size leakage; it is not a socket
+capture or an ordinary-traffic classifier. See
+[`reports/traffic_transport_pilot.md`](reports/traffic_transport_pilot.md) and
+[`reports/matched_tls_control_pilot.md`](reports/matched_tls_control_pilot.md).
 
 The fixed-size record profile reduces the tested payload-size leakage; it is
 not evidence of indistinguishability within ordinary network traffic.
@@ -227,6 +234,7 @@ python scripts/measure_bounded_channel.py
 python scripts/geometry_registration_pilot.py
 python scripts/secure_channel_pilot.py
 python scripts/traffic_transport_pilot.py --background D:\dataset --lengths 40 200 --trials-per-image 5
+python scripts/matched_tls_control_pilot.py
 ```
 
 The first measures paired compact-record and direct-encryption sizes for the

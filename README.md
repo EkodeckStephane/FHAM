@@ -126,10 +126,19 @@ for raw TCP, and 0.514, 0.536, and 0.514 for TLS 1.3. All six paired-bootstrap
 95% intervals include 0.50. Message length remains visible in total volume:
 TLS client streams are 720 bytes at 40 characters and 1,360 bytes at 200.
 These results measure a controlled local TCP-flow comparison against matched
-HTTP controls; mixed public-network traffic and other client/TLS stacks remain
-outside the evaluation. See
+HTTP controls. A separate detector comparison uses 1,946 TLS flows extracted
+from 91 of the 109 captured NonVPN files. With each FHAM run and one third of
+the background capture files held out by group, directional volume gives AUC
+0.830--0.892, first-four-record lengths give 0.883--0.921, and combined
+volume plus the first sixteen record lengths gives 0.957--0.986 (mean 0.976).
+The result establishes detectability for this concrete FHAM endpoint and
+framing against the available 2016 application-capture corpus. Matched HTTP
+controls remain at AUC 0.50 because their directional sizes and record
+sequences were matched to FHAM. Generalization to contemporary mixed-network
+traffic and other TLS stacks remains open. See
 [`reports/traffic_transport_pilot.md`](reports/traffic_transport_pilot.md) and
-[`reports/socket_tls_detectability_pilot.md`](reports/socket_tls_detectability_pilot.md).
+[`reports/socket_tls_detectability_pilot.md`](reports/socket_tls_detectability_pilot.md),
+and [`reports/nonvpn_tls_detectability.md`](reports/nonvpn_tls_detectability.md).
 
 The fixed-size record profile reduces the tested payload-size leakage; it is
 not evidence of indistinguishability within ordinary network traffic.
@@ -297,6 +306,26 @@ flow/timing classification, or TLS-encapsulated FHAM traffic. The PCAP files are
 not included here; obtain and cite the dataset from the [UNB CIC dataset
 page](https://www.unb.ca/cic/datasets/vpn.html) and the originating study
 (Draper-Gil et al., 2016, <https://doi.org/10.5220/0005740704070414>).
+
+### FHAM TLS-flow detectability
+
+Extract TLS record sequences from the captured NonVPN TCP flows and run the
+capture-group-held-out classifier against the three live-socket FHAM runs:
+
+```powershell
+python scripts/evaluate_nonvpn_tls_detectability.py --background D:\dataset
+```
+
+After extraction, rerun the four feature-set evaluations without rescanning the
+PCAP files:
+
+```powershell
+python scripts/evaluate_nonvpn_tls_detectability.py --reuse-extracted
+```
+
+The aggregate outputs are `results/nonvpn_tls_flow_features.csv` and
+`results/nonvpn_tls_detectability_cv.csv`. The experiment reads the original
+PCAP files in place and saves no packet payloads, addresses, or ports.
 
 Three additional stages need large external image corpora that are **not**
 bundled in this repository (only referenced by manifest and SHA-256 hash):

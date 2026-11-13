@@ -1,0 +1,13 @@
+heldout_positive_run,feature_set,training_positive_runs,heldout_background_captures,heldout_background_tls_flows,heldout_fham_tls_flows,auc_fham_positive_orientation,balanced_accuracy_at_0_5
+rep1,directional_volume,rep2;rep3,31,702,80,0.8297720797720798,0.7884615384615384
+rep1,first_record_lengths,rep2;rep3,31,702,80,0.6481481481481481,0.8212250712250713
+rep1,first_four_record_lengths,rep2;rep3,31,702,80,0.8831908831908832,0.9230769230769231
+rep1,volume_plus_sixteen_record_lengths,rep2;rep3,31,702,80,0.9565527065527065,0.9230769230769231
+rep2,directional_volume,rep1;rep3,30,570,80,0.880701754385965,0.8254385964912281
+rep2,first_record_lengths,rep1;rep3,30,570,80,0.6789473684210526,0.8377192982456141
+rep2,first_four_record_lengths,rep1;rep3,30,570,80,0.9052631578947369,0.9359649122807018
+rep2,volume_plus_sixteen_record_lengths,rep1;rep3,30,570,80,0.9859649122807017,0.9570175438596491
+rep3,directional_volume,rep1;rep2,30,674,80,0.8924332344213649,0.8308605341246291
+rep3,first_record_lengths,rep1;rep2,30,674,80,0.6008902077151336,0.7989614243323442
+rep3,first_four_record_lengths,rep1;rep2,30,674,80,0.9206231454005935,0.9532640949554896
+rep3,volume_plus_sixteen_record_lengths,rep1;rep2,30,674,80,0.9851632047477744,0.9599406528189911

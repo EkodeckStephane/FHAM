@@ -95,11 +95,29 @@ registered sessions. The pilot exercised key agreement, cover substitution,
 altered offers, and replay rejection in 40/40 trials. It does not evaluate
 identity-key compromise.
 
-The reported H0/H1 classifier still contrasts envelope-level features with
-matched-shape decoys. It does not evaluate FHAM records against captured
-ordinary network traffic, packet timing, or routing. The fixed-size record
-profile reduces the tested payload-size leakage; it is not evidence of
-indistinguishability within ordinary network traffic.
+The reported H0/H1 classifier contrasts envelope-level features with
+matched-shape decoys. A separate synthetic transport pilot generates raw-TCP
+and TLS 1.3/TCP positive flows and scans reassembled TCP streams in the
+available NonVPN captures. The custom application marker appears in all 80
+raw-TCP positive flows and in none of the 80 TLS 1.3/TCP payload streams. Four
+of 5,398 background TCP flows contain the unversioned four-byte `FHAM`
+substring; none is a versioned candidate in the observed reassembled regions.
+Three other background streams hit the parser's 1-MB pending-buffer cap, so
+the latter result is limited to successfully reassembled regions.
+
+For each synthetic profile and message length, flow size and packet count
+individually fall within the central 10th--90th percentile range of the
+background distributions. This marginal overlap is not a trained classifier
+or an indistinguishability result. The background comprises labeled
+application sessions captured with unrelated applications closed, not mixed
+ordinary traffic. The positive captures are synthesized from controlled
+software exchanges; no live service or network traffic was used. Live TLS
+fingerprints, timing-based classification, routing, and message-conditioned
+cover selection remain unmeasured. See
+[`reports/traffic_transport_pilot.md`](reports/traffic_transport_pilot.md).
+
+The fixed-size record profile reduces the tested payload-size leakage; it is
+not evidence of indistinguishability within ordinary network traffic.
 
 The communication-size baseline also sets a clear limit on the claim: direct
 AES-GCM transmission of the message is smaller than the measured FHAM records.
@@ -201,13 +219,14 @@ extended assignment ablation, stability-aware lambda sweep, causal codebook
 ablation, message-family coverage, message-length leakage, and the
 36-condition extended transformation matrix.
 
-Two focused revision experiments are also available:
+Focused revision experiments are also available:
 
 ```powershell
 $env:PYTHONPATH = "src"
 python scripts/measure_bounded_channel.py
 python scripts/geometry_registration_pilot.py
 python scripts/secure_channel_pilot.py
+python scripts/traffic_transport_pilot.py --background D:\dataset --lengths 40 200 --trials-per-image 5
 ```
 
 The first measures paired compact-record and direct-encryption sizes for the
@@ -218,7 +237,11 @@ cover retrieval. It identifies 8/8 query covers and recovers 40/40 messages
 per condition from the 219-image gallery; recovery from warped pixels remains
 0/40 exact. The secure-channel pilot runs the signed ephemeral key exchange,
 cover binding, and persistent replay guard, then records both data and
-amortized handshake sizes.
+amortized handshake sizes. The transport pilot generates 80 synthetic flows
+per profile (raw TCP and TLS 1.3/TCP), checks exact application recovery, and
+compares versioned marker visibility and marginal packet-count/flow-size ranges
+with reassembled TCP flows from the NonVPN captures. Its detailed scope and
+results are in `reports/traffic_transport_pilot.md`.
 
 ## Full reproduction and external datasets
 
@@ -233,6 +256,15 @@ python scripts/analyze_nonvpn_traces.py D:\dataset `
   --inspect-summary results\nonvpn_trace_baseline.csv `
   --marker-details results\nonvpn_marker_occurrences.csv
 ```
+
+Reproduce the TCP stream and synthetic transport pilot with:
+
+```powershell
+python scripts/traffic_transport_pilot.py --background D:\dataset --lengths 40 200 --trials-per-image 5
+```
+
+This creates synthetic positive PCAPs and aggregate flow tables; it reads the
+external NonVPN captures without copying packet payloads into the results.
 
 The scan covers 109 labeled non-VPN application-session captures (21,919,108
 packets). It found 30 `FHMS`, 8 `FHME`, and 7 `FHMT` packet-marker hits in 9

@@ -1,0 +1,57 @@
+{
+  "images": [
+    "brick",
+    "grass",
+    "gravel",
+    "horse",
+    "hubble",
+    "immunohistochemistry",
+    "logo",
+    "retina",
+    "rocket",
+    "text",
+    "colorwheel"
+  ],
+  "image_count": 11,
+  "image_sha256": {
+    "brick": "1c1fb4caea0145fbcd384f48cb2b584312e49453ac73f6715378e3c505e02304",
+    "grass": "f8b35e3d880ec3905e9d05b8eee080e8d18d51dec354db62880fed600549d219",
+    "gravel": "5dfbf8525527d678d7abf42237951688f35bc6bbf53464bd4dea4286459049d6",
+    "horse": "366f3144d8e289667d212e2f53f4ec0fe5de9b2f5db0a5bb17b0bdddbcc7aa9f",
+    "hubble": "90ba7c9e9e6bceac0055e668542c1cb5af6aee6144055aeada6c80b58698733e",
+    "immunohistochemistry": "08e4c297be0429b273dc297a15a9c2a2a8b3b1d1561e66df6eb616413d73d8a1",
+    "logo": "f2a533d4257d90b12e50f20e603918ad3bd9d0db453e5f77e346180533faf151",
+    "retina": "373f1db46bedf9064a0a003b5f9875a750353a241d3083d943a59ac6a8b9cfaf",
+    "rocket": "71f7d2bca3849c82aa8a6d6b61173602dbe2ef5c43f47cf856a733b36ad0e59d",
+    "text": "8007b33aaff0bf4187bdb0a33f88c4d43e7460db759ea0558fb2617de71e695c",
+    "colorwheel": "562bfd961720831c477e8ab0a5e9e49dab153c2f515df92860cd2a2d263e977f"
+  },
+  "message_sha256": {
+    "natural_text_200_00.bin": "069a24d3e0497389d02a3cf2bd8f8db29c58abb68f9f8d906a417172dfc010d4",
+    "natural_text_200_01.bin": "5d5dcf181042bf323ac347548823fec27848e1aad3106481e4d29c54a0547309",
+    "natural_text_200_02.bin": "47fa33b1aace946a72fabb819d4884ca3314b91b7df567c3d662d8d9d1e913e2"
+  },
+  "block_size": 12,
+  "descriptor": "spectral",
+  "bound": 2,
+  "lambda_values": [
+    0.0,
+    0.25,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "development_attacks": [
+    "jpeg90",
+    "resize90",
+    "noise1"
+  ],
+  "evaluation_attacks": [
+    "jpeg75",
+    "rotate1",
+    "noise2"
+  ],
+  "raw_rows": 495,
+  "identity_round_trip": "exact coded bytes and decompressed source checked before evaluation transforms",
+  "seed_rule": "20261114 + transform_index + trial + 37 * image_index"
+}

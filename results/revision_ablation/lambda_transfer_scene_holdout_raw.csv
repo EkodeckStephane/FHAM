@@ -1,0 +1,496 @@
+image,content_type,trial,message_file,input_bytes,coded_bytes,lambda,block_size,descriptor,bound,assignment_success,identity_exact,identity_byte_accuracy,total_displacement,identity_source_recovery,transform,exact_coded_recovery,source_recovery,byte_accuracy
+brick,texture photograph,0,natural_text_200_00.bin,200,116,0.0,12,spectral,2,1,1,1.0,209.0,1.0,jpeg75,0,0,0.7327586206896551
+brick,texture photograph,0,natural_text_200_00.bin,200,116,0.0,12,spectral,2,1,1,1.0,209.0,1.0,rotate1,0,0,0.04310344827586207
+brick,texture photograph,0,natural_text_200_00.bin,200,116,0.0,12,spectral,2,1,1,1.0,209.0,1.0,noise2,0,0,0.7672413793103449
+brick,texture photograph,0,natural_text_200_00.bin,200,116,0.25,12,spectral,2,1,1,1.0,15.0,1.0,jpeg75,0,0,0.7586206896551724
+brick,texture photograph,0,natural_text_200_00.bin,200,116,0.25,12,spectral,2,1,1,1.0,15.0,1.0,rotate1,0,0,0.05172413793103448
+brick,texture photograph,0,natural_text_200_00.bin,200,116,0.25,12,spectral,2,1,1,1.0,15.0,1.0,noise2,0,0,0.7758620689655172
+brick,texture photograph,0,natural_text_200_00.bin,200,116,0.5,12,spectral,2,1,1,1.0,15.0,1.0,jpeg75,0,0,0.7586206896551724
+brick,texture photograph,0,natural_text_200_00.bin,200,116,0.5,12,spectral,2,1,1,1.0,15.0,1.0,rotate1,0,0,0.05172413793103448
+brick,texture photograph,0,natural_text_200_00.bin,200,116,0.5,12,spectral,2,1,1,1.0,15.0,1.0,noise2,0,0,0.7758620689655172
+brick,texture photograph,0,natural_text_200_00.bin,200,116,0.75,12,spectral,2,1,1,1.0,15.0,1.0,jpeg75,0,0,0.7586206896551724
+brick,texture photograph,0,natural_text_200_00.bin,200,116,0.75,12,spectral,2,1,1,1.0,15.0,1.0,rotate1,0,0,0.05172413793103448
+brick,texture photograph,0,natural_text_200_00.bin,200,116,0.75,12,spectral,2,1,1,1.0,15.0,1.0,noise2,0,0,0.7758620689655172
+brick,texture photograph,0,natural_text_200_00.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.3017241379310345
+brick,texture photograph,0,natural_text_200_00.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.0
+brick,texture photograph,0,natural_text_200_00.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.35344827586206895
+brick,texture photograph,1,natural_text_200_01.bin,200,116,0.0,12,spectral,2,1,1,1.0,213.0,1.0,jpeg75,0,0,0.6896551724137931
+brick,texture photograph,1,natural_text_200_01.bin,200,116,0.0,12,spectral,2,1,1,1.0,213.0,1.0,rotate1,0,0,0.034482758620689655
+brick,texture photograph,1,natural_text_200_01.bin,200,116,0.0,12,spectral,2,1,1,1.0,213.0,1.0,noise2,0,0,0.7672413793103449
+brick,texture photograph,1,natural_text_200_01.bin,200,116,0.25,12,spectral,2,1,1,1.0,12.0,1.0,jpeg75,0,0,0.7155172413793104
+brick,texture photograph,1,natural_text_200_01.bin,200,116,0.25,12,spectral,2,1,1,1.0,12.0,1.0,rotate1,0,0,0.05172413793103448
+brick,texture photograph,1,natural_text_200_01.bin,200,116,0.25,12,spectral,2,1,1,1.0,12.0,1.0,noise2,0,0,0.7672413793103449
+brick,texture photograph,1,natural_text_200_01.bin,200,116,0.5,12,spectral,2,1,1,1.0,12.0,1.0,jpeg75,0,0,0.7155172413793104
+brick,texture photograph,1,natural_text_200_01.bin,200,116,0.5,12,spectral,2,1,1,1.0,12.0,1.0,rotate1,0,0,0.05172413793103448
+brick,texture photograph,1,natural_text_200_01.bin,200,116,0.5,12,spectral,2,1,1,1.0,12.0,1.0,noise2,0,0,0.7672413793103449
+brick,texture photograph,1,natural_text_200_01.bin,200,116,0.75,12,spectral,2,1,1,1.0,12.0,1.0,jpeg75,0,0,0.7155172413793104
+brick,texture photograph,1,natural_text_200_01.bin,200,116,0.75,12,spectral,2,1,1,1.0,12.0,1.0,rotate1,0,0,0.05172413793103448
+brick,texture photograph,1,natural_text_200_01.bin,200,116,0.75,12,spectral,2,1,1,1.0,12.0,1.0,noise2,0,0,0.7672413793103449
+brick,texture photograph,1,natural_text_200_01.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.3103448275862069
+brick,texture photograph,1,natural_text_200_01.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.0
+brick,texture photograph,1,natural_text_200_01.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.3103448275862069
+brick,texture photograph,2,natural_text_200_02.bin,200,116,0.0,12,spectral,2,1,1,1.0,215.0,1.0,jpeg75,0,0,0.6896551724137931
+brick,texture photograph,2,natural_text_200_02.bin,200,116,0.0,12,spectral,2,1,1,1.0,215.0,1.0,rotate1,0,0,0.04310344827586207
+brick,texture photograph,2,natural_text_200_02.bin,200,116,0.0,12,spectral,2,1,1,1.0,215.0,1.0,noise2,0,0,0.7758620689655172
+brick,texture photograph,2,natural_text_200_02.bin,200,116,0.25,12,spectral,2,1,1,1.0,14.0,1.0,jpeg75,0,0,0.6810344827586207
+brick,texture photograph,2,natural_text_200_02.bin,200,116,0.25,12,spectral,2,1,1,1.0,14.0,1.0,rotate1,0,0,0.05172413793103448
+brick,texture photograph,2,natural_text_200_02.bin,200,116,0.25,12,spectral,2,1,1,1.0,14.0,1.0,noise2,0,0,0.7241379310344828
+brick,texture photograph,2,natural_text_200_02.bin,200,116,0.5,12,spectral,2,1,1,1.0,14.0,1.0,jpeg75,0,0,0.6810344827586207
+brick,texture photograph,2,natural_text_200_02.bin,200,116,0.5,12,spectral,2,1,1,1.0,14.0,1.0,rotate1,0,0,0.05172413793103448
+brick,texture photograph,2,natural_text_200_02.bin,200,116,0.5,12,spectral,2,1,1,1.0,14.0,1.0,noise2,0,0,0.7241379310344828
+brick,texture photograph,2,natural_text_200_02.bin,200,116,0.75,12,spectral,2,1,1,1.0,14.0,1.0,jpeg75,0,0,0.6810344827586207
+brick,texture photograph,2,natural_text_200_02.bin,200,116,0.75,12,spectral,2,1,1,1.0,14.0,1.0,rotate1,0,0,0.05172413793103448
+brick,texture photograph,2,natural_text_200_02.bin,200,116,0.75,12,spectral,2,1,1,1.0,14.0,1.0,noise2,0,0,0.7241379310344828
+brick,texture photograph,2,natural_text_200_02.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.27586206896551724
+brick,texture photograph,2,natural_text_200_02.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.0
+brick,texture photograph,2,natural_text_200_02.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.4051724137931034
+grass,texture photograph,0,natural_text_200_00.bin,200,116,0.0,12,spectral,2,1,1,1.0,231.0,1.0,jpeg75,0,0,0.6982758620689655
+grass,texture photograph,0,natural_text_200_00.bin,200,116,0.0,12,spectral,2,1,1,1.0,231.0,1.0,rotate1,0,0,0.008620689655172414
+grass,texture photograph,0,natural_text_200_00.bin,200,116,0.0,12,spectral,2,1,1,1.0,231.0,1.0,noise2,0,0,0.9137931034482759
+grass,texture photograph,0,natural_text_200_00.bin,200,116,0.25,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.75
+grass,texture photograph,0,natural_text_200_00.bin,200,116,0.25,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.0
+grass,texture photograph,0,natural_text_200_00.bin,200,116,0.25,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.896551724137931
+grass,texture photograph,0,natural_text_200_00.bin,200,116,0.5,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.75
+grass,texture photograph,0,natural_text_200_00.bin,200,116,0.5,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.0
+grass,texture photograph,0,natural_text_200_00.bin,200,116,0.5,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.896551724137931
+grass,texture photograph,0,natural_text_200_00.bin,200,116,0.75,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.75
+grass,texture photograph,0,natural_text_200_00.bin,200,116,0.75,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.0
+grass,texture photograph,0,natural_text_200_00.bin,200,116,0.75,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.896551724137931
+grass,texture photograph,0,natural_text_200_00.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.5689655172413793
+grass,texture photograph,0,natural_text_200_00.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.0
+grass,texture photograph,0,natural_text_200_00.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.7931034482758621
+grass,texture photograph,1,natural_text_200_01.bin,200,116,0.0,12,spectral,2,1,1,1.0,232.0,1.0,jpeg75,0,0,0.6724137931034483
+grass,texture photograph,1,natural_text_200_01.bin,200,116,0.0,12,spectral,2,1,1,1.0,232.0,1.0,rotate1,0,0,0.017241379310344827
+grass,texture photograph,1,natural_text_200_01.bin,200,116,0.0,12,spectral,2,1,1,1.0,232.0,1.0,noise2,0,0,0.8448275862068966
+grass,texture photograph,1,natural_text_200_01.bin,200,116,0.25,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.7241379310344828
+grass,texture photograph,1,natural_text_200_01.bin,200,116,0.25,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.0
+grass,texture photograph,1,natural_text_200_01.bin,200,116,0.25,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.9224137931034483
+grass,texture photograph,1,natural_text_200_01.bin,200,116,0.5,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.7241379310344828
+grass,texture photograph,1,natural_text_200_01.bin,200,116,0.5,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.0
+grass,texture photograph,1,natural_text_200_01.bin,200,116,0.5,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.9224137931034483
+grass,texture photograph,1,natural_text_200_01.bin,200,116,0.75,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.7241379310344828
+grass,texture photograph,1,natural_text_200_01.bin,200,116,0.75,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.0
+grass,texture photograph,1,natural_text_200_01.bin,200,116,0.75,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.9224137931034483
+grass,texture photograph,1,natural_text_200_01.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.4827586206896552
+grass,texture photograph,1,natural_text_200_01.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.008620689655172414
+grass,texture photograph,1,natural_text_200_01.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.8103448275862069
+grass,texture photograph,2,natural_text_200_02.bin,200,116,0.0,12,spectral,2,1,1,1.0,231.0,1.0,jpeg75,0,0,0.7413793103448276
+grass,texture photograph,2,natural_text_200_02.bin,200,116,0.0,12,spectral,2,1,1,1.0,231.0,1.0,rotate1,0,0,0.008620689655172414
+grass,texture photograph,2,natural_text_200_02.bin,200,116,0.0,12,spectral,2,1,1,1.0,231.0,1.0,noise2,0,0,0.8620689655172413
+grass,texture photograph,2,natural_text_200_02.bin,200,116,0.25,12,spectral,2,1,1,1.0,1.0,1.0,jpeg75,0,0,0.7327586206896551
+grass,texture photograph,2,natural_text_200_02.bin,200,116,0.25,12,spectral,2,1,1,1.0,1.0,1.0,rotate1,0,0,0.008620689655172414
+grass,texture photograph,2,natural_text_200_02.bin,200,116,0.25,12,spectral,2,1,1,1.0,1.0,1.0,noise2,0,0,0.9051724137931034
+grass,texture photograph,2,natural_text_200_02.bin,200,116,0.5,12,spectral,2,1,1,1.0,1.0,1.0,jpeg75,0,0,0.7327586206896551
+grass,texture photograph,2,natural_text_200_02.bin,200,116,0.5,12,spectral,2,1,1,1.0,1.0,1.0,rotate1,0,0,0.008620689655172414
+grass,texture photograph,2,natural_text_200_02.bin,200,116,0.5,12,spectral,2,1,1,1.0,1.0,1.0,noise2,0,0,0.9051724137931034
+grass,texture photograph,2,natural_text_200_02.bin,200,116,0.75,12,spectral,2,1,1,1.0,1.0,1.0,jpeg75,0,0,0.7327586206896551
+grass,texture photograph,2,natural_text_200_02.bin,200,116,0.75,12,spectral,2,1,1,1.0,1.0,1.0,rotate1,0,0,0.008620689655172414
+grass,texture photograph,2,natural_text_200_02.bin,200,116,0.75,12,spectral,2,1,1,1.0,1.0,1.0,noise2,0,0,0.9051724137931034
+grass,texture photograph,2,natural_text_200_02.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.5689655172413793
+grass,texture photograph,2,natural_text_200_02.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.0
+grass,texture photograph,2,natural_text_200_02.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.8103448275862069
+gravel,texture photograph,0,natural_text_200_00.bin,200,116,0.0,12,spectral,2,1,1,1.0,230.0,1.0,jpeg75,0,0,0.7413793103448276
+gravel,texture photograph,0,natural_text_200_00.bin,200,116,0.0,12,spectral,2,1,1,1.0,230.0,1.0,rotate1,0,0,0.008620689655172414
+gravel,texture photograph,0,natural_text_200_00.bin,200,116,0.0,12,spectral,2,1,1,1.0,230.0,1.0,noise2,0,0,0.8620689655172413
+gravel,texture photograph,0,natural_text_200_00.bin,200,116,0.25,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.7413793103448276
+gravel,texture photograph,0,natural_text_200_00.bin,200,116,0.25,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.008620689655172414
+gravel,texture photograph,0,natural_text_200_00.bin,200,116,0.25,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.9137931034482759
+gravel,texture photograph,0,natural_text_200_00.bin,200,116,0.5,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.7413793103448276
+gravel,texture photograph,0,natural_text_200_00.bin,200,116,0.5,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.008620689655172414
+gravel,texture photograph,0,natural_text_200_00.bin,200,116,0.5,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.9137931034482759
+gravel,texture photograph,0,natural_text_200_00.bin,200,116,0.75,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.7413793103448276
+gravel,texture photograph,0,natural_text_200_00.bin,200,116,0.75,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.008620689655172414
+gravel,texture photograph,0,natural_text_200_00.bin,200,116,0.75,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.9137931034482759
+gravel,texture photograph,0,natural_text_200_00.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.6810344827586207
+gravel,texture photograph,0,natural_text_200_00.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.008620689655172414
+gravel,texture photograph,0,natural_text_200_00.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.8362068965517241
+gravel,texture photograph,1,natural_text_200_01.bin,200,116,0.0,12,spectral,2,1,1,1.0,232.0,1.0,jpeg75,0,0,0.6982758620689655
+gravel,texture photograph,1,natural_text_200_01.bin,200,116,0.0,12,spectral,2,1,1,1.0,232.0,1.0,rotate1,0,0,0.017241379310344827
+gravel,texture photograph,1,natural_text_200_01.bin,200,116,0.0,12,spectral,2,1,1,1.0,232.0,1.0,noise2,0,0,0.8706896551724138
+gravel,texture photograph,1,natural_text_200_01.bin,200,116,0.25,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.8017241379310345
+gravel,texture photograph,1,natural_text_200_01.bin,200,116,0.25,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.017241379310344827
+gravel,texture photograph,1,natural_text_200_01.bin,200,116,0.25,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.853448275862069
+gravel,texture photograph,1,natural_text_200_01.bin,200,116,0.5,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.8017241379310345
+gravel,texture photograph,1,natural_text_200_01.bin,200,116,0.5,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.017241379310344827
+gravel,texture photograph,1,natural_text_200_01.bin,200,116,0.5,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.853448275862069
+gravel,texture photograph,1,natural_text_200_01.bin,200,116,0.75,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.8017241379310345
+gravel,texture photograph,1,natural_text_200_01.bin,200,116,0.75,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.017241379310344827
+gravel,texture photograph,1,natural_text_200_01.bin,200,116,0.75,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.853448275862069
+gravel,texture photograph,1,natural_text_200_01.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.6982758620689655
+gravel,texture photograph,1,natural_text_200_01.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.008620689655172414
+gravel,texture photograph,1,natural_text_200_01.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.853448275862069
+gravel,texture photograph,2,natural_text_200_02.bin,200,116,0.0,12,spectral,2,1,1,1.0,231.0,1.0,jpeg75,0,0,0.7672413793103449
+gravel,texture photograph,2,natural_text_200_02.bin,200,116,0.0,12,spectral,2,1,1,1.0,231.0,1.0,rotate1,0,0,0.008620689655172414
+gravel,texture photograph,2,natural_text_200_02.bin,200,116,0.0,12,spectral,2,1,1,1.0,231.0,1.0,noise2,0,0,0.9051724137931034
+gravel,texture photograph,2,natural_text_200_02.bin,200,116,0.25,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.7155172413793104
+gravel,texture photograph,2,natural_text_200_02.bin,200,116,0.25,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.017241379310344827
+gravel,texture photograph,2,natural_text_200_02.bin,200,116,0.25,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.9137931034482759
+gravel,texture photograph,2,natural_text_200_02.bin,200,116,0.5,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.7155172413793104
+gravel,texture photograph,2,natural_text_200_02.bin,200,116,0.5,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.017241379310344827
+gravel,texture photograph,2,natural_text_200_02.bin,200,116,0.5,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.9137931034482759
+gravel,texture photograph,2,natural_text_200_02.bin,200,116,0.75,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.7155172413793104
+gravel,texture photograph,2,natural_text_200_02.bin,200,116,0.75,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.017241379310344827
+gravel,texture photograph,2,natural_text_200_02.bin,200,116,0.75,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.9137931034482759
+gravel,texture photograph,2,natural_text_200_02.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.6724137931034483
+gravel,texture photograph,2,natural_text_200_02.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.017241379310344827
+gravel,texture photograph,2,natural_text_200_02.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.8362068965517241
+horse,binary silhouette,0,natural_text_200_00.bin,200,116,0.0,12,spectral,2,1,1,1.0,156.0,1.0,jpeg75,0,0,0.6551724137931034
+horse,binary silhouette,0,natural_text_200_00.bin,200,116,0.0,12,spectral,2,1,1,1.0,156.0,1.0,rotate1,0,0,0.1896551724137931
+horse,binary silhouette,0,natural_text_200_00.bin,200,116,0.0,12,spectral,2,1,1,1.0,156.0,1.0,noise2,0,0,0.603448275862069
+horse,binary silhouette,0,natural_text_200_00.bin,200,116,0.25,12,spectral,2,1,1,1.0,93.0,1.0,jpeg75,0,0,0.6896551724137931
+horse,binary silhouette,0,natural_text_200_00.bin,200,116,0.25,12,spectral,2,1,1,1.0,93.0,1.0,rotate1,0,0,0.16379310344827586
+horse,binary silhouette,0,natural_text_200_00.bin,200,116,0.25,12,spectral,2,1,1,1.0,93.0,1.0,noise2,0,0,0.6379310344827587
+horse,binary silhouette,0,natural_text_200_00.bin,200,116,0.5,12,spectral,2,1,1,1.0,93.0,1.0,jpeg75,0,0,0.6896551724137931
+horse,binary silhouette,0,natural_text_200_00.bin,200,116,0.5,12,spectral,2,1,1,1.0,93.0,1.0,rotate1,0,0,0.16379310344827586
+horse,binary silhouette,0,natural_text_200_00.bin,200,116,0.5,12,spectral,2,1,1,1.0,93.0,1.0,noise2,0,0,0.6379310344827587
+horse,binary silhouette,0,natural_text_200_00.bin,200,116,0.75,12,spectral,2,1,1,1.0,93.0,1.0,jpeg75,0,0,0.6896551724137931
+horse,binary silhouette,0,natural_text_200_00.bin,200,116,0.75,12,spectral,2,1,1,1.0,93.0,1.0,rotate1,0,0,0.16379310344827586
+horse,binary silhouette,0,natural_text_200_00.bin,200,116,0.75,12,spectral,2,1,1,1.0,93.0,1.0,noise2,0,0,0.6379310344827587
+horse,binary silhouette,0,natural_text_200_00.bin,200,116,1.0,12,spectral,2,1,1,1.0,46.0,1.0,jpeg75,0,0,0.4224137931034483
+horse,binary silhouette,0,natural_text_200_00.bin,200,116,1.0,12,spectral,2,1,1,1.0,46.0,1.0,rotate1,0,0,0.12931034482758622
+horse,binary silhouette,0,natural_text_200_00.bin,200,116,1.0,12,spectral,2,1,1,1.0,46.0,1.0,noise2,0,0,0.47413793103448276
+horse,binary silhouette,1,natural_text_200_01.bin,200,116,0.0,12,spectral,2,0,0,0.0,,,jpeg75,0,0,0.0
+horse,binary silhouette,1,natural_text_200_01.bin,200,116,0.0,12,spectral,2,0,0,0.0,,,rotate1,0,0,0.0
+horse,binary silhouette,1,natural_text_200_01.bin,200,116,0.0,12,spectral,2,0,0,0.0,,,noise2,0,0,0.0
+horse,binary silhouette,1,natural_text_200_01.bin,200,116,0.25,12,spectral,2,0,0,0.0,,,jpeg75,0,0,0.0
+horse,binary silhouette,1,natural_text_200_01.bin,200,116,0.25,12,spectral,2,0,0,0.0,,,rotate1,0,0,0.0
+horse,binary silhouette,1,natural_text_200_01.bin,200,116,0.25,12,spectral,2,0,0,0.0,,,noise2,0,0,0.0
+horse,binary silhouette,1,natural_text_200_01.bin,200,116,0.5,12,spectral,2,0,0,0.0,,,jpeg75,0,0,0.0
+horse,binary silhouette,1,natural_text_200_01.bin,200,116,0.5,12,spectral,2,0,0,0.0,,,rotate1,0,0,0.0
+horse,binary silhouette,1,natural_text_200_01.bin,200,116,0.5,12,spectral,2,0,0,0.0,,,noise2,0,0,0.0
+horse,binary silhouette,1,natural_text_200_01.bin,200,116,0.75,12,spectral,2,0,0,0.0,,,jpeg75,0,0,0.0
+horse,binary silhouette,1,natural_text_200_01.bin,200,116,0.75,12,spectral,2,0,0,0.0,,,rotate1,0,0,0.0
+horse,binary silhouette,1,natural_text_200_01.bin,200,116,0.75,12,spectral,2,0,0,0.0,,,noise2,0,0,0.0
+horse,binary silhouette,1,natural_text_200_01.bin,200,116,1.0,12,spectral,2,0,0,0.0,,,jpeg75,0,0,0.0
+horse,binary silhouette,1,natural_text_200_01.bin,200,116,1.0,12,spectral,2,0,0,0.0,,,rotate1,0,0,0.0
+horse,binary silhouette,1,natural_text_200_01.bin,200,116,1.0,12,spectral,2,0,0,0.0,,,noise2,0,0,0.0
+horse,binary silhouette,2,natural_text_200_02.bin,200,116,0.0,12,spectral,2,1,1,1.0,157.0,1.0,jpeg75,0,0,0.6551724137931034
+horse,binary silhouette,2,natural_text_200_02.bin,200,116,0.0,12,spectral,2,1,1,1.0,157.0,1.0,rotate1,0,0,0.1724137931034483
+horse,binary silhouette,2,natural_text_200_02.bin,200,116,0.0,12,spectral,2,1,1,1.0,157.0,1.0,noise2,0,0,0.6379310344827587
+horse,binary silhouette,2,natural_text_200_02.bin,200,116,0.25,12,spectral,2,1,1,1.0,86.0,1.0,jpeg75,0,0,0.7068965517241379
+horse,binary silhouette,2,natural_text_200_02.bin,200,116,0.25,12,spectral,2,1,1,1.0,86.0,1.0,rotate1,0,0,0.1724137931034483
+horse,binary silhouette,2,natural_text_200_02.bin,200,116,0.25,12,spectral,2,1,1,1.0,86.0,1.0,noise2,0,0,0.6551724137931034
+horse,binary silhouette,2,natural_text_200_02.bin,200,116,0.5,12,spectral,2,1,1,1.0,86.0,1.0,jpeg75,0,0,0.7068965517241379
+horse,binary silhouette,2,natural_text_200_02.bin,200,116,0.5,12,spectral,2,1,1,1.0,86.0,1.0,rotate1,0,0,0.1724137931034483
+horse,binary silhouette,2,natural_text_200_02.bin,200,116,0.5,12,spectral,2,1,1,1.0,86.0,1.0,noise2,0,0,0.6551724137931034
+horse,binary silhouette,2,natural_text_200_02.bin,200,116,0.75,12,spectral,2,1,1,1.0,86.0,1.0,jpeg75,0,0,0.7068965517241379
+horse,binary silhouette,2,natural_text_200_02.bin,200,116,0.75,12,spectral,2,1,1,1.0,86.0,1.0,rotate1,0,0,0.1724137931034483
+horse,binary silhouette,2,natural_text_200_02.bin,200,116,0.75,12,spectral,2,1,1,1.0,86.0,1.0,noise2,0,0,0.6551724137931034
+horse,binary silhouette,2,natural_text_200_02.bin,200,116,1.0,12,spectral,2,1,1,1.0,42.0,1.0,jpeg75,0,0,0.43103448275862066
+horse,binary silhouette,2,natural_text_200_02.bin,200,116,1.0,12,spectral,2,1,1,1.0,42.0,1.0,rotate1,0,0,0.12931034482758622
+horse,binary silhouette,2,natural_text_200_02.bin,200,116,1.0,12,spectral,2,1,1,1.0,42.0,1.0,noise2,0,0,0.47413793103448276
+hubble,scientific photograph,0,natural_text_200_00.bin,200,116,0.0,12,spectral,2,1,1,1.0,218.0,1.0,jpeg75,0,0,0.5258620689655172
+hubble,scientific photograph,0,natural_text_200_00.bin,200,116,0.0,12,spectral,2,1,1,1.0,218.0,1.0,rotate1,0,0,0.034482758620689655
+hubble,scientific photograph,0,natural_text_200_00.bin,200,116,0.0,12,spectral,2,1,1,1.0,218.0,1.0,noise2,0,0,0.7844827586206896
+hubble,scientific photograph,0,natural_text_200_00.bin,200,116,0.25,12,spectral,2,1,1,1.0,4.0,1.0,jpeg75,0,0,0.5258620689655172
+hubble,scientific photograph,0,natural_text_200_00.bin,200,116,0.25,12,spectral,2,1,1,1.0,4.0,1.0,rotate1,0,0,0.0603448275862069
+hubble,scientific photograph,0,natural_text_200_00.bin,200,116,0.25,12,spectral,2,1,1,1.0,4.0,1.0,noise2,0,0,0.7758620689655172
+hubble,scientific photograph,0,natural_text_200_00.bin,200,116,0.5,12,spectral,2,1,1,1.0,4.0,1.0,jpeg75,0,0,0.5258620689655172
+hubble,scientific photograph,0,natural_text_200_00.bin,200,116,0.5,12,spectral,2,1,1,1.0,4.0,1.0,rotate1,0,0,0.0603448275862069
+hubble,scientific photograph,0,natural_text_200_00.bin,200,116,0.5,12,spectral,2,1,1,1.0,4.0,1.0,noise2,0,0,0.7758620689655172
+hubble,scientific photograph,0,natural_text_200_00.bin,200,116,0.75,12,spectral,2,1,1,1.0,4.0,1.0,jpeg75,0,0,0.5258620689655172
+hubble,scientific photograph,0,natural_text_200_00.bin,200,116,0.75,12,spectral,2,1,1,1.0,4.0,1.0,rotate1,0,0,0.0603448275862069
+hubble,scientific photograph,0,natural_text_200_00.bin,200,116,0.75,12,spectral,2,1,1,1.0,4.0,1.0,noise2,0,0,0.7758620689655172
+hubble,scientific photograph,0,natural_text_200_00.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.23275862068965517
+hubble,scientific photograph,0,natural_text_200_00.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.0
+hubble,scientific photograph,0,natural_text_200_00.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.3706896551724138
+hubble,scientific photograph,1,natural_text_200_01.bin,200,116,0.0,12,spectral,2,1,1,1.0,228.0,1.0,jpeg75,0,0,0.5517241379310345
+hubble,scientific photograph,1,natural_text_200_01.bin,200,116,0.0,12,spectral,2,1,1,1.0,228.0,1.0,rotate1,0,0,0.04310344827586207
+hubble,scientific photograph,1,natural_text_200_01.bin,200,116,0.0,12,spectral,2,1,1,1.0,228.0,1.0,noise2,0,0,0.7758620689655172
+hubble,scientific photograph,1,natural_text_200_01.bin,200,116,0.25,12,spectral,2,1,1,1.0,8.0,1.0,jpeg75,0,0,0.5086206896551724
+hubble,scientific photograph,1,natural_text_200_01.bin,200,116,0.25,12,spectral,2,1,1,1.0,8.0,1.0,rotate1,0,0,0.04310344827586207
+hubble,scientific photograph,1,natural_text_200_01.bin,200,116,0.25,12,spectral,2,1,1,1.0,8.0,1.0,noise2,0,0,0.8017241379310345
+hubble,scientific photograph,1,natural_text_200_01.bin,200,116,0.5,12,spectral,2,1,1,1.0,8.0,1.0,jpeg75,0,0,0.5086206896551724
+hubble,scientific photograph,1,natural_text_200_01.bin,200,116,0.5,12,spectral,2,1,1,1.0,8.0,1.0,rotate1,0,0,0.04310344827586207
+hubble,scientific photograph,1,natural_text_200_01.bin,200,116,0.5,12,spectral,2,1,1,1.0,8.0,1.0,noise2,0,0,0.8017241379310345
+hubble,scientific photograph,1,natural_text_200_01.bin,200,116,0.75,12,spectral,2,1,1,1.0,8.0,1.0,jpeg75,0,0,0.5086206896551724
+hubble,scientific photograph,1,natural_text_200_01.bin,200,116,0.75,12,spectral,2,1,1,1.0,8.0,1.0,rotate1,0,0,0.04310344827586207
+hubble,scientific photograph,1,natural_text_200_01.bin,200,116,0.75,12,spectral,2,1,1,1.0,8.0,1.0,noise2,0,0,0.8017241379310345
+hubble,scientific photograph,1,natural_text_200_01.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.25862068965517243
+hubble,scientific photograph,1,natural_text_200_01.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.034482758620689655
+hubble,scientific photograph,1,natural_text_200_01.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.4482758620689655
+hubble,scientific photograph,2,natural_text_200_02.bin,200,116,0.0,12,spectral,2,1,1,1.0,220.0,1.0,jpeg75,0,0,0.5344827586206896
+hubble,scientific photograph,2,natural_text_200_02.bin,200,116,0.0,12,spectral,2,1,1,1.0,220.0,1.0,rotate1,0,0,0.034482758620689655
+hubble,scientific photograph,2,natural_text_200_02.bin,200,116,0.0,12,spectral,2,1,1,1.0,220.0,1.0,noise2,0,0,0.7844827586206896
+hubble,scientific photograph,2,natural_text_200_02.bin,200,116,0.25,12,spectral,2,1,1,1.0,13.0,1.0,jpeg75,0,0,0.5086206896551724
+hubble,scientific photograph,2,natural_text_200_02.bin,200,116,0.25,12,spectral,2,1,1,1.0,13.0,1.0,rotate1,0,0,0.034482758620689655
+hubble,scientific photograph,2,natural_text_200_02.bin,200,116,0.25,12,spectral,2,1,1,1.0,13.0,1.0,noise2,0,0,0.7672413793103449
+hubble,scientific photograph,2,natural_text_200_02.bin,200,116,0.5,12,spectral,2,1,1,1.0,13.0,1.0,jpeg75,0,0,0.5086206896551724
+hubble,scientific photograph,2,natural_text_200_02.bin,200,116,0.5,12,spectral,2,1,1,1.0,13.0,1.0,rotate1,0,0,0.034482758620689655
+hubble,scientific photograph,2,natural_text_200_02.bin,200,116,0.5,12,spectral,2,1,1,1.0,13.0,1.0,noise2,0,0,0.7672413793103449
+hubble,scientific photograph,2,natural_text_200_02.bin,200,116,0.75,12,spectral,2,1,1,1.0,13.0,1.0,jpeg75,0,0,0.5086206896551724
+hubble,scientific photograph,2,natural_text_200_02.bin,200,116,0.75,12,spectral,2,1,1,1.0,13.0,1.0,rotate1,0,0,0.034482758620689655
+hubble,scientific photograph,2,natural_text_200_02.bin,200,116,0.75,12,spectral,2,1,1,1.0,13.0,1.0,noise2,0,0,0.7672413793103449
+hubble,scientific photograph,2,natural_text_200_02.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.1896551724137931
+hubble,scientific photograph,2,natural_text_200_02.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.008620689655172414
+hubble,scientific photograph,2,natural_text_200_02.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.3706896551724138
+immunohistochemistry,microscopy image,0,natural_text_200_00.bin,200,116,0.0,12,spectral,2,1,1,1.0,231.0,1.0,jpeg75,0,0,0.6293103448275862
+immunohistochemistry,microscopy image,0,natural_text_200_00.bin,200,116,0.0,12,spectral,2,1,1,1.0,231.0,1.0,rotate1,0,0,0.008620689655172414
+immunohistochemistry,microscopy image,0,natural_text_200_00.bin,200,116,0.0,12,spectral,2,1,1,1.0,231.0,1.0,noise2,0,0,0.7586206896551724
+immunohistochemistry,microscopy image,0,natural_text_200_00.bin,200,116,0.25,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.7327586206896551
+immunohistochemistry,microscopy image,0,natural_text_200_00.bin,200,116,0.25,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.0
+immunohistochemistry,microscopy image,0,natural_text_200_00.bin,200,116,0.25,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.8620689655172413
+immunohistochemistry,microscopy image,0,natural_text_200_00.bin,200,116,0.5,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.7327586206896551
+immunohistochemistry,microscopy image,0,natural_text_200_00.bin,200,116,0.5,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.0
+immunohistochemistry,microscopy image,0,natural_text_200_00.bin,200,116,0.5,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.8620689655172413
+immunohistochemistry,microscopy image,0,natural_text_200_00.bin,200,116,0.75,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.7327586206896551
+immunohistochemistry,microscopy image,0,natural_text_200_00.bin,200,116,0.75,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.0
+immunohistochemistry,microscopy image,0,natural_text_200_00.bin,200,116,0.75,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.8620689655172413
+immunohistochemistry,microscopy image,0,natural_text_200_00.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.5603448275862069
+immunohistochemistry,microscopy image,0,natural_text_200_00.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.008620689655172414
+immunohistochemistry,microscopy image,0,natural_text_200_00.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.7758620689655172
+immunohistochemistry,microscopy image,1,natural_text_200_01.bin,200,116,0.0,12,spectral,2,1,1,1.0,231.0,1.0,jpeg75,0,0,0.6637931034482759
+immunohistochemistry,microscopy image,1,natural_text_200_01.bin,200,116,0.0,12,spectral,2,1,1,1.0,231.0,1.0,rotate1,0,0,0.008620689655172414
+immunohistochemistry,microscopy image,1,natural_text_200_01.bin,200,116,0.0,12,spectral,2,1,1,1.0,231.0,1.0,noise2,0,0,0.853448275862069
+immunohistochemistry,microscopy image,1,natural_text_200_01.bin,200,116,0.25,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.6810344827586207
+immunohistochemistry,microscopy image,1,natural_text_200_01.bin,200,116,0.25,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.008620689655172414
+immunohistochemistry,microscopy image,1,natural_text_200_01.bin,200,116,0.25,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.8448275862068966
+immunohistochemistry,microscopy image,1,natural_text_200_01.bin,200,116,0.5,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.6810344827586207
+immunohistochemistry,microscopy image,1,natural_text_200_01.bin,200,116,0.5,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.008620689655172414
+immunohistochemistry,microscopy image,1,natural_text_200_01.bin,200,116,0.5,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.8448275862068966
+immunohistochemistry,microscopy image,1,natural_text_200_01.bin,200,116,0.75,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.6810344827586207
+immunohistochemistry,microscopy image,1,natural_text_200_01.bin,200,116,0.75,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.008620689655172414
+immunohistochemistry,microscopy image,1,natural_text_200_01.bin,200,116,0.75,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.8448275862068966
+immunohistochemistry,microscopy image,1,natural_text_200_01.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.603448275862069
+immunohistochemistry,microscopy image,1,natural_text_200_01.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.017241379310344827
+immunohistochemistry,microscopy image,1,natural_text_200_01.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.7586206896551724
+immunohistochemistry,microscopy image,2,natural_text_200_02.bin,200,116,0.0,12,spectral,2,1,1,1.0,231.0,1.0,jpeg75,0,0,0.7155172413793104
+immunohistochemistry,microscopy image,2,natural_text_200_02.bin,200,116,0.0,12,spectral,2,1,1,1.0,231.0,1.0,rotate1,0,0,0.017241379310344827
+immunohistochemistry,microscopy image,2,natural_text_200_02.bin,200,116,0.0,12,spectral,2,1,1,1.0,231.0,1.0,noise2,0,0,0.8362068965517241
+immunohistochemistry,microscopy image,2,natural_text_200_02.bin,200,116,0.25,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.6982758620689655
+immunohistochemistry,microscopy image,2,natural_text_200_02.bin,200,116,0.25,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.008620689655172414
+immunohistochemistry,microscopy image,2,natural_text_200_02.bin,200,116,0.25,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.8189655172413793
+immunohistochemistry,microscopy image,2,natural_text_200_02.bin,200,116,0.5,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.6982758620689655
+immunohistochemistry,microscopy image,2,natural_text_200_02.bin,200,116,0.5,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.008620689655172414
+immunohistochemistry,microscopy image,2,natural_text_200_02.bin,200,116,0.5,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.8189655172413793
+immunohistochemistry,microscopy image,2,natural_text_200_02.bin,200,116,0.75,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.6982758620689655
+immunohistochemistry,microscopy image,2,natural_text_200_02.bin,200,116,0.75,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.008620689655172414
+immunohistochemistry,microscopy image,2,natural_text_200_02.bin,200,116,0.75,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.8189655172413793
+immunohistochemistry,microscopy image,2,natural_text_200_02.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.5258620689655172
+immunohistochemistry,microscopy image,2,natural_text_200_02.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.02586206896551724
+immunohistochemistry,microscopy image,2,natural_text_200_02.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.6896551724137931
+logo,graphic,0,natural_text_200_00.bin,200,116,0.0,12,spectral,2,1,1,1.0,209.0,1.0,jpeg75,0,0,0.7155172413793104
+logo,graphic,0,natural_text_200_00.bin,200,116,0.0,12,spectral,2,1,1,1.0,209.0,1.0,rotate1,0,0,0.23275862068965517
+logo,graphic,0,natural_text_200_00.bin,200,116,0.0,12,spectral,2,1,1,1.0,209.0,1.0,noise2,0,0,0.8448275862068966
+logo,graphic,0,natural_text_200_00.bin,200,116,0.25,12,spectral,2,1,1,1.0,14.0,1.0,jpeg75,0,0,0.7155172413793104
+logo,graphic,0,natural_text_200_00.bin,200,116,0.25,12,spectral,2,1,1,1.0,14.0,1.0,rotate1,0,0,0.21551724137931033
+logo,graphic,0,natural_text_200_00.bin,200,116,0.25,12,spectral,2,1,1,1.0,14.0,1.0,noise2,0,0,0.7672413793103449
+logo,graphic,0,natural_text_200_00.bin,200,116,0.5,12,spectral,2,1,1,1.0,14.0,1.0,jpeg75,0,0,0.7155172413793104
+logo,graphic,0,natural_text_200_00.bin,200,116,0.5,12,spectral,2,1,1,1.0,14.0,1.0,rotate1,0,0,0.21551724137931033
+logo,graphic,0,natural_text_200_00.bin,200,116,0.5,12,spectral,2,1,1,1.0,14.0,1.0,noise2,0,0,0.7672413793103449
+logo,graphic,0,natural_text_200_00.bin,200,116,0.75,12,spectral,2,1,1,1.0,14.0,1.0,jpeg75,0,0,0.7155172413793104
+logo,graphic,0,natural_text_200_00.bin,200,116,0.75,12,spectral,2,1,1,1.0,14.0,1.0,rotate1,0,0,0.21551724137931033
+logo,graphic,0,natural_text_200_00.bin,200,116,0.75,12,spectral,2,1,1,1.0,14.0,1.0,noise2,0,0,0.7672413793103449
+logo,graphic,0,natural_text_200_00.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.08620689655172414
+logo,graphic,0,natural_text_200_00.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.08620689655172414
+logo,graphic,0,natural_text_200_00.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.11206896551724138
+logo,graphic,1,natural_text_200_01.bin,200,116,0.0,12,spectral,2,1,1,1.0,214.0,1.0,jpeg75,0,0,0.7241379310344828
+logo,graphic,1,natural_text_200_01.bin,200,116,0.0,12,spectral,2,1,1,1.0,214.0,1.0,rotate1,0,0,0.23275862068965517
+logo,graphic,1,natural_text_200_01.bin,200,116,0.0,12,spectral,2,1,1,1.0,214.0,1.0,noise2,0,0,0.7155172413793104
+logo,graphic,1,natural_text_200_01.bin,200,116,0.25,12,spectral,2,1,1,1.0,20.0,1.0,jpeg75,0,0,0.7068965517241379
+logo,graphic,1,natural_text_200_01.bin,200,116,0.25,12,spectral,2,1,1,1.0,20.0,1.0,rotate1,0,0,0.1724137931034483
+logo,graphic,1,natural_text_200_01.bin,200,116,0.25,12,spectral,2,1,1,1.0,20.0,1.0,noise2,0,0,0.7241379310344828
+logo,graphic,1,natural_text_200_01.bin,200,116,0.5,12,spectral,2,1,1,1.0,20.0,1.0,jpeg75,0,0,0.7068965517241379
+logo,graphic,1,natural_text_200_01.bin,200,116,0.5,12,spectral,2,1,1,1.0,20.0,1.0,rotate1,0,0,0.1724137931034483
+logo,graphic,1,natural_text_200_01.bin,200,116,0.5,12,spectral,2,1,1,1.0,20.0,1.0,noise2,0,0,0.7241379310344828
+logo,graphic,1,natural_text_200_01.bin,200,116,0.75,12,spectral,2,1,1,1.0,20.0,1.0,jpeg75,0,0,0.7068965517241379
+logo,graphic,1,natural_text_200_01.bin,200,116,0.75,12,spectral,2,1,1,1.0,20.0,1.0,rotate1,0,0,0.1724137931034483
+logo,graphic,1,natural_text_200_01.bin,200,116,0.75,12,spectral,2,1,1,1.0,20.0,1.0,noise2,0,0,0.7241379310344828
+logo,graphic,1,natural_text_200_01.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.08620689655172414
+logo,graphic,1,natural_text_200_01.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.1206896551724138
+logo,graphic,1,natural_text_200_01.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.08620689655172414
+logo,graphic,2,natural_text_200_02.bin,200,116,0.0,12,spectral,2,1,1,1.0,210.0,1.0,jpeg75,0,0,0.7586206896551724
+logo,graphic,2,natural_text_200_02.bin,200,116,0.0,12,spectral,2,1,1,1.0,210.0,1.0,rotate1,0,0,0.21551724137931033
+logo,graphic,2,natural_text_200_02.bin,200,116,0.0,12,spectral,2,1,1,1.0,210.0,1.0,noise2,0,0,0.8103448275862069
+logo,graphic,2,natural_text_200_02.bin,200,116,0.25,12,spectral,2,1,1,1.0,20.0,1.0,jpeg75,0,0,0.7413793103448276
+logo,graphic,2,natural_text_200_02.bin,200,116,0.25,12,spectral,2,1,1,1.0,20.0,1.0,rotate1,0,0,0.16379310344827586
+logo,graphic,2,natural_text_200_02.bin,200,116,0.25,12,spectral,2,1,1,1.0,20.0,1.0,noise2,0,0,0.7327586206896551
+logo,graphic,2,natural_text_200_02.bin,200,116,0.5,12,spectral,2,1,1,1.0,20.0,1.0,jpeg75,0,0,0.7413793103448276
+logo,graphic,2,natural_text_200_02.bin,200,116,0.5,12,spectral,2,1,1,1.0,20.0,1.0,rotate1,0,0,0.16379310344827586
+logo,graphic,2,natural_text_200_02.bin,200,116,0.5,12,spectral,2,1,1,1.0,20.0,1.0,noise2,0,0,0.7327586206896551
+logo,graphic,2,natural_text_200_02.bin,200,116,0.75,12,spectral,2,1,1,1.0,20.0,1.0,jpeg75,0,0,0.7413793103448276
+logo,graphic,2,natural_text_200_02.bin,200,116,0.75,12,spectral,2,1,1,1.0,20.0,1.0,rotate1,0,0,0.16379310344827586
+logo,graphic,2,natural_text_200_02.bin,200,116,0.75,12,spectral,2,1,1,1.0,20.0,1.0,noise2,0,0,0.7327586206896551
+logo,graphic,2,natural_text_200_02.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.08620689655172414
+logo,graphic,2,natural_text_200_02.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.10344827586206896
+logo,graphic,2,natural_text_200_02.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.13793103448275862
+retina,medical photograph,0,natural_text_200_00.bin,200,116,0.0,12,spectral,2,1,1,1.0,207.0,1.0,jpeg75,0,0,0.5086206896551724
+retina,medical photograph,0,natural_text_200_00.bin,200,116,0.0,12,spectral,2,1,1,1.0,207.0,1.0,rotate1,0,0,0.12931034482758622
+retina,medical photograph,0,natural_text_200_00.bin,200,116,0.0,12,spectral,2,1,1,1.0,207.0,1.0,noise2,0,0,0.5689655172413793
+retina,medical photograph,0,natural_text_200_00.bin,200,116,0.25,12,spectral,2,1,1,1.0,18.0,1.0,jpeg75,0,0,0.5172413793103449
+retina,medical photograph,0,natural_text_200_00.bin,200,116,0.25,12,spectral,2,1,1,1.0,18.0,1.0,rotate1,0,0,0.12931034482758622
+retina,medical photograph,0,natural_text_200_00.bin,200,116,0.25,12,spectral,2,1,1,1.0,18.0,1.0,noise2,0,0,0.5948275862068966
+retina,medical photograph,0,natural_text_200_00.bin,200,116,0.5,12,spectral,2,1,1,1.0,18.0,1.0,jpeg75,0,0,0.5172413793103449
+retina,medical photograph,0,natural_text_200_00.bin,200,116,0.5,12,spectral,2,1,1,1.0,18.0,1.0,rotate1,0,0,0.12931034482758622
+retina,medical photograph,0,natural_text_200_00.bin,200,116,0.5,12,spectral,2,1,1,1.0,18.0,1.0,noise2,0,0,0.5948275862068966
+retina,medical photograph,0,natural_text_200_00.bin,200,116,0.75,12,spectral,2,1,1,1.0,18.0,1.0,jpeg75,0,0,0.5172413793103449
+retina,medical photograph,0,natural_text_200_00.bin,200,116,0.75,12,spectral,2,1,1,1.0,18.0,1.0,rotate1,0,0,0.12931034482758622
+retina,medical photograph,0,natural_text_200_00.bin,200,116,0.75,12,spectral,2,1,1,1.0,18.0,1.0,noise2,0,0,0.5948275862068966
+retina,medical photograph,0,natural_text_200_00.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.15517241379310345
+retina,medical photograph,0,natural_text_200_00.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.06896551724137931
+retina,medical photograph,0,natural_text_200_00.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.16379310344827586
+retina,medical photograph,1,natural_text_200_01.bin,200,116,0.0,12,spectral,2,1,1,1.0,216.0,1.0,jpeg75,0,0,0.47413793103448276
+retina,medical photograph,1,natural_text_200_01.bin,200,116,0.0,12,spectral,2,1,1,1.0,216.0,1.0,rotate1,0,0,0.11206896551724138
+retina,medical photograph,1,natural_text_200_01.bin,200,116,0.0,12,spectral,2,1,1,1.0,216.0,1.0,noise2,0,0,0.5344827586206896
+retina,medical photograph,1,natural_text_200_01.bin,200,116,0.25,12,spectral,2,1,1,1.0,28.0,1.0,jpeg75,0,0,0.5
+retina,medical photograph,1,natural_text_200_01.bin,200,116,0.25,12,spectral,2,1,1,1.0,28.0,1.0,rotate1,0,0,0.13793103448275862
+retina,medical photograph,1,natural_text_200_01.bin,200,116,0.25,12,spectral,2,1,1,1.0,28.0,1.0,noise2,0,0,0.5775862068965517
+retina,medical photograph,1,natural_text_200_01.bin,200,116,0.5,12,spectral,2,1,1,1.0,28.0,1.0,jpeg75,0,0,0.5
+retina,medical photograph,1,natural_text_200_01.bin,200,116,0.5,12,spectral,2,1,1,1.0,28.0,1.0,rotate1,0,0,0.13793103448275862
+retina,medical photograph,1,natural_text_200_01.bin,200,116,0.5,12,spectral,2,1,1,1.0,28.0,1.0,noise2,0,0,0.5775862068965517
+retina,medical photograph,1,natural_text_200_01.bin,200,116,0.75,12,spectral,2,1,1,1.0,28.0,1.0,jpeg75,0,0,0.5
+retina,medical photograph,1,natural_text_200_01.bin,200,116,0.75,12,spectral,2,1,1,1.0,28.0,1.0,rotate1,0,0,0.13793103448275862
+retina,medical photograph,1,natural_text_200_01.bin,200,116,0.75,12,spectral,2,1,1,1.0,28.0,1.0,noise2,0,0,0.5775862068965517
+retina,medical photograph,1,natural_text_200_01.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.1724137931034483
+retina,medical photograph,1,natural_text_200_01.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.06896551724137931
+retina,medical photograph,1,natural_text_200_01.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.1810344827586207
+retina,medical photograph,2,natural_text_200_02.bin,200,116,0.0,12,spectral,2,1,1,1.0,213.0,1.0,jpeg75,0,0,0.5258620689655172
+retina,medical photograph,2,natural_text_200_02.bin,200,116,0.0,12,spectral,2,1,1,1.0,213.0,1.0,rotate1,0,0,0.09482758620689655
+retina,medical photograph,2,natural_text_200_02.bin,200,116,0.0,12,spectral,2,1,1,1.0,213.0,1.0,noise2,0,0,0.5775862068965517
+retina,medical photograph,2,natural_text_200_02.bin,200,116,0.25,12,spectral,2,1,1,1.0,25.0,1.0,jpeg75,0,0,0.5517241379310345
+retina,medical photograph,2,natural_text_200_02.bin,200,116,0.25,12,spectral,2,1,1,1.0,25.0,1.0,rotate1,0,0,0.16379310344827586
+retina,medical photograph,2,natural_text_200_02.bin,200,116,0.25,12,spectral,2,1,1,1.0,25.0,1.0,noise2,0,0,0.6293103448275862
+retina,medical photograph,2,natural_text_200_02.bin,200,116,0.5,12,spectral,2,1,1,1.0,25.0,1.0,jpeg75,0,0,0.5517241379310345
+retina,medical photograph,2,natural_text_200_02.bin,200,116,0.5,12,spectral,2,1,1,1.0,25.0,1.0,rotate1,0,0,0.16379310344827586
+retina,medical photograph,2,natural_text_200_02.bin,200,116,0.5,12,spectral,2,1,1,1.0,25.0,1.0,noise2,0,0,0.6293103448275862
+retina,medical photograph,2,natural_text_200_02.bin,200,116,0.75,12,spectral,2,1,1,1.0,25.0,1.0,jpeg75,0,0,0.5517241379310345
+retina,medical photograph,2,natural_text_200_02.bin,200,116,0.75,12,spectral,2,1,1,1.0,25.0,1.0,rotate1,0,0,0.16379310344827586
+retina,medical photograph,2,natural_text_200_02.bin,200,116,0.75,12,spectral,2,1,1,1.0,25.0,1.0,noise2,0,0,0.6293103448275862
+retina,medical photograph,2,natural_text_200_02.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.1724137931034483
+retina,medical photograph,2,natural_text_200_02.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.06896551724137931
+retina,medical photograph,2,natural_text_200_02.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.23275862068965517
+rocket,photograph,0,natural_text_200_00.bin,200,116,0.0,12,spectral,2,1,1,1.0,199.0,1.0,jpeg75,0,0,0.3793103448275862
+rocket,photograph,0,natural_text_200_00.bin,200,116,0.0,12,spectral,2,1,1,1.0,199.0,1.0,rotate1,0,0,0.02586206896551724
+rocket,photograph,0,natural_text_200_00.bin,200,116,0.0,12,spectral,2,1,1,1.0,199.0,1.0,noise2,0,0,0.7241379310344828
+rocket,photograph,0,natural_text_200_00.bin,200,116,0.25,12,spectral,2,1,1,1.0,22.0,1.0,jpeg75,0,0,0.3879310344827586
+rocket,photograph,0,natural_text_200_00.bin,200,116,0.25,12,spectral,2,1,1,1.0,22.0,1.0,rotate1,0,0,0.017241379310344827
+rocket,photograph,0,natural_text_200_00.bin,200,116,0.25,12,spectral,2,1,1,1.0,22.0,1.0,noise2,0,0,0.6551724137931034
+rocket,photograph,0,natural_text_200_00.bin,200,116,0.5,12,spectral,2,1,1,1.0,22.0,1.0,jpeg75,0,0,0.3879310344827586
+rocket,photograph,0,natural_text_200_00.bin,200,116,0.5,12,spectral,2,1,1,1.0,22.0,1.0,rotate1,0,0,0.017241379310344827
+rocket,photograph,0,natural_text_200_00.bin,200,116,0.5,12,spectral,2,1,1,1.0,22.0,1.0,noise2,0,0,0.6551724137931034
+rocket,photograph,0,natural_text_200_00.bin,200,116,0.75,12,spectral,2,1,1,1.0,22.0,1.0,jpeg75,0,0,0.3879310344827586
+rocket,photograph,0,natural_text_200_00.bin,200,116,0.75,12,spectral,2,1,1,1.0,22.0,1.0,rotate1,0,0,0.017241379310344827
+rocket,photograph,0,natural_text_200_00.bin,200,116,0.75,12,spectral,2,1,1,1.0,22.0,1.0,noise2,0,0,0.6551724137931034
+rocket,photograph,0,natural_text_200_00.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.07758620689655173
+rocket,photograph,0,natural_text_200_00.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.0
+rocket,photograph,0,natural_text_200_00.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.07758620689655173
+rocket,photograph,1,natural_text_200_01.bin,200,116,0.0,12,spectral,2,1,1,1.0,205.0,1.0,jpeg75,0,0,0.4051724137931034
+rocket,photograph,1,natural_text_200_01.bin,200,116,0.0,12,spectral,2,1,1,1.0,205.0,1.0,rotate1,0,0,0.017241379310344827
+rocket,photograph,1,natural_text_200_01.bin,200,116,0.0,12,spectral,2,1,1,1.0,205.0,1.0,noise2,0,0,0.6551724137931034
+rocket,photograph,1,natural_text_200_01.bin,200,116,0.25,12,spectral,2,1,1,1.0,24.0,1.0,jpeg75,0,0,0.4396551724137931
+rocket,photograph,1,natural_text_200_01.bin,200,116,0.25,12,spectral,2,1,1,1.0,24.0,1.0,rotate1,0,0,0.017241379310344827
+rocket,photograph,1,natural_text_200_01.bin,200,116,0.25,12,spectral,2,1,1,1.0,24.0,1.0,noise2,0,0,0.75
+rocket,photograph,1,natural_text_200_01.bin,200,116,0.5,12,spectral,2,1,1,1.0,24.0,1.0,jpeg75,0,0,0.4396551724137931
+rocket,photograph,1,natural_text_200_01.bin,200,116,0.5,12,spectral,2,1,1,1.0,24.0,1.0,rotate1,0,0,0.017241379310344827
+rocket,photograph,1,natural_text_200_01.bin,200,116,0.5,12,spectral,2,1,1,1.0,24.0,1.0,noise2,0,0,0.75
+rocket,photograph,1,natural_text_200_01.bin,200,116,0.75,12,spectral,2,1,1,1.0,24.0,1.0,jpeg75,0,0,0.4396551724137931
+rocket,photograph,1,natural_text_200_01.bin,200,116,0.75,12,spectral,2,1,1,1.0,24.0,1.0,rotate1,0,0,0.017241379310344827
+rocket,photograph,1,natural_text_200_01.bin,200,116,0.75,12,spectral,2,1,1,1.0,24.0,1.0,noise2,0,0,0.75
+rocket,photograph,1,natural_text_200_01.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.05172413793103448
+rocket,photograph,1,natural_text_200_01.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.0
+rocket,photograph,1,natural_text_200_01.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.09482758620689655
+rocket,photograph,2,natural_text_200_02.bin,200,116,0.0,12,spectral,2,1,1,1.0,204.0,1.0,jpeg75,0,0,0.5
+rocket,photograph,2,natural_text_200_02.bin,200,116,0.0,12,spectral,2,1,1,1.0,204.0,1.0,rotate1,0,0,0.02586206896551724
+rocket,photograph,2,natural_text_200_02.bin,200,116,0.0,12,spectral,2,1,1,1.0,204.0,1.0,noise2,0,0,0.7586206896551724
+rocket,photograph,2,natural_text_200_02.bin,200,116,0.25,12,spectral,2,1,1,1.0,20.0,1.0,jpeg75,0,0,0.43103448275862066
+rocket,photograph,2,natural_text_200_02.bin,200,116,0.25,12,spectral,2,1,1,1.0,20.0,1.0,rotate1,0,0,0.008620689655172414
+rocket,photograph,2,natural_text_200_02.bin,200,116,0.25,12,spectral,2,1,1,1.0,20.0,1.0,noise2,0,0,0.8017241379310345
+rocket,photograph,2,natural_text_200_02.bin,200,116,0.5,12,spectral,2,1,1,1.0,20.0,1.0,jpeg75,0,0,0.43103448275862066
+rocket,photograph,2,natural_text_200_02.bin,200,116,0.5,12,spectral,2,1,1,1.0,20.0,1.0,rotate1,0,0,0.008620689655172414
+rocket,photograph,2,natural_text_200_02.bin,200,116,0.5,12,spectral,2,1,1,1.0,20.0,1.0,noise2,0,0,0.8017241379310345
+rocket,photograph,2,natural_text_200_02.bin,200,116,0.75,12,spectral,2,1,1,1.0,20.0,1.0,jpeg75,0,0,0.43103448275862066
+rocket,photograph,2,natural_text_200_02.bin,200,116,0.75,12,spectral,2,1,1,1.0,20.0,1.0,rotate1,0,0,0.008620689655172414
+rocket,photograph,2,natural_text_200_02.bin,200,116,0.75,12,spectral,2,1,1,1.0,20.0,1.0,noise2,0,0,0.8017241379310345
+rocket,photograph,2,natural_text_200_02.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.034482758620689655
+rocket,photograph,2,natural_text_200_02.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.008620689655172414
+rocket,photograph,2,natural_text_200_02.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.07758620689655173
+text,scanned document,0,natural_text_200_00.bin,200,116,0.0,12,spectral,2,1,1,1.0,228.0,1.0,jpeg75,0,0,0.5862068965517241
+text,scanned document,0,natural_text_200_00.bin,200,116,0.0,12,spectral,2,1,1,1.0,228.0,1.0,rotate1,0,0,0.008620689655172414
+text,scanned document,0,natural_text_200_00.bin,200,116,0.0,12,spectral,2,1,1,1.0,228.0,1.0,noise2,0,0,0.6810344827586207
+text,scanned document,0,natural_text_200_00.bin,200,116,0.25,12,spectral,2,1,1,1.0,3.0,1.0,jpeg75,0,0,0.5
+text,scanned document,0,natural_text_200_00.bin,200,116,0.25,12,spectral,2,1,1,1.0,3.0,1.0,rotate1,0,0,0.017241379310344827
+text,scanned document,0,natural_text_200_00.bin,200,116,0.25,12,spectral,2,1,1,1.0,3.0,1.0,noise2,0,0,0.5775862068965517
+text,scanned document,0,natural_text_200_00.bin,200,116,0.5,12,spectral,2,1,1,1.0,3.0,1.0,jpeg75,0,0,0.5
+text,scanned document,0,natural_text_200_00.bin,200,116,0.5,12,spectral,2,1,1,1.0,3.0,1.0,rotate1,0,0,0.017241379310344827
+text,scanned document,0,natural_text_200_00.bin,200,116,0.5,12,spectral,2,1,1,1.0,3.0,1.0,noise2,0,0,0.5775862068965517
+text,scanned document,0,natural_text_200_00.bin,200,116,0.75,12,spectral,2,1,1,1.0,3.0,1.0,jpeg75,0,0,0.5
+text,scanned document,0,natural_text_200_00.bin,200,116,0.75,12,spectral,2,1,1,1.0,3.0,1.0,rotate1,0,0,0.017241379310344827
+text,scanned document,0,natural_text_200_00.bin,200,116,0.75,12,spectral,2,1,1,1.0,3.0,1.0,noise2,0,0,0.5775862068965517
+text,scanned document,0,natural_text_200_00.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.2413793103448276
+text,scanned document,0,natural_text_200_00.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.008620689655172414
+text,scanned document,0,natural_text_200_00.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.33620689655172414
+text,scanned document,1,natural_text_200_01.bin,200,116,0.0,12,spectral,2,1,1,1.0,230.0,1.0,jpeg75,0,0,0.5344827586206896
+text,scanned document,1,natural_text_200_01.bin,200,116,0.0,12,spectral,2,1,1,1.0,230.0,1.0,rotate1,0,0,0.008620689655172414
+text,scanned document,1,natural_text_200_01.bin,200,116,0.0,12,spectral,2,1,1,1.0,230.0,1.0,noise2,0,0,0.5689655172413793
+text,scanned document,1,natural_text_200_01.bin,200,116,0.25,12,spectral,2,1,1,1.0,4.0,1.0,jpeg75,0,0,0.5862068965517241
+text,scanned document,1,natural_text_200_01.bin,200,116,0.25,12,spectral,2,1,1,1.0,4.0,1.0,rotate1,0,0,0.02586206896551724
+text,scanned document,1,natural_text_200_01.bin,200,116,0.25,12,spectral,2,1,1,1.0,4.0,1.0,noise2,0,0,0.6724137931034483
+text,scanned document,1,natural_text_200_01.bin,200,116,0.5,12,spectral,2,1,1,1.0,4.0,1.0,jpeg75,0,0,0.5862068965517241
+text,scanned document,1,natural_text_200_01.bin,200,116,0.5,12,spectral,2,1,1,1.0,4.0,1.0,rotate1,0,0,0.02586206896551724
+text,scanned document,1,natural_text_200_01.bin,200,116,0.5,12,spectral,2,1,1,1.0,4.0,1.0,noise2,0,0,0.6724137931034483
+text,scanned document,1,natural_text_200_01.bin,200,116,0.75,12,spectral,2,1,1,1.0,4.0,1.0,jpeg75,0,0,0.5862068965517241
+text,scanned document,1,natural_text_200_01.bin,200,116,0.75,12,spectral,2,1,1,1.0,4.0,1.0,rotate1,0,0,0.02586206896551724
+text,scanned document,1,natural_text_200_01.bin,200,116,0.75,12,spectral,2,1,1,1.0,4.0,1.0,noise2,0,0,0.6724137931034483
+text,scanned document,1,natural_text_200_01.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.27586206896551724
+text,scanned document,1,natural_text_200_01.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.008620689655172414
+text,scanned document,1,natural_text_200_01.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.31896551724137934
+text,scanned document,2,natural_text_200_02.bin,200,116,0.0,12,spectral,2,1,1,1.0,227.0,1.0,jpeg75,0,0,0.5086206896551724
+text,scanned document,2,natural_text_200_02.bin,200,116,0.0,12,spectral,2,1,1,1.0,227.0,1.0,rotate1,0,0,0.017241379310344827
+text,scanned document,2,natural_text_200_02.bin,200,116,0.0,12,spectral,2,1,1,1.0,227.0,1.0,noise2,0,0,0.603448275862069
+text,scanned document,2,natural_text_200_02.bin,200,116,0.25,12,spectral,2,1,1,1.0,4.0,1.0,jpeg75,0,0,0.46551724137931033
+text,scanned document,2,natural_text_200_02.bin,200,116,0.25,12,spectral,2,1,1,1.0,4.0,1.0,rotate1,0,0,0.02586206896551724
+text,scanned document,2,natural_text_200_02.bin,200,116,0.25,12,spectral,2,1,1,1.0,4.0,1.0,noise2,0,0,0.5862068965517241
+text,scanned document,2,natural_text_200_02.bin,200,116,0.5,12,spectral,2,1,1,1.0,4.0,1.0,jpeg75,0,0,0.46551724137931033
+text,scanned document,2,natural_text_200_02.bin,200,116,0.5,12,spectral,2,1,1,1.0,4.0,1.0,rotate1,0,0,0.02586206896551724
+text,scanned document,2,natural_text_200_02.bin,200,116,0.5,12,spectral,2,1,1,1.0,4.0,1.0,noise2,0,0,0.5862068965517241
+text,scanned document,2,natural_text_200_02.bin,200,116,0.75,12,spectral,2,1,1,1.0,4.0,1.0,jpeg75,0,0,0.46551724137931033
+text,scanned document,2,natural_text_200_02.bin,200,116,0.75,12,spectral,2,1,1,1.0,4.0,1.0,rotate1,0,0,0.02586206896551724
+text,scanned document,2,natural_text_200_02.bin,200,116,0.75,12,spectral,2,1,1,1.0,4.0,1.0,noise2,0,0,0.5862068965517241
+text,scanned document,2,natural_text_200_02.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.2672413793103448
+text,scanned document,2,natural_text_200_02.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.0
+text,scanned document,2,natural_text_200_02.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.3103448275862069
+colorwheel,synthetic graphic,0,natural_text_200_00.bin,200,116,0.0,12,spectral,2,1,1,1.0,161.0,1.0,jpeg75,0,0,0.29310344827586204
+colorwheel,synthetic graphic,0,natural_text_200_00.bin,200,116,0.0,12,spectral,2,1,1,1.0,161.0,1.0,rotate1,0,0,0.4224137931034483
+colorwheel,synthetic graphic,0,natural_text_200_00.bin,200,116,0.0,12,spectral,2,1,1,1.0,161.0,1.0,noise2,0,0,0.20689655172413793
+colorwheel,synthetic graphic,0,natural_text_200_00.bin,200,116,0.25,12,spectral,2,1,1,1.0,83.0,1.0,jpeg75,0,0,0.3017241379310345
+colorwheel,synthetic graphic,0,natural_text_200_00.bin,200,116,0.25,12,spectral,2,1,1,1.0,83.0,1.0,rotate1,0,0,0.4224137931034483
+colorwheel,synthetic graphic,0,natural_text_200_00.bin,200,116,0.25,12,spectral,2,1,1,1.0,83.0,1.0,noise2,0,0,0.1896551724137931
+colorwheel,synthetic graphic,0,natural_text_200_00.bin,200,116,0.5,12,spectral,2,1,1,1.0,83.0,1.0,jpeg75,0,0,0.3017241379310345
+colorwheel,synthetic graphic,0,natural_text_200_00.bin,200,116,0.5,12,spectral,2,1,1,1.0,83.0,1.0,rotate1,0,0,0.4224137931034483
+colorwheel,synthetic graphic,0,natural_text_200_00.bin,200,116,0.5,12,spectral,2,1,1,1.0,83.0,1.0,noise2,0,0,0.1896551724137931
+colorwheel,synthetic graphic,0,natural_text_200_00.bin,200,116,0.75,12,spectral,2,1,1,1.0,83.0,1.0,jpeg75,0,0,0.3017241379310345
+colorwheel,synthetic graphic,0,natural_text_200_00.bin,200,116,0.75,12,spectral,2,1,1,1.0,83.0,1.0,rotate1,0,0,0.4224137931034483
+colorwheel,synthetic graphic,0,natural_text_200_00.bin,200,116,0.75,12,spectral,2,1,1,1.0,83.0,1.0,noise2,0,0,0.1896551724137931
+colorwheel,synthetic graphic,0,natural_text_200_00.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.0603448275862069
+colorwheel,synthetic graphic,0,natural_text_200_00.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.1206896551724138
+colorwheel,synthetic graphic,0,natural_text_200_00.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.034482758620689655
+colorwheel,synthetic graphic,1,natural_text_200_01.bin,200,116,0.0,12,spectral,2,1,1,1.0,172.0,1.0,jpeg75,0,0,0.29310344827586204
+colorwheel,synthetic graphic,1,natural_text_200_01.bin,200,116,0.0,12,spectral,2,1,1,1.0,172.0,1.0,rotate1,0,0,0.41379310344827586
+colorwheel,synthetic graphic,1,natural_text_200_01.bin,200,116,0.0,12,spectral,2,1,1,1.0,172.0,1.0,noise2,0,0,0.25
+colorwheel,synthetic graphic,1,natural_text_200_01.bin,200,116,0.25,12,spectral,2,1,1,1.0,90.0,1.0,jpeg75,0,0,0.2413793103448276
+colorwheel,synthetic graphic,1,natural_text_200_01.bin,200,116,0.25,12,spectral,2,1,1,1.0,90.0,1.0,rotate1,0,0,0.39655172413793105
+colorwheel,synthetic graphic,1,natural_text_200_01.bin,200,116,0.25,12,spectral,2,1,1,1.0,90.0,1.0,noise2,0,0,0.2413793103448276
+colorwheel,synthetic graphic,1,natural_text_200_01.bin,200,116,0.5,12,spectral,2,1,1,1.0,90.0,1.0,jpeg75,0,0,0.2413793103448276
+colorwheel,synthetic graphic,1,natural_text_200_01.bin,200,116,0.5,12,spectral,2,1,1,1.0,90.0,1.0,rotate1,0,0,0.39655172413793105
+colorwheel,synthetic graphic,1,natural_text_200_01.bin,200,116,0.5,12,spectral,2,1,1,1.0,90.0,1.0,noise2,0,0,0.2413793103448276
+colorwheel,synthetic graphic,1,natural_text_200_01.bin,200,116,0.75,12,spectral,2,1,1,1.0,90.0,1.0,jpeg75,0,0,0.2413793103448276
+colorwheel,synthetic graphic,1,natural_text_200_01.bin,200,116,0.75,12,spectral,2,1,1,1.0,90.0,1.0,rotate1,0,0,0.39655172413793105
+colorwheel,synthetic graphic,1,natural_text_200_01.bin,200,116,0.75,12,spectral,2,1,1,1.0,90.0,1.0,noise2,0,0,0.2413793103448276
+colorwheel,synthetic graphic,1,natural_text_200_01.bin,200,116,1.0,12,spectral,2,1,1,1.0,1.0,1.0,jpeg75,0,0,0.04310344827586207
+colorwheel,synthetic graphic,1,natural_text_200_01.bin,200,116,1.0,12,spectral,2,1,1,1.0,1.0,1.0,rotate1,0,0,0.10344827586206896
+colorwheel,synthetic graphic,1,natural_text_200_01.bin,200,116,1.0,12,spectral,2,1,1,1.0,1.0,1.0,noise2,0,0,0.02586206896551724
+colorwheel,synthetic graphic,2,natural_text_200_02.bin,200,116,0.0,12,spectral,2,1,1,1.0,176.0,1.0,jpeg75,0,0,0.3275862068965517
+colorwheel,synthetic graphic,2,natural_text_200_02.bin,200,116,0.0,12,spectral,2,1,1,1.0,176.0,1.0,rotate1,0,0,0.47413793103448276
+colorwheel,synthetic graphic,2,natural_text_200_02.bin,200,116,0.0,12,spectral,2,1,1,1.0,176.0,1.0,noise2,0,0,0.14655172413793102
+colorwheel,synthetic graphic,2,natural_text_200_02.bin,200,116,0.25,12,spectral,2,1,1,1.0,82.0,1.0,jpeg75,0,0,0.3275862068965517
+colorwheel,synthetic graphic,2,natural_text_200_02.bin,200,116,0.25,12,spectral,2,1,1,1.0,82.0,1.0,rotate1,0,0,0.47413793103448276
+colorwheel,synthetic graphic,2,natural_text_200_02.bin,200,116,0.25,12,spectral,2,1,1,1.0,82.0,1.0,noise2,0,0,0.13793103448275862
+colorwheel,synthetic graphic,2,natural_text_200_02.bin,200,116,0.5,12,spectral,2,1,1,1.0,82.0,1.0,jpeg75,0,0,0.3275862068965517
+colorwheel,synthetic graphic,2,natural_text_200_02.bin,200,116,0.5,12,spectral,2,1,1,1.0,82.0,1.0,rotate1,0,0,0.47413793103448276
+colorwheel,synthetic graphic,2,natural_text_200_02.bin,200,116,0.5,12,spectral,2,1,1,1.0,82.0,1.0,noise2,0,0,0.13793103448275862
+colorwheel,synthetic graphic,2,natural_text_200_02.bin,200,116,0.75,12,spectral,2,1,1,1.0,82.0,1.0,jpeg75,0,0,0.3275862068965517
+colorwheel,synthetic graphic,2,natural_text_200_02.bin,200,116,0.75,12,spectral,2,1,1,1.0,82.0,1.0,rotate1,0,0,0.47413793103448276
+colorwheel,synthetic graphic,2,natural_text_200_02.bin,200,116,0.75,12,spectral,2,1,1,1.0,82.0,1.0,noise2,0,0,0.13793103448275862
+colorwheel,synthetic graphic,2,natural_text_200_02.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,jpeg75,0,0,0.034482758620689655
+colorwheel,synthetic graphic,2,natural_text_200_02.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,rotate1,0,0,0.07758620689655173
+colorwheel,synthetic graphic,2,natural_text_200_02.bin,200,116,1.0,12,spectral,2,1,1,1.0,0.0,1.0,noise2,0,0,0.017241379310344827

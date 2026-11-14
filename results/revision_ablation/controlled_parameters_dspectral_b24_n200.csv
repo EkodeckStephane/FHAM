@@ -1,0 +1,9 @@
+corpus,descriptor,block_size,bound,message_family,input_length,compression,trials,mean_coded_length,feasible_b2,b_star_median,mean_codebook_positions,mean_distinct_hashes,mean_build_ms,mean_feasibility_ms
+controlled,spectral,24,2,adversarial_repeated,200,none,24,200.0,0.0,34.0,1764.0,250.5,119.2177000339143,0.35612079470107955
+controlled,spectral,24,2,adversarial_repeated,200,zlib9,24,12.0,1.0,0.0,1764.0,250.5,119.2177000339143,0.3151542235476275
+controlled,spectral,24,2,natural_text,200,none,24,200.0,0.125,4.0,1764.0,250.5,119.2177000339143,0.4386166692711413
+controlled,spectral,24,2,natural_text,200,zlib9,24,116.0,1.0,1.0,1764.0,250.5,119.2177000339143,0.8401958621107042
+controlled,spectral,24,2,printable_ascii,200,none,24,200.0,1.0,1.0,1764.0,250.5,119.2177000339143,0.7689417495081822
+controlled,spectral,24,2,printable_ascii,200,zlib9,24,201.0,1.0,1.0,1764.0,250.5,119.2177000339143,1.1113208408157031
+controlled,spectral,24,2,uniform_bytes,200,none,24,200.0,1.0,1.0,1764.0,250.5,119.2177000339143,1.0913082902940612
+controlled,spectral,24,2,uniform_bytes,200,zlib9,24,211.0,1.0,1.0,1764.0,250.5,119.2177000339143,1.1770791801003118

@@ -1,0 +1,5 @@
+corpus,image,content_type,descriptor,block_size,bound,message_family,input_length,compression,coded_length,trial,b_star,feasible_b2,feasible_b1,feasible_b4,feasible_b8,codebook_positions,distinct_hashes,codebook_build_ms,feasibility_ms,message_sha256
+controlled,astronaut,photograph,spectral,24,2,natural_text,200,none,200,0,4,0,0,1,1,1764,253,123.33329999819398,0.6319000385701656,069a24d3e0497389d02a3cf2bd8f8db29c58abb68f9f8d906a417172dfc010d4
+controlled,astronaut,photograph,spectral,24,2,natural_text,200,zlib9,116,0,1,1,1,1,1,1764,253,123.33329999819398,0.7691998034715652,069a24d3e0497389d02a3cf2bd8f8db29c58abb68f9f8d906a417172dfc010d4
+controlled,astronaut,photograph,spectral,24,2,adversarial_repeated,200,none,200,0,34,0,0,0,0,1764,253,123.33329999819398,0.33399974927306175,5780af3e31d514b4e9a0615dc672e08845a087ad5e8b605b0064ada75c9ca244
+controlled,astronaut,photograph,spectral,24,2,adversarial_repeated,200,zlib9,12,0,0,1,1,1,1,1764,253,123.33329999819398,0.4771002568304539,5780af3e31d514b4e9a0615dc672e08845a087ad5e8b605b0064ada75c9ca244

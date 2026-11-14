@@ -1,0 +1,32 @@
+{
+  "corpus": "controlled",
+  "image_limit": 1,
+  "trials_per_message_family_length": 1,
+  "descriptors": [
+    "spectral"
+  ],
+  "block_sizes": [
+    24
+  ],
+  "bounds_reported": [
+    1,
+    2,
+    4,
+    8
+  ],
+  "message_families": [
+    "adversarial_repeated",
+    "natural_text"
+  ],
+  "lengths": [
+    200
+  ],
+  "compression": [
+    "none",
+    "zlib9"
+  ],
+  "seed_message_files": "dataset/message_manifests/message_seeds.csv",
+  "command": "scripts\\parameter_ablation_revision.py --corpus controlled --image-limit 1 --descriptors spectral --block-sizes 24 --lengths 200 --trials 1 --families adversarial_repeated natural_text --include-channel",
+  "raw_rows": 4,
+  "channel_rows": 12
+}

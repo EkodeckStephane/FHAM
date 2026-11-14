@@ -128,9 +128,11 @@ TLS client streams are 720 bytes at 40 characters and 1,360 bytes at 200.
 These results measure a controlled local TCP-flow comparison against matched
 HTTP controls. A separate detector comparison uses 1,946 TLS flows extracted
 from 91 of the 109 captured NonVPN files. With each FHAM run and one third of
-the background capture files held out by group, directional volume gives AUC
-0.830--0.892, first-four-record lengths give 0.883--0.921, and combined
-volume plus the first sixteen record lengths gives 0.957--0.986 (mean 0.976).
+the background capture files held out by group, byte totals alone give AUC
+0.650--0.739, record counts 0.768--0.857, and their combination
+0.830--0.892. First-four-record lengths give 0.883--0.921; combined counts,
+byte totals, and the first sixteen record lengths give 0.957--0.986 (mean
+0.976).
 The result establishes detectability for this concrete FHAM endpoint and
 framing against the available 2016 application-capture corpus. Matched HTTP
 controls remain at AUC 0.50 because their directional sizes and record
@@ -138,7 +140,15 @@ sequences were matched to FHAM. Generalization to contemporary mixed-network
 traffic and other TLS stacks remains open. See
 [`reports/traffic_transport_pilot.md`](reports/traffic_transport_pilot.md) and
 [`reports/socket_tls_detectability_pilot.md`](reports/socket_tls_detectability_pilot.md),
-and [`reports/nonvpn_tls_detectability.md`](reports/nonvpn_tls_detectability.md).
+[`reports/nonvpn_tls_detectability.md`](reports/nonvpn_tls_detectability.md),
+and [`reports/schannel_tls_padding_pilot.md`](reports/schannel_tls_padding_pilot.md).
+
+A Schannel TLS 1.2 padding/fragmentation pilot samples record counts and
+directional volumes from a disjoint training subset of captures. Against 60
+held-out capture groups, the mean AUC for counts plus byte totals falls from
+0.930 to 0.781; the complete record-sequence detector remains at 0.955. The
+padding profile therefore reduces the tested size/count signal and leaves an
+early TLS-record signal measurable.
 
 The fixed-size record profile reduces the tested payload-size leakage; it is
 not evidence of indistinguishability within ordinary network traffic.
@@ -316,7 +326,7 @@ capture-group-held-out classifier against the three live-socket FHAM runs:
 python scripts/evaluate_nonvpn_tls_detectability.py --background D:\dataset
 ```
 
-After extraction, rerun the four feature-set evaluations without rescanning the
+After extraction, rerun the seven feature-set evaluations without rescanning the
 PCAP files:
 
 ```powershell
@@ -326,6 +336,31 @@ python scripts/evaluate_nonvpn_tls_detectability.py --reuse-extracted
 The aggregate outputs are `results/nonvpn_tls_flow_features.csv` and
 `results/nonvpn_tls_detectability_cv.csv`. The experiment reads the original
 PCAP files in place and saves no packet payloads, addresses, or ports.
+
+### Schannel TLS 1.2 padding and fragmentation
+
+Run the matched Schannel profile and then its empirical padding/fragmentation
+variant for each independent run:
+
+```powershell
+python scripts/socket_schannel_detectability_pilot.py --run-id rep1
+python scripts/socket_schannel_detectability_pilot.py --run-id rep2
+python scripts/socket_schannel_detectability_pilot.py --run-id rep3
+python scripts/socket_schannel_detectability_pilot.py --run-id rep1 --shape-to-background
+python scripts/socket_schannel_detectability_pilot.py --run-id rep2 --shape-to-background
+python scripts/socket_schannel_detectability_pilot.py --run-id rep3 --shape-to-background
+```
+
+The shaped runs reserve 31 capture groups for profile templates and use the
+other 60 groups for evaluation. Reproduce the group-held-out classifiers:
+
+```powershell
+python scripts/evaluate_nonvpn_tls_detectability.py --background-features results\nonvpn_tls_flow_features_eval.csv --positive-profile schannel_tls12 --positive-prefix schannel_tls_flows --cv-output schannel_tls12_eval60_cv.csv
+python scripts/evaluate_nonvpn_tls_detectability.py --background-features results\nonvpn_tls_flow_features_eval.csv --positive-profile schannel_tls12_shaped --positive-prefix schannel_shaped_tls_flows --cv-output shaped_tls12_detectability_cv.csv
+```
+
+This pilot requires Windows PowerShell and saves aggregate TLS features only;
+temporary application padding and test certificates are removed after each run.
 
 Three additional stages need large external image corpora that are **not**
 bundled in this repository (only referenced by manifest and SHA-256 hash):

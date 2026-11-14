@@ -183,8 +183,24 @@ def feature_names():
     ]
 
 
+def post_initial_record_feature_names():
+    return [
+        "client_post3_record_count", "server_post3_record_count",
+        "client_post3_total_bytes", "server_post3_total_bytes",
+    ] + [
+        f"{direction}_post_record_len_{index}"
+        for direction in ("client", "server") for index in range(13)
+    ]
+
+
 FEATURE_SETS = {
-    "directional_volume": [
+    "directional_byte_totals": [
+        "client_tls_total_bytes", "server_tls_total_bytes",
+    ],
+    "directional_record_counts": [
+        "client_tls_record_count", "server_tls_record_count",
+    ],
+    "counts_and_byte_totals": [
         "client_tls_record_count", "server_tls_record_count",
         "client_tls_total_bytes", "server_tls_total_bytes",
     ],
@@ -196,6 +212,7 @@ FEATURE_SETS = {
         for direction in ("client", "server") for index in range(4)
     ],
     "volume_plus_sixteen_record_lengths": feature_names(),
+    "post_initial_three_record_profile": post_initial_record_feature_names(),
 }
 
 
@@ -205,8 +222,15 @@ def add_record_features(row, client_lengths, server_lengths):
     row["client_tls_total_bytes"] = sum(client_lengths)
     row["server_tls_total_bytes"] = sum(server_lengths)
     for direction, values in (("client", client_lengths), ("server", server_lengths)):
+        row[f"{direction}_post3_record_count"] = max(0, len(values) - 3)
+        row[f"{direction}_post3_total_bytes"] = sum(values[3:])
         for index in range(16):
             row[f"{direction}_record_len_{index}"] = values[index] if index < len(values) else 0
+        for index in range(13):
+            post_index = index + 3
+            row[f"{direction}_post_record_len_{index}"] = (
+                values[post_index] if post_index < len(values) else 0
+            )
     return row
 
 
@@ -217,14 +241,18 @@ def write_csv(path, rows):
         writer.writerows(rows)
 
 
-def run_grouped_cv(background_rows):
+def run_grouped_cv(
+    background_rows,
+    positive_profile="tls13_tcp",
+    positive_prefix="socket_tls_detectability_flows",
+):
     positive_rows = []
     for run_id in ("rep1", "rep2", "rep3"):
-        with (RESULTS_DIR / f"socket_tls_detectability_flows_{run_id}.csv").open(
+        with (RESULTS_DIR / f"{positive_prefix}_{run_id}.csv").open(
             newline="", encoding="utf-8"
         ) as stream:
             for source in csv.DictReader(stream):
-                if source["transport_mode"] != "tls13_tcp" or source["label"] != "fham":
+                if source["transport_mode"] != positive_profile or source["label"] != "fham":
                     continue
                 client_lengths = [int(x) for x in source["client_record_lengths"].split(";") if x]
                 server_lengths = [int(x) for x in source["server_record_lengths"].split(";") if x]
@@ -265,6 +293,7 @@ def run_grouped_cv(background_rows):
             predictions = (scores >= 0.5).astype(int)
             results.append({
                 "heldout_positive_run": run_id,
+                "positive_profile": positive_profile,
                 "feature_set": feature_set,
                 "training_positive_runs": ";".join(x for x in ("rep1", "rep2", "rep3") if x != run_id),
                 "heldout_background_captures": len(heldout_background),
@@ -283,19 +312,32 @@ def main():
         "--reuse-extracted", action="store_true",
         help="reuse results/nonvpn_tls_flow_features.csv instead of scanning PCAP files",
     )
+    parser.add_argument("--positive-profile", default="tls13_tcp")
+    parser.add_argument("--positive-prefix", default="socket_tls_detectability_flows")
+    parser.add_argument("--cv-output", default="nonvpn_tls_detectability_cv.csv")
+    parser.add_argument("--background-features", type=Path, default=None,
+                        help="alternate aggregate background CSV; use for independent holdout sets")
     args = parser.parse_args()
-    if args.reuse_extracted:
+    if args.background_features is not None:
+        with args.background_features.open(newline="", encoding="utf-8") as stream:
+            background_rows = list(csv.DictReader(stream))
+    elif args.reuse_extracted:
         with (RESULTS_DIR / "nonvpn_tls_flow_features.csv").open(
             newline="", encoding="utf-8"
         ) as stream:
             background_rows = list(csv.DictReader(stream))
     else:
         background_rows = extract_tls_flows(args.background)
-    positive_rows, negative_rows, cv_rows = run_grouped_cv(background_rows)
+    positive_rows, negative_rows, cv_rows = run_grouped_cv(
+        background_rows,
+        positive_profile=args.positive_profile,
+        positive_prefix=args.positive_prefix,
+    )
 
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
-    write_csv(RESULTS_DIR / "nonvpn_tls_flow_features.csv", background_rows)
-    with (RESULTS_DIR / "nonvpn_tls_detectability_cv.csv").open(
+    if args.background_features is None and not args.reuse_extracted:
+        write_csv(RESULTS_DIR / "nonvpn_tls_flow_features.csv", background_rows)
+    with (RESULTS_DIR / args.cv_output).open(
         "w", newline="", encoding="utf-8"
     ) as stream:
         writer = csv.DictWriter(stream, fieldnames=list(cv_rows[0]))

@@ -24,23 +24,25 @@ saved in the feature file. A logistic-regression detector was trained on two com
 runs and tested on the held-out third run. In the same fold, one third of the
 background capture files was held out as complete capture groups. This was
 repeated for all three positive runs. Metrics use FHAM as the positive class.
-We compared directional byte/record counts, the first one or four record
-lengths, and the combination of directional counts/volume with the first
-sixteen record lengths per direction.
+We compared directional byte totals, directional record counts, their
+combination, the first one or four record lengths, the combination of counts
+and byte totals with the first sixteen record lengths, and a profile beginning
+after the first three records in each direction.
 
 ## Results
 
-| Held-out FHAM run | Background captures / TLS flows | Directional volume AUC | First record AUC | First four records AUC | Volume + first sixteen lengths AUC | Full-feature balanced accuracy |
-|---|---:|---:|---:|---:|---:|---:|
-| rep1 | 31 / 702 | 0.830 | 0.648 | 0.883 | 0.957 | 0.923 |
-| rep2 | 30 / 570 | 0.881 | 0.679 | 0.905 | 0.986 | 0.957 |
-| rep3 | 30 / 674 | 0.892 | 0.601 | 0.921 | 0.985 | 0.960 |
-| **Mean** | **30.3 / 649** | **0.868** | **0.643** | **0.903** | **0.976** | **0.947** |
+| Held-out FHAM run | Background captures / TLS flows | Byte totals AUC | Record counts AUC | Counts + bytes AUC | First record AUC | First four AUC | Counts, bytes + first sixteen AUC | Balanced accuracy |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| rep1 | 31 / 702 | 0.650 | 0.774 | 0.830 | 0.648 | 0.883 | 0.957 | 0.923 |
+| rep2 | 30 / 570 | 0.739 | 0.768 | 0.881 | 0.679 | 0.905 | 0.986 | 0.957 |
+| rep3 | 30 / 674 | 0.714 | 0.857 | 0.892 | 0.601 | 0.921 | 0.985 | 0.960 |
+| **Mean** | **30.3 / 649** | **0.701** | **0.799** | **0.868** | **0.643** | **0.903** | **0.976** | **0.947** |
 
 The TLS FHAM exchange was readily distinguishable from these unmatched
-captured flows using record lengths alone. Directional volume already gave
-mean AUC 0.868; the first four record lengths gave 0.903; combining
-directional volume with the first sixteen record lengths gave 0.976. This
+captured flows using record-size features. Byte totals alone gave mean AUC
+0.701 and record counts alone gave 0.799; together they gave 0.868. The first
+four record lengths gave 0.903; combining counts, byte totals, and the first
+sixteen record lengths gave 0.976. This
 establishes a concrete detectability risk in the tested
 FHAM transport profile. It is consistent with the matched-control result:
 matching the HTTP control's directional byte totals and TLS record-length
@@ -86,5 +88,5 @@ Outputs:
 - `results/nonvpn_tls_flow_features.csv` — aggregate TLS sequence features by
   capture and flow, with no addresses or payloads.
 - `results/nonvpn_tls_detectability_cv.csv` — held-out results for all three
-  folds and four feature sets.
+  folds and seven feature sets.
 - `scripts/evaluate_nonvpn_tls_detectability.py` — extraction and evaluation.

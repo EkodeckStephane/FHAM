@@ -52,7 +52,11 @@ def recv_exact(sock, count: int) -> bytes:
     return bytes(data)
 
 
-def socket_exchange(client_context, server_context, request, reply, *, tls: bool):
+def socket_exchange(
+    client_context, server_context, request, reply, *, tls: bool, client_runner=None,
+    tls_server_name="fham-pilot.local", client_write_chunks=None,
+    server_write_chunks=None,
+):
     """Relay one raw-TCP or TLS exchange over real loopback TCP sockets."""
     events = []
     errors = []
@@ -75,7 +79,15 @@ def socket_exchange(client_context, server_context, request, reply, *, tls: bool
                 received = recv_exact(channel, len(request))
                 if received != request:
                     raise AssertionError("server received different application bytes")
-                channel.sendall(reply)
+                if server_write_chunks:
+                    if sum(server_write_chunks) != len(reply):
+                        raise ValueError("server write chunks do not sum to reply length")
+                    offset = 0
+                    for chunk_size in server_write_chunks:
+                        channel.sendall(reply[offset:offset + chunk_size])
+                        offset += chunk_size
+                else:
+                    channel.sendall(reply)
             if tls:
                 with server_context.wrap_socket(raw, server_side=True) as channel:
                     respond(channel)
@@ -129,20 +141,36 @@ def socket_exchange(client_context, server_context, request, reply, *, tls: bool
     relay_thread = threading.Thread(target=relay_worker, daemon=True)
     server_thread.start()
     relay_thread.start()
-    client_raw = socket.create_connection(relay_listener.getsockname(), timeout=10)
     try:
-        client_raw.settimeout(10)
-        def exchange(channel):
-            channel.sendall(request)
-            received = recv_exact(channel, len(reply))
-            if received != reply:
-                raise AssertionError("client received different application bytes")
-        if tls:
-            with client_context.wrap_socket(client_raw, server_hostname="fham-pilot.local") as channel:
-                exchange(channel)
+        if client_runner is not None:
+            client_runner(
+                relay_listener.getsockname(), request, reply, tls_server_name,
+                client_write_chunks,
+            )
         else:
-            with client_raw:
-                exchange(client_raw)
+            client_raw = socket.create_connection(relay_listener.getsockname(), timeout=10)
+            client_raw.settimeout(10)
+
+            def exchange(channel):
+                if client_write_chunks:
+                    if sum(client_write_chunks) != len(request):
+                        raise ValueError("client write chunks do not sum to request length")
+                    offset = 0
+                    for chunk_size in client_write_chunks:
+                        channel.sendall(request[offset:offset + chunk_size])
+                        offset += chunk_size
+                else:
+                    channel.sendall(request)
+                received = recv_exact(channel, len(reply))
+                if received != reply:
+                    raise AssertionError("client received different application bytes")
+
+            if tls:
+                with client_context.wrap_socket(client_raw, server_hostname=tls_server_name) as channel:
+                    exchange(channel)
+            else:
+                with client_raw:
+                    exchange(client_raw)
     finally:
         server_thread.join(timeout=15)
         relay_thread.join(timeout=15)

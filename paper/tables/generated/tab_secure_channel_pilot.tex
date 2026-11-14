@@ -1,0 +1,14 @@
+\begin{tabular}{lr}
+\toprule
+\textbf{Protocol check} & \textbf{Successful trials} \\
+\midrule
+X25519 session-key agreement & 40/40 \\
+Exact message recovery & 40/40 \\
+Wrong-cover envelope rejection & 40/40 \\
+Persistent replay rejection & 40/40 \\
+Altered key-offer rejection & 40/40 \\
+Fixed record size ($r=40$) & 236 bytes \\
+Signed session setup (amortized over 5 records) & 208 bytes/session \\
+Record plus amortized setup per message & 277.60 bytes \\
+\bottomrule
+\end{tabular}

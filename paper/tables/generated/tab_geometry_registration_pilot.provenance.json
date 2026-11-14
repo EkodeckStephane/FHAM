@@ -1,0 +1,14 @@
+{
+  "generated_at_utc": "2026-11-10T12:36:14.814737+00:00",
+  "git_commit": "668a3561b1d0de0c71b64aa1f6be80509f4fbf74",
+  "input_files": [
+    "results\\geometry_registration_pilot.csv"
+  ],
+  "input_sha256": {
+    "results\\geometry_registration_pilot.csv": "dbd780b5aef2825155ca0b3604187f95f8b602f561cc5845dd9500de9985a96f"
+  },
+  "output_file": "paper\\tables\\generated\\tab_geometry_registration_pilot.tex",
+  "output_sha256": "21bb2325d42318f7aed86ee16edb5073264d22976f6d2904e193126718ee9dcc",
+  "script": "scripts/generate_tables.py",
+  "table": "tab_geometry_registration_pilot"
+}

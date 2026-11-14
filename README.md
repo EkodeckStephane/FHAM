@@ -68,9 +68,107 @@ hand-typed into the manuscript. See
 | Same protocol, WYSAWIS cover adequacy | 37.5% / 50.7% |
 | Is the gain from the assignment rule or the descriptor? | Causal ablation across 4 codebooks (3 descriptors + Abdulsattar's own): exact matching fails on **all four** (0%); switching only the assignment rule restores **92.5-100%** on all four |
 | Which descriptor is used, and why? | Spectral descriptor selected by a fixed eligibility rule (success >= 99%, median `B*` <= 2, build time <= 2x baseline) on a disjoint 100-image BOSSBase validation sample, frozen before external test use |
-| Protected envelope size at 200 bytes | 549 bytes (2.27x a directly AES-GCM-encrypted message of the same length) |
-| Does the envelope leak message length? | Yes: raw envelope size carries the full 2.32 bits of length information at 5 tested lengths; 64-byte padding classes reduce this only to 1.92 bits — reported as a measured limitation, not hidden |
-| Robustness to transformations | No non-identity condition (36-condition matrix: JPEG, resize, rotation, noise, filtering, photometric, crop, combined) reaches exact recovery; rotation and cropping are the most damaging. Confirmed at ~2000-images-per-corpus scale on BOSSBase, BOWS2, and COCO 2017 |
+| Protected envelope size at 200 bytes | Unbounded serialization sweep: compact 549.40 bytes (2.27x direct AES-GCM). Under the principal `B=2` assignment, a paired 80-message cohort is feasible in 80/80 cases and averages 549.88 bytes (2.27x direct). Traffic-shaped: fixed 852 bytes for all tested lengths up to 200 bytes. Direct AES-GCM is smaller in all these measurements. |
+| Does the envelope leak message length? | Compact: yes, raw size carries the full 2.32 bits at 5 tested lengths and 64-byte classes still leak 1.92 bits. Traffic-shaped fixed-capacity envelopes reduce the tested size-only leakage to 0.00 bits |
+| Robustness to transformations | Fixed-coordinate extraction from transformed pixels reaches no exact recovery across the 36-condition matrix. A separate closed-set pilot identifies 8/8 covers in a 219-image canonical gallery and recovers 40/40 messages per tested geometric transform using the retrieved canonical cover. |
+| Authenticated session pilot | Across 40 records: session-key agreement, exact recovery, rejection of cover substitution, persistent replay rejection, and rejection of altered signed offers each succeed in 40/40 trials. |
+
+## Security scope
+
+FHAM leaves each cover's pixels unchanged. An image-only observer therefore
+sees no per-image signal caused by pixel modifications during assignment.
+An unchanged aggregate distribution of transmitted covers also requires
+cover inclusion to be independent of message feasibility: selecting a cover
+only after a successful assignment, or suppressing failed transmissions, can
+make the observed cover distribution message-dependent. No image-only
+steganalysis classifier is claimed here.
+
+The assignment record is protected with AES-256-GCM. The current associated
+The compact and shaped envelope baselines use a constant format label as
+associated data. A separate session profile now binds AES-GCM authentication
+to a canonical reference-image digest, a session identifier, and a sequence
+number. It derives session keys from ephemeral X25519 exchanges, authenticates
+key offers with Ed25519, and uses HKDF for key derivation. It requires the
+peer identity public keys to be provisioned or pinned by the application. A
+durable SQLite replay guard rejects duplicate and out-of-order records for
+registered sessions. The pilot exercised key agreement, cover substitution,
+altered offers, and replay rejection in 40/40 trials. It does not evaluate
+identity-key compromise.
+
+The reported H0/H1 classifier contrasts envelope-level features with
+matched-shape decoys. A separate synthetic transport pilot generates raw-TCP
+and TLS 1.3/TCP positive flows and scans reassembled TCP streams in the
+available NonVPN captures. The custom application marker appears in all 80
+raw-TCP positive flows and in none of the 80 TLS 1.3/TCP payload streams. Four
+of 5,398 background TCP flows contain the unversioned four-byte `FHAM`
+substring; none is a versioned candidate in the observed reassembled regions.
+Three other background streams hit the parser's 1-MB pending-buffer cap, so
+the latter result is limited to successfully reassembled regions.
+
+For each synthetic profile and message length, flow size and packet count
+individually fall within the central 10th--90th percentile range of the
+background distributions. This marginal overlap is not a trained classifier
+or an indistinguishability result. The background comprises labeled
+application sessions captured with unrelated applications closed, not mixed
+ordinary traffic. The positive captures are synthesized from controlled
+software exchanges; the PCAPs in that pilot are synthesized. A second pilot
+uses real loopback TCP sockets and a transparent byte-stream relay to compare
+FHAM with HTTP/1.1 JSON controls of exactly matched request/response sizes.
+Each transport profile has 240 pairs across three independent runs. On raw
+TCP, the versioned FHAM marker appears in all 240 FHAM streams and in none of
+the 240 controls. Under TLS 1.3, the marker appears in neither class; all 240
+pairs have equal directional TLS record-length sequences and wire-byte totals.
+
+A logistic-regression detector trained on two runs and tested on the third
+gets AUC 0.500 from byte/record-size features. A detector using relay
+read-chunk and timing features gets held-out AUCs of 0.461, 0.498, and 0.481
+for raw TCP, and 0.514, 0.536, and 0.514 for TLS 1.3. All six paired-bootstrap
+95% intervals include 0.50. Message length remains visible in total volume:
+TLS client streams are 720 bytes at 40 characters and 1,360 bytes at 200.
+These results measure a controlled local TCP-flow comparison against matched
+HTTP controls. A separate detector comparison uses 1,946 TLS flows extracted
+from 91 of the 109 captured NonVPN files. With each FHAM run and one third of
+the background capture files held out by group, byte totals alone give AUC
+0.650--0.739, record counts 0.768--0.857, and their combination
+0.830--0.892. First-four-record lengths give 0.883--0.921; combined counts,
+byte totals, and the first sixteen record lengths give 0.957--0.986 (mean
+0.976).
+The result establishes detectability for this concrete FHAM endpoint and
+framing against the available 2016 application-capture corpus. Matched HTTP
+controls remain at AUC 0.50 because their directional sizes and record
+sequences were matched to FHAM. Generalization to contemporary mixed-network
+traffic and other TLS stacks remains open. See
+[`reports/traffic_transport_pilot.md`](reports/traffic_transport_pilot.md) and
+[`reports/socket_tls_detectability_pilot.md`](reports/socket_tls_detectability_pilot.md),
+[`reports/nonvpn_tls_detectability.md`](reports/nonvpn_tls_detectability.md),
+and [`reports/schannel_tls_padding_pilot.md`](reports/schannel_tls_padding_pilot.md).
+
+A Schannel TLS 1.2 padding/fragmentation pilot samples record counts and
+directional volumes from a disjoint training subset of captures. Against 60
+held-out capture groups, the mean AUC for counts plus byte totals falls from
+0.929 to 0.781; adding those features to the first 16 record lengths yields
+AUC 0.955. The padding profile therefore reduces the tested size/count signal
+and leaves a TLS-record-length signal measurable.
+
+The fixed-size record profile reduces the tested payload-size leakage; it is
+not evidence of indistinguishability within ordinary network traffic.
+
+The communication-size baseline also sets a clear limit on the claim: direct
+AES-GCM transmission of the message is smaller than the measured FHAM records.
+FHAM is evaluated for its fixed-cover assignment question—whether the
+message's symbol multiplicities admit an injective bounded mapping, and the
+minimum-cost mapping when feasible—not as a byte-efficient replacement for
+direct encryption. Its controlled-codebook ablation shows the assignment
+gain relative to exact hash matching; it does not establish an end-to-end
+communication advantage over direct AES-GCM.
+
+Geometric recovery is evaluated through transformed-pixel decoding and
+canonical-cover retrieval. In the closed-set pilot, ORB/RANSAC identifies all
+8 transformed query covers in a 219-image gallery for both tested attacks;
+the receiver then recovers all 40 messages per attack from canonical copies.
+Decoding the inverse-warped pixels themselves remains at 0/40 exact recovery.
+The retrieval result depends on the correct canonical cover being present in
+the gallery and does not measure open-set rejection or near-duplicate covers.
 
 ## Repository layout
 
@@ -142,7 +240,7 @@ python -m pip install -r requirements.txt
 ## Quick start
 
 ```powershell
-python -m pytest -q          # 26 tests, a few seconds
+python -m pytest -q          # 32 tests, a few seconds
 python run_pipeline.py       # regenerates every CSV and figure used in the paper
 ```
 
@@ -155,7 +253,114 @@ extended assignment ablation, stability-aware lambda sweep, causal codebook
 ablation, message-family coverage, message-length leakage, and the
 36-condition extended transformation matrix.
 
+Focused revision experiments are also available:
+
+```powershell
+$env:PYTHONPATH = "src"
+python scripts/measure_bounded_channel.py
+python scripts/geometry_registration_pilot.py
+python scripts/secure_channel_pilot.py
+python scripts/traffic_transport_pilot.py --background D:\dataset --lengths 40 200 --trials-per-image 5
+python scripts/matched_tls_control_pilot.py
+python scripts/socket_tls_detectability_pilot.py --run-id rep1
+python scripts/socket_tls_detectability_pilot.py --run-id rep2
+python scripts/socket_tls_detectability_pilot.py --run-id rep3
+python scripts/evaluate_socket_tls_generalization.py
+```
+
+The first measures paired compact-record and direct-encryption sizes for the
+80-message, 200-character controlled cohort under `B=2`. The second runs an
+exploratory ORB/RANSAC global-registration pilot for 1-degree rotation and
+5% crop-restore and reports transformed-pixel recovery and closed-set canonical
+cover retrieval. It identifies 8/8 query covers and recovers 40/40 messages
+per condition from the 219-image gallery; recovery from warped pixels remains
+0/40 exact. The secure-channel pilot runs the signed ephemeral key exchange,
+cover binding, and persistent replay guard, then records both data and
+amortized handshake sizes. The transport pilot generates 80 synthetic flows
+per profile (raw TCP and TLS 1.3/TCP), checks exact application recovery, and
+compares versioned marker visibility and marginal packet-count/flow-size ranges
+with reassembled TCP flows from the NonVPN captures. Its detailed scope and
+results are in `reports/traffic_transport_pilot.md`.
+
 ## Full reproduction and external datasets
+
+### Non-VPN packet-marker baseline
+
+When the ISCXVPN2016 non-VPN PCAP/PCAPNG files are available locally, reproduce
+the packet-level signature baseline with:
+
+```powershell
+python scripts/analyze_nonvpn_traces.py D:\dataset --output results\nonvpn_trace_baseline.csv
+python scripts/analyze_nonvpn_traces.py D:\dataset `
+  --inspect-summary results\nonvpn_trace_baseline.csv `
+  --marker-details results\nonvpn_marker_occurrences.csv
+```
+
+Reproduce the TCP stream and synthetic transport pilot with:
+
+```powershell
+python scripts/traffic_transport_pilot.py --background D:\dataset --lengths 40 200 --trials-per-image 5
+```
+
+This creates synthetic positive PCAPs and aggregate flow tables; it reads the
+external NonVPN captures without copying packet payloads into the results.
+
+The scan covers 109 labeled non-VPN application-session captures (21,919,108
+packets). It found 30 `FHMS`, 8 `FHME`, and 7 `FHMT` packet-marker hits in 9
+captures; none of the packet-local `FHMS` matches was followed by version byte
+`0x01`. The four-byte markers collide with benign payload contents, while no
+current `FHMS 0x01` candidate appeared in this packet-local scan. The dataset
+contains targeted application sessions rather than mixed background traffic.
+The scan has no FHAM-positive captures and does not measure stream reassembly,
+flow/timing classification, or TLS-encapsulated FHAM traffic. The PCAP files are
+not included here; obtain and cite the dataset from the [UNB CIC dataset
+page](https://www.unb.ca/cic/datasets/vpn.html) and the originating study
+(Draper-Gil et al., 2016, <https://doi.org/10.5220/0005740704070414>).
+
+### FHAM TLS-flow detectability
+
+Extract TLS record sequences from the captured NonVPN TCP flows and run the
+capture-group-held-out classifier against the three live-socket FHAM runs:
+
+```powershell
+python scripts/evaluate_nonvpn_tls_detectability.py --background D:\dataset
+```
+
+After extraction, rerun the seven feature-set evaluations without rescanning the
+PCAP files:
+
+```powershell
+python scripts/evaluate_nonvpn_tls_detectability.py --reuse-extracted
+```
+
+The aggregate outputs are `results/nonvpn_tls_flow_features.csv` and
+`results/nonvpn_tls_detectability_cv.csv`. The experiment reads the original
+PCAP files in place and saves no packet payloads, addresses, or ports.
+
+### Schannel TLS 1.2 padding and fragmentation
+
+Run the matched Schannel profile and then its empirical padding/fragmentation
+variant for each independent run:
+
+```powershell
+python scripts/socket_schannel_detectability_pilot.py --run-id rep1
+python scripts/socket_schannel_detectability_pilot.py --run-id rep2
+python scripts/socket_schannel_detectability_pilot.py --run-id rep3
+python scripts/socket_schannel_detectability_pilot.py --run-id rep1 --shape-to-background
+python scripts/socket_schannel_detectability_pilot.py --run-id rep2 --shape-to-background
+python scripts/socket_schannel_detectability_pilot.py --run-id rep3 --shape-to-background
+```
+
+The shaped runs reserve 31 capture groups for profile templates and use the
+other 60 groups for evaluation. Reproduce the group-held-out classifiers:
+
+```powershell
+python scripts/evaluate_nonvpn_tls_detectability.py --background-features results\nonvpn_tls_flow_features_eval.csv --positive-profile schannel_tls12 --positive-prefix schannel_tls_flows --cv-output schannel_tls12_eval60_cv.csv
+python scripts/evaluate_nonvpn_tls_detectability.py --background-features results\nonvpn_tls_flow_features_eval.csv --positive-profile schannel_tls12_shaped --positive-prefix schannel_shaped_tls_flows --cv-output shaped_tls12_detectability_cv.csv
+```
+
+This pilot requires Windows PowerShell and saves aggregate TLS features only;
+temporary application padding and test certificates are removed after each run.
 
 Three additional stages need large external image corpora that are **not**
 bundled in this repository (only referenced by manifest and SHA-256 hash):
@@ -201,7 +406,7 @@ decision and the claim-to-evidence audit trail.
 python -m pytest -q
 ```
 
-26 tests cover: exact round-trips, residual bounds, non-reuse of locations,
+32 tests cover: exact round-trips, residual bounds, non-reuse of locations,
 bounded infeasibility, dense/aggregated cost equivalence, exact `B*`
 computation, AES-GCM tamper detection, nonce uniqueness, all three
 descriptor families, the bottleneck/random-feasible/stability-aware
@@ -211,9 +416,12 @@ message-manifest coverage.
 
 ## Reproducibility guarantees
 
-- No numeric result is hand-typed into a table: every figure/table in the
-  manuscript is generated from a raw CSV/JSON file present in this
-  repository.
+> **Terminology note:** the experimental family stored internally as `natural_text` is templated natural-language text generated deterministically from a sentence template. The internal identifier is retained for backward compatibility with archived CSV files. The lambda sweep uses disjoint development and validation transformations; archived columns named `holdout_*` are legacy field names and do not denote an independent final test set.
+
+- Quantitative table values and plotted measurements are generated from raw
+  CSV/JSON files in this repository. Conceptual tables (such as the threat
+  model and literature positioning) are maintained as structured manuscript
+  tables and contain no experimental measurements.
 - Every experiment uses deterministic seeds (`config/experiments.yaml`,
   `RANDOM_SEED`); message content is generated once by
   `scripts/generate_messages.py` and reused identically across compared
@@ -227,25 +435,29 @@ message-manifest coverage.
 - Unfavorable results are reported rather than omitted: e.g., the
   wavelet-gradient descriptor's lower success rate, the random-feasible
   baseline's poor displacement, the absence of exact recovery under any
-  tested geometric transformation, and the message-length leakage of the
-  protected envelope.
+  tested geometric transformation, and the compact envelope's message-length
+  leakage before traffic shaping.
 
 ## Known limitations (by design)
 
 - The spectral hash descriptor is **not** robust to geometric
   transformations (rotation, cropping) — this is measured and reported, not
   hidden.
-- The protected auxiliary envelope leaks most message-length information
-  through its raw size, even after fixed-class padding.
-- Traffic-analysis / detectability of the auxiliary channel (H0 vs. H1
-  classifiers) and full reproducibility scaffolding (citation file,
-  license, container image, locked environment) are tracked as ongoing
-  work; see the repository's issue history for status.
+- The compact auxiliary envelope leaks most message-length information
+  through its raw size, even after fixed-class padding; the traffic-shaped
+  envelope removes the tested size-only leakage at a substantial byte cost.
+- The ISCXVPN2016 baseline checks packet-local marker collisions only. No
+  FHAM-positive network traces, TCP-stream reassembly, flow/timing detection,
+  TLS encapsulation, image-only steganalysis, or identity-key lifecycle and
+  compromise study is included.
+- Geometric catalog recovery is a closed-set result over the bundled 219-image
+  stress catalog; open-set rejection and near-duplicate references remain to
+  be measured.
 
 ## Authors
 
 Habibatou Mindja, Ibrahima Touré, Stéphane Gaël R. Ekodeck, Serge Alain
-Ebele, Leonel Moyou Metcheka, René Ndoundam (corresponding author).
+Ebele, Leonel Moyou Metcheka, Daniel Tieudjo, René Ndoundam (corresponding author).
 
 University of Yaoundé I (LIRIMA, Team GRIMCAPE); IRD, UMI UMMISCO, IRD
 France Nord; UMI 209 UMMISCO, Sorbonne Université; Institut Supérieur des
@@ -253,4 +465,4 @@ Technologies de Mamou.
 
 ## License
 
-License to be added by the authors prior to first external release.
+See `LICENSE` in the repository root.

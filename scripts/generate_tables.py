@@ -4,6 +4,7 @@ import hashlib
 import json
 import subprocess
 from datetime import datetime, timezone
+from decimal import Decimal, ROUND_HALF_UP
 from pathlib import Path
 
 import pandas as pd
@@ -38,8 +39,21 @@ def pct(value: float, decimals: int = 1) -> str:
     return f"{value * 100:.{decimals}f}\\%"
 
 
+def fmt2(value: float) -> str:
+    return str(Decimal(str(value)).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP))
+
+
+def fmt_percent(value: float) -> str:
+    return fmt2(Decimal(str(value)) * 100)
+
+
 def write_table(
-    name: str, colspec: str, rows: list[str], inputs: list[Path], commit: str
+    name: str,
+    colspec: str,
+    rows: list[str],
+    inputs: list[Path],
+    commit: str,
+    resize: bool = False,
 ) -> None:
     # The generated file must be a complete, self-contained tabular
     # environment (not just toprule..bottomrule body rows) because
@@ -51,6 +65,8 @@ def write_table(
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     tex_path = OUTPUT_DIR / f"{name}.tex"
     body = [f"\\begin{{tabular}}{{{colspec}}}"] + rows + ["\\end{tabular}"]
+    if resize:
+        body = ["\\resizebox{\\linewidth}{!}{%"] + body + ["}"]
     tex_path.write_text("\n".join(body) + "\n", encoding="utf-8", newline="\n")
     provenance = {
         "script": "scripts/generate_tables.py",
@@ -262,7 +278,7 @@ def table_message_family(commit: str) -> None:
     display = {
         "uniform_bytes": "Uniform",
         "printable_ascii": "ASCII",
-        "natural_text": "Natural",
+        "natural_text": "Templated",
         "adversarial_repeated": "Adversarial",
     }
     rows = [
@@ -285,35 +301,41 @@ def table_channel_real(commit: str) -> None:
     df = pd.read_csv(path)
     rows = [
         "\\toprule",
-        "\\textbf{Length} & \\textbf{FHAM (B)} & \\textbf{Direct (B)} & \\textbf{Ratio} & \\textbf{Enc./Dec. (ms)} \\\\",
+        "\\textbf{Length} & \\textbf{C (B)} & \\textbf{S (B)} & \\textbf{D (B)} & \\textbf{C/D} & \\textbf{S/D} \\\\",
         "\\midrule",
     ]
     for _, row in df.iterrows():
         rows.append(
-            f"{int(row['length'])} & {row['encrypted_bytes']:.2f} & {row['direct_encrypted_bytes']:.2f} & "
-            f"{row['fham_to_direct_ratio']:.2f} & {row['encrypt_ms']:.2f}/{row['decrypt_ms']:.2f} \\\\"
+            f"{int(row['length'])} & {row['encrypted_bytes']:.2f} & "
+            f"{row['shaped_encrypted_bytes']:.2f} & "
+            f"{row['direct_encrypted_bytes']:.2f} & "
+            f"{row['fham_to_direct_ratio']:.2f} & "
+            f"{row['shaped_to_direct_ratio']:.2f} \\\\"
         )
     rows.append("\\bottomrule")
-    write_table("tab_channel_real", "rrrrr", rows, [path], commit)
+    write_table("tab_channel_real", "rrrrrr", rows, [path], commit)
 
 
 def table_leakage(commit: str) -> None:
     path = RESULTS / "leakage.csv"
-    row = pd.read_csv(path).iloc[0]
+    df = pd.read_csv(path)
+    display = {"compact": "Compact", "shaped": "Shaped"}
     rows = [
         "\\toprule",
-        "\\textbf{Quantity} & \\textbf{Value} \\\\",
+        "\\textbf{Mode} & \\textbf{Raw sizes} & \\textbf{Size classes} & \\textbf{$r$(length,size)} & \\textbf{MI raw} & \\textbf{MI class} \\\\",
         "\\midrule",
-        f"Distinct lengths tested & {int(row['distinct_lengths'])} \\\\",
-        f"Distinct raw envelope sizes & {int(row['distinct_raw_sizes'])} \\\\",
-        f"Distinct padded size classes & {int(row['distinct_size_classes'])} \\\\",
-        f"Pearson $r$(length, raw size) & {row['pearson_length_vs_raw_size']:.3f} \\\\",
-        f"Pearson $r$(length, padded size) & {row['pearson_length_vs_padded_size']:.3f} \\\\",
-        f"Mutual information(length; raw size) & {row['mutual_info_length_vs_raw_size_bits']:.2f} bits \\\\",
-        f"Mutual information(length; size class) & {row['mutual_info_length_vs_size_class_bits']:.2f} bits \\\\",
-        "\\bottomrule",
     ]
-    write_table("tab_leakage", "lr", rows, [path], commit)
+    for _, row in df.iterrows():
+        rows.append(
+            f"{display.get(row['envelope_mode'], row['envelope_mode'])} & "
+            f"{int(row['distinct_raw_sizes'])} & "
+            f"{int(row['distinct_size_classes'])} & "
+            f"{row['pearson_length_vs_raw_size']:.3f} & "
+            f"{row['mutual_info_length_vs_raw_size_bits']:.2f} bits & "
+            f"{row['mutual_info_length_vs_size_class_bits']:.2f} bits \\\\"
+        )
+    rows.append("\\bottomrule")
+    write_table("tab_leakage", "lrrrrr", rows, [path], commit)
 
 
 def table_traffic_detectability(commit: str) -> None:
@@ -329,17 +351,21 @@ def table_traffic_detectability(commit: str) -> None:
     order = ["logistic_regression", "random_forest", "gradient_boosting", "mlp", "random_baseline"]
     rows = [
         "\\toprule",
-        "\\textbf{Classifier} & \\textbf{AUC} & \\textbf{Bal. Acc.} & \\textbf{TPR@5\\%FPR} \\\\",
+        "\\textbf{Mode} & \\textbf{Classifier} & \\textbf{AUC} & \\textbf{Bal. Acc.} & \\textbf{TPR@5\\%FPR} \\\\",
         "\\midrule",
     ]
-    for classifier in order:
-        row = df[df["classifier"] == classifier].iloc[0]
-        rows.append(
-            f"{display[classifier]} & {row['auc']:.2f} & {row['balanced_accuracy']:.2f} & "
-            f"{row['tpr_at_5pct_fpr']:.2f} \\\\"
-        )
+    for mode in ["compact", "shaped"]:
+        mode_df = df[df["envelope_mode"] == mode]
+        if mode_df.empty:
+            continue
+        for classifier in order:
+            row = mode_df[mode_df["classifier"] == classifier].iloc[0]
+            rows.append(
+                f"{mode.capitalize()} & {display[classifier]} & {row['auc']:.2f} & "
+                f"{row['balanced_accuracy']:.2f} & {row['tpr_at_5pct_fpr']:.2f} \\\\"
+            )
     rows.append("\\bottomrule")
-    write_table("tab_traffic_detectability", "lrrr", rows, [path], commit)
+    write_table("tab_traffic_detectability", "llrrr", rows, [path], commit)
 
 
 def table_robustness(commit: str) -> None:
@@ -436,7 +462,7 @@ def table_external_corpus(commit: str) -> None:
     df = pd.read_csv(path)
     display = {
         "adversarial_repeated": "Adversarial repeated",
-        "natural_text": "Natural text",
+        "natural_text": "Templated natural language",
         "printable_ascii": "Printable ASCII",
         "uniform_bytes": "Uniform bytes",
     }
@@ -444,7 +470,8 @@ def table_external_corpus(commit: str) -> None:
     datasets = ["bossbase", "bows2", "coco2017_val"]
     rows = [
         "\\toprule",
-        "& \\multicolumn{3}{c}{\\textbf{50 bytes (300 trials)}} & \\multicolumn{3}{c}{\\textbf{100 bytes (60 trials)}} \\\\",
+        "& \\multicolumn{3}{c}{\\shortstack{\\textbf{50 bytes}\\\\\\textbf{(300 trials)}}} & "
+        "\\multicolumn{3}{c}{\\shortstack{\\textbf{100 bytes}\\\\\\textbf{(60 trials)}}} \\\\",
         "\\textbf{Family} & \\textbf{BOSSBase} & \\textbf{BOWS2} & \\textbf{COCO2017} & \\textbf{BOSSBase} & "
         "\\textbf{BOWS2} & \\textbf{COCO2017} \\\\",
         "\\midrule",
@@ -514,6 +541,82 @@ def table_ecc_repetition(commit: str) -> None:
     write_table("tab_ecc_repetition", "rrrrr", rows, [path], commit)
 
 
+def table_channel_bounded(commit: str) -> None:
+    path = RESULTS / "auxiliary_channel_b2_200.csv"
+    df = pd.read_csv(path)
+    row = df.iloc[0]
+    rows = [
+        "\\toprule",
+        "\\textbf{$B$} & \\textbf{Feasible / 80} & \\textbf{Raw record (B)} & "
+        "\\textbf{Compact envelope (B)} & \\textbf{Direct encrypted (B)} & \\textbf{Ratio} \\\\",
+        "\\midrule",
+        f"{int(row['bound'])} & {int(row['feasible_trials'])} & "
+        f"{row['mean_raw_record_bytes']:.2f} & {row['mean_compact_envelope_bytes']:.2f} & "
+        f"{row['mean_direct_encrypted_bytes']:.2f} & {row['mean_envelope_to_direct_ratio']:.2f} \\\\",
+        "\\bottomrule",
+    ]
+    write_table("tab_channel_bounded", "rrrrrr", rows, [path], commit, resize=True)
+
+
+def table_geometry_registration_pilot(commit: str) -> None:
+    path = RESULTS / "geometry_registration_pilot.csv"
+    df = pd.read_csv(path).set_index("transform")
+    display = {
+        "rotate_pos1": "$1^\\circ$ rotation",
+        "crop_restore_5pct": "5\\% crop--restore",
+    }
+    rows = [
+        "\\toprule",
+        "\\textbf{Transform} & \\textbf{Gallery} & \\textbf{Cover ID} & "
+        "\\textbf{Exact messages} & \\textbf{Char. acc., fixed (\\%)} & "
+        "\\textbf{Char. acc., warped (\\%)} \\\\",
+        "\\midrule",
+    ]
+    for transform in ("rotate_pos1", "crop_restore_5pct"):
+        row = df.loc[transform]
+        rows.append(
+            f"{display[transform]} & {int(row['catalog_size'])} & "
+            f"{int(row['catalog_queries'] * row['catalog_identification_rate'])}/"
+            f"{int(row['catalog_queries'])} & "
+            f"{int(row['trials'] * row['catalog_canonical_exact_recovery_rate'])}/"
+            f"{int(row['trials'])} & "
+            f"{fmt_percent(row['fixed_coordinate_accuracy'])} & "
+            f"{fmt_percent(row['mean_character_accuracy'])} \\\\")
+    rows.append("\\bottomrule")
+    write_table("tab_geometry_registration_pilot", "lrrrrr", rows, [path], commit, resize=True)
+
+
+def table_secure_channel_pilot(commit: str) -> None:
+    path = RESULTS / "secure_channel_pilot.csv"
+    row = pd.read_csv(path).iloc[0]
+    trials = int(row["trials"])
+    checks = [
+        ("X25519 session-key agreement", row["session_key_agreement"]),
+        ("Exact message recovery", row["exact_recovery"]),
+        ("Wrong-cover envelope rejection", row["cover_substitution_rejected"]),
+        ("Persistent replay rejection", row["replay_rejected"]),
+        ("Altered key-offer rejection", row["altered_key_offer_rejected"]),
+    ]
+    rows = [
+        "\\toprule",
+        "\\textbf{Protocol check} & \\textbf{Successful trials} " + "\\\\",
+        "\\midrule",
+    ]
+    rows.extend(
+        f"{label} & {int(round(rate * trials))}/{trials} \\\\" for label, rate in checks
+    )
+    rows.append(
+        f"Fixed record size ($r=40$) & {int(row['envelope_bytes_min'])} bytes \\\\")
+    rows.append(
+        f"Signed session setup (amortized over 5 records) & "
+        f"{int(row['handshake_bytes_per_session'])} bytes/session \\\\")
+    rows.append(
+        f"Record plus amortized setup per message & "
+        f"{row['amortized_protocol_bytes_per_message']:.2f} bytes \\\\")
+    rows.append("\\bottomrule")
+    write_table("tab_secure_channel_pilot", "lr", rows, [path], commit)
+
+
 def main() -> int:
     commit = git_commit()
     table_assignment_ablation(commit)
@@ -534,6 +637,9 @@ def main() -> int:
     table_external_corpus(commit)
     table_stratified_robustness(commit)
     table_ecc_repetition(commit)
+    table_channel_bounded(commit)
+    table_geometry_registration_pilot(commit)
+    table_secure_channel_pilot(commit)
     print(
         "Note: tab_mapping_comparison and tab_codebook_geometry remain manually "
         "curated in paper/article_fham.tex (the former mixes structural, "

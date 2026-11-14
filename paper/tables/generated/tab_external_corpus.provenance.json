@@ -1,6 +1,6 @@
 {
-  "generated_at_utc": "2026-07-09T01:21:14.396133+00:00",
-  "git_commit": "159199740a7afacf01a127199317926ba0fa13e6",
+  "generated_at_utc": "2026-11-10T12:36:14.756308+00:00",
+  "git_commit": "668a3561b1d0de0c71b64aa1f6be80509f4fbf74",
   "input_files": [
     "results\\processed\\benchmark_smoke\\benchmark_assignment.csv"
   ],
@@ -8,7 +8,7 @@
     "results\\processed\\benchmark_smoke\\benchmark_assignment.csv": "0987b8fedf052968f7f1ff4f880521b1004193d6d013145319b90d135ab70b86"
   },
   "output_file": "paper\\tables\\generated\\tab_external_corpus.tex",
-  "output_sha256": "349b19dd8e2bb1a53c4f17c8cd58386e4fe37499498db5b210bb888ddc820944",
+  "output_sha256": "834b0f8d2684e6adbfd1dd38f3cf08ccd31d4ab5daac0f0c8b04111bafd5016a",
   "script": "scripts/generate_tables.py",
   "table": "tab_external_corpus"
 }

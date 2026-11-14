@@ -1,0 +1,2 @@
+trials,assignment_feasible,session_key_agreement,exact_recovery,cover_substitution_rejected,replay_rejected,altered_key_offer_rejected,envelope_bytes_min,envelope_bytes_max,sessions,handshake_bytes_per_session,records_per_session,amortized_protocol_bytes_per_message
+40,1.0,1.0,1.0,1.0,1.0,1.0,236,236,8,208,5.0,277.6

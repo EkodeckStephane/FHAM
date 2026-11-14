@@ -1,0 +1,5 @@
+mode,message_length,positive_flows,positive_FHAM_marker_flows,positive_FHAM_version1_flows,positive_FHMS_version1_flows,positive_exact_recovery_trials,median_flow_packets,median_flow_ip_bytes,median_flow_payload_bytes,positive_size_within_benign_10_90pct,positive_packets_within_benign_10_90pct
+raw_tcp,40,40,40,40,40,40,8.0,837.0,517.0,1.0,1.0
+raw_tcp,200,40,40,40,40,40,8.0,1477.0,1157.0,1.0,1.0
+tls13_tcp,40,40,0,0,0,40,13.0,3261.0,2741.0,1.0,1.0
+tls13_tcp,200,40,0,0,0,40,13.0,3901.0,3381.0,1.0,1.0

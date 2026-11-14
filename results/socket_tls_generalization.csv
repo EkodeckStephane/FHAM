@@ -1,0 +1,13 @@
+transport_mode,feature_set,heldout_run,training_runs,test_pairs,auc_raw_positive_orientation,paired_bootstrap_95_low,paired_bootstrap_95_high
+raw_tcp,sizes_and_records,rep1,rep2;rep3,80,0.5,0.5,0.5
+raw_tcp,relay_timing_and_chunks,rep1,rep2;rep3,80,0.46078125,0.37875000000000003,0.5443749999999999
+raw_tcp,sizes_and_records,rep2,rep1;rep3,80,0.5,0.5,0.5
+raw_tcp,relay_timing_and_chunks,rep2,rep1;rep3,80,0.49789062500000003,0.4105429687499999,0.5831308593749999
+raw_tcp,sizes_and_records,rep3,rep1;rep2,80,0.5,0.5,0.5
+raw_tcp,relay_timing_and_chunks,rep3,rep1;rep2,80,0.48148437499999996,0.40132421875,0.5614101562500001
+tls13_tcp,sizes_and_records,rep1,rep2;rep3,80,0.5,0.5,0.5
+tls13_tcp,relay_timing_and_chunks,rep1,rep2;rep3,80,0.51390625,0.42280468750000005,0.609375
+tls13_tcp,sizes_and_records,rep2,rep1;rep3,80,0.5,0.5,0.5
+tls13_tcp,relay_timing_and_chunks,rep2,rep1;rep3,80,0.53609375,0.44733203125,0.6222109375
+tls13_tcp,sizes_and_records,rep3,rep1;rep2,80,0.5,0.5,0.5
+tls13_tcp,relay_timing_and_chunks,rep3,rep1;rep2,80,0.514375,0.42809765624999996,0.600328125

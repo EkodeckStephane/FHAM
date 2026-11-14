@@ -1,14 +1,14 @@
 {
-  "generated_at_utc": "2026-07-09T01:21:13.739305+00:00",
-  "git_commit": "159199740a7afacf01a127199317926ba0fa13e6",
+  "generated_at_utc": "2026-11-10T12:36:14.657015+00:00",
+  "git_commit": "668a3561b1d0de0c71b64aa1f6be80509f4fbf74",
   "input_files": [
     "results\\auxiliary_channel.csv"
   ],
   "input_sha256": {
-    "results\\auxiliary_channel.csv": "6de0d6e40c430c4658dc6ab933c86fe26e7811e26115deef45b62dd309285685"
+    "results\\auxiliary_channel.csv": "b9a49468298568e3d0ff801fda86aab8df26e784c66181ac26db22da82243dca"
   },
   "output_file": "paper\\tables\\generated\\tab_channel_real.tex",
-  "output_sha256": "25b5503edd87d2941a588f9be9527942d764569991166af56f2cc32ebc8e34c0",
+  "output_sha256": "5fa4e80fcd1bbc5db0498a30e1cac1a0c0422d903f08a24bb790026e71e86501",
   "script": "scripts/generate_tables.py",
   "table": "tab_channel_real"
 }

@@ -1,14 +1,14 @@
 {
-  "generated_at_utc": "2026-07-09T01:21:13.783423+00:00",
-  "git_commit": "159199740a7afacf01a127199317926ba0fa13e6",
+  "generated_at_utc": "2026-11-10T12:36:14.667137+00:00",
+  "git_commit": "668a3561b1d0de0c71b64aa1f6be80509f4fbf74",
   "input_files": [
     "results\\leakage.csv"
   ],
   "input_sha256": {
-    "results\\leakage.csv": "54546de4c89efe00b95034a564f7275afd245bf48b7970aa4227a32b62712459"
+    "results\\leakage.csv": "54ca8b95e139333fb95f89b0838a766ff210c06deda104f32607ae72c95cd10f"
   },
   "output_file": "paper\\tables\\generated\\tab_leakage.tex",
-  "output_sha256": "7d0d6b7ded6afc7178d2381ce078f7634b31c5e0668315c95094e7138c5f4248",
+  "output_sha256": "d78e0e2eb73bb8cd543b206ad460d3e140ef9c1e4f4f4c3ce5f75b9789c27a28",
   "script": "scripts/generate_tables.py",
   "table": "tab_leakage"
 }

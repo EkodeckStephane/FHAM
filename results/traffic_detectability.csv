@@ -1,6 +1,11 @@
-classifier,n_train,n_test,auc,balanced_accuracy,tpr_at_5pct_fpr
-logistic_regression,1344,576,1.0,1.0,1.0
-random_forest,1344,576,1.0,1.0,1.0
-gradient_boosting,1344,576,1.0,1.0,1.0
-mlp,1344,576,0.9999999999999999,1.0,1.0
-random_baseline,1344,576,0.5,0.5,0.05
+envelope_mode,classifier,n_train,n_test,auc,balanced_accuracy,tpr_at_5pct_fpr
+compact,logistic_regression,1344,576,1.0,1.0,1.0
+compact,random_forest,1344,576,1.0,1.0,1.0
+compact,gradient_boosting,1344,576,1.0,1.0,1.0
+compact,mlp,1344,576,1.0,0.9982638888888888,1.0
+compact,random_baseline,1344,576,0.5,0.5,0.05
+shaped,logistic_regression,1344,576,0.5,0.5,0.0
+shaped,random_forest,1344,576,0.5,0.5,0.0
+shaped,gradient_boosting,1344,576,0.5,0.5,0.0
+shaped,mlp,1344,576,0.5,0.5,0.0
+shaped,random_baseline,1344,576,0.5,0.5,0.05

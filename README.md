@@ -146,9 +146,9 @@ and [`reports/schannel_tls_padding_pilot.md`](reports/schannel_tls_padding_pilot
 A Schannel TLS 1.2 padding/fragmentation pilot samples record counts and
 directional volumes from a disjoint training subset of captures. Against 60
 held-out capture groups, the mean AUC for counts plus byte totals falls from
-0.930 to 0.781; the complete record-sequence detector remains at 0.955. The
-padding profile therefore reduces the tested size/count signal and leaves an
-early TLS-record signal measurable.
+0.929 to 0.781; adding those features to the first 16 record lengths yields
+AUC 0.955. The padding profile therefore reduces the tested size/count signal
+and leaves a TLS-record-length signal measurable.
 
 The fixed-size record profile reduces the tested payload-size leakage; it is
 not evidence of indistinguishability within ordinary network traffic.

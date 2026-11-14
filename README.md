@@ -416,7 +416,7 @@ message-manifest coverage.
 
 ## Reproducibility guarantees
 
-> **Terminology note:** the experimental family stored internally as `natural_text` is templated natural-language text generated deterministically from a sentence template. The internal identifier is retained for backward compatibility with archived CSV files. The lambda sweep uses disjoint development and validation transformations; archived columns named `holdout_*` are legacy field names and do not denote an independent final test set.
+> **Terminology note:** `natural_text` denotes templated natural-language messages generated deterministically from sentence templates. The lambda sweep uses disjoint development and validation transformations; `holdout_*` columns in its result file identify the validation split used to choose the operating value.
 
 - Quantitative table values and plotted measurements are generated from raw
   CSV/JSON files in this repository. Conceptual tables (such as the threat

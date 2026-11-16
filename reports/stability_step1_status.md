@@ -26,6 +26,8 @@ Les moyennes de stabilité par position sont S1 = 0,3850, S2 = 0,2877 et S3 = 0,
 
 La validation couvre 100 images et 2 400 affectations par configuration. S0–S3 atteignent 95,29 % de faisabilité (2 287/2 400; IC Wilson 95 % : 94,37–96,07 %). S4 n’a aucune affectation faisable pour les seuils τ testés.
 
+L’absence de faisabilité S4 concerne la grille absolue τ ∈ {0,5; 0,8; 0,9; 0,95; 0,99}. Elle ne teste pas une sélection par quantile; la grille peut donc être mal adaptée à l’échelle des scores S3. Aucun résultat S4 ne permet de conclure qu’un filtrage des meilleurs emplacements est intrinsèquement infaisable.
+
 La règle préétablie sélectionne **S3, λ = 0,5** : justesse conditionnelle moyenne de 20,90 %, justesse sans condition de 20,46 %, D₁ moyen 8,66, soit 2,12 fois S0. Seules S2 et S3 à λ = 0,5 sont à moins d’une erreur-type du meilleur résultat; le plus petit D₁ retient S3.
 
 | Transformation et chemin primaire | Justesse conditionnelle | IC 95 % par grappes | Récupération exacte |
@@ -40,7 +42,7 @@ Le recalage ORB/RANSAC réussit sur 57/100 couvertures pour la rotation, 54/100 
 
 ## Signalement récepteur R-a
 
-Le seuil retenu sur LFW-val est `z_flag = 0,5`. Sur les chemins primaires, le signalement marque 97,59 % des symboles comme effacements et laisse 0,155 % d’erreurs silencieuses. Le rendement optimiste calculé est **R_max = 0,0210** (2,10 %); il est très inférieur au seuil rouge de 0,40 du protocole.
+Le seuil retenu sur LFW-val est `z_flag = 0,5`. Sur les chemins primaires de LFW-val, le signalement marque 97,59 % des symboles comme effacements et laisse 0,155 % d’erreurs silencieuses. Le rendement R-a de 2,10 % reflète donc principalement le taux d’effacement induit par ce signalement, et non la justesse seule. Il évalue le profil d’effacement testé; il ne démontre pas l’impossibilité générale des codes correcteurs.
 
 | Transformation | R_max | IC 95 % par grappes |
 |---|---:|---:|
@@ -50,7 +52,7 @@ Le seuil retenu sur LFW-val est `z_flag = 0,5`. Sur les chemins primaires, le si
 | Recadrage 5 %, P2 | 0,0179 | 0,0132–0,0230 |
 | Réduction-restauration ×0,8, P2 | 0,0347 | 0,0282–0,0415 |
 
-Le R-a ne rendait donc pas un code correcteur viable dans les conditions LFW-val. Le test scellé a ensuite été exécuté comme prévu; ses résultats sont rapportés ci-dessous.
+Selon les seuils préenregistrés, R-a ne qualifie pas ce profil pour un code correcteur. Le test scellé a ensuite été exécuté comme prévu; ses résultats et une borne théorique sans signalement sont rapportés ci-dessous.
 
 ## Inventaire du test scellé
 
@@ -60,22 +62,26 @@ La configuration S3/λ=0,5 et le seuil R-a 0,5 ont été fixés par LFW-val. Le 
 
 La faisabilité d’affectation est de 100 % dans les 34 cellules corpus/chemin/transformation. Cela confirme que le goulot mesuré après transformation est la reconstruction, non l’affectation initiale.
 
-| Transformation | Chemin | BOSSBase : justesse (IC 95 %) | Messages source exacts | COCO : justesse (IC 95 %) | Messages source exacts |
-|---|---|---:|---:|---:|---:|
-| JPEG 60 | P1 | 47,36 % (45,51–49,22) | 3/4 824 | 55,78 % (54,09–57,46) | 19/4 824 |
-| Bruit σ=3 | P1 | 60,72 % (58,18–63,21) | 75/4 824 | 70,12 % (68,17–72,04) | 112/4 824 |
-| Rotation −1,5° | P2 | 76,84 % (75,27–78,30) | 152/4 824 | 80,80 % (79,83–81,73) | 238/4 824 |
-| Recadrage 10 % | P2 | 57,27 % (55,57–58,89) | 10/4 824 | 59,64 % (58,55–60,73) | 13/4 824 |
-| Réduction ×0,7 | P2 | 62,13 % (60,45–63,78) | 43/4 824 | 66,12 % (64,94–67,29) | 49/4 824 |
-| Rotation +1° puis JPEG 75 | P2 | 51,61 % (49,81–53,45) | 8/4 824 | 58,63 % (57,06–60,19) | 13/4 824 |
+| Transformation | Chemin | BOSSBase : justesse | Sources exactes | BOSSBase : borne 1−2e | COCO : justesse | Sources exactes | COCO : borne 1−2e |
+|---|---|---:|---:|---:|---:|---:|---:|
+| JPEG 60 | P1 | 47,36 % | 3/4 824 | −0,053 | 55,78 % | 19/4 824 | 0,116 |
+| Bruit σ=3 | P1 | 60,72 % | 75/4 824 | 0,214 | 70,12 % | 112/4 824 | 0,402 |
+| Rotation −1,5° | P2 | 76,84 % | 152/4 824 | 0,537 | 80,80 % | 238/4 824 | 0,616 |
+| Recadrage 10 % | P2 | 57,27 % | 10/4 824 | 0,145 | 59,64 % | 13/4 824 | 0,193 |
+| Réduction ×0,7 | P2 | 62,13 % | 43/4 824 | 0,243 | 66,12 % | 49/4 824 | 0,322 |
+| Rotation +1° puis JPEG 75 | P2 | 51,61 % | 8/4 824 | 0,032 | 58,63 % | 13/4 824 | 0,173 |
+
+La borne `1−2e = 2a−1` suppose un code MDS idéal corrigeant des erreurs de symbole sans signalement et constitue un rendement théorique, pas un résultat de Reed–Solomon mesuré. Les estimations ponctuelles sont négatives pour JPEG 60/BOSSBase, sous 0,40 dans la plupart des cellules, et proches de 0,40 pour bruit σ=3/COCO (0,402). Rotation −1,5°/COCO atteint 0,616 en estimation ponctuelle, mais l’IC 95 % transformé de la justesse donne une borne inférieure de 0,597, sous le seuil vert préenregistré de 0,60. Le test conservateur ne donne donc pas encore de feu vert sans signalement; la rotation reste le cas prioritaire pour un essai séparé. Ces données ne valident pas un code correcteur.
 
 ORB/RANSAC réussit le recalage sur 99,50 % des images BOSSBase et 100 % des images COCO pour les quatre transformations géométriques. Il améliore fortement la justesse par rapport aux coordonnées fixes, surtout en rotation et recadrage. La récupération exacte du message source reste rare : les comptes du tableau correspondent aux messages décompressés correctement parmi 4 824 essais par cellule. Au total, 735 des 57 888 messages primaires sont récupérés exactement (1,27 %).
 
-Le rendement maximal R-a, calculé comme `R_max = 1 − f − 2s`, demeure faible. Sur les chemins primaires, les bornes supérieures des IC à 95 % varient de 1,41 % à 2,35 %; la plus basse borne inférieure est 1,14 %. **Toutes les classes de transformation sont en zone rouge** selon le critère préenregistré `R_max < 0,40`. La forte fraction d’effacements signalés par R-a rend le codage correcteur non viable dans cette configuration. Aucune classe ne passe au feu vert de l’étape 2.
+Le rendement maximal R-a, calculé comme `R_max = 1 − f − 2s`, demeure faible. Sur les chemins primaires, les bornes supérieures des IC à 95 % varient de 1,41 % à 2,35 %; la plus basse borne inférieure est 1,14 %. **Toutes les classes de transformation sont en zone rouge selon le critère préenregistré appliqué au signalement R-a**. Ce no-go concerne le profil d’effacement R-a testé. La borne sans signalement décrit un autre profil de décodage et ne suffit pas à établir sa performance réelle.
 
 ## Vérification des hypothèses H1–H3
 
 Les contrastes sont appariés par couverture sur LFW-val, chemin P2, λ=0,5, avec 10 000 réplications bootstrap par grappes et correction de Holm sur les deux transformations de chaque hypothèse. Une couverture sur 100 n’avait aucune affectation faisable pour S1–S3; l’analyse conditionnelle porte donc sur les 99 couvertures faisables (faisabilité moyenne : 96,25 %).
+
+Les IC sont issus du bootstrap à 10 000 tirages. Les p-values proviennent d’un test de permutation apparié par inversion de signe à 100 000 tirages, puis de l’ajustement de Holm sur les deux transformations. Aucun tirage ne dépasse la statistique observée : la plus petite p-value Monte Carlo est `1/100001 ≈ 0,00001`, puis `p_Holm ≈ 0,00002`. Ce n’est pas une p-value bootstrap. Ces comparaisons ne portent que sur LFW-val; elles n’établissent pas le gain de S2 sur images naturelles, car le test scellé n’a évalué que S3/λ=0,5.
 
 | Hypothèse | Transformation | Différence de justesse | IC 95 % | p de Holm | Verdict |
 |---|---|---:|---:|---:|---|
@@ -84,7 +90,7 @@ Les contrastes sont appariés par couverture sur LFW-val, chemin P2, λ=0,5, ave
 | H2 : S3−S2 | Rotation +1° | −0,42 point | −0,85 à +0,00 | 0,10970 | Non soutenue |
 | H2 : S3−S2 | Recadrage 5 % | −0,25 point | −0,68 à +0,18 | 0,25358 | Non soutenue |
 
-L’élargissement des transformations de développement améliore donc la justesse sous rotation et recadrage. Le score continu S3 n’améliore pas la justesse par rapport à S2; sa condition de gain échoue, de sorte que le critère supplémentaire de Brier ne peut pas rendre H2 positive. La sélection S3/λ=0,5 reste le choix de validation fixé par la règle de coût parmi les configurations à moins d’une erreur-type du meilleur résultat.
+L’élargissement des transformations de développement améliore la justesse sous rotation et recadrage sur LFW-val. Le score continu S3 n’améliore pas la justesse par rapport à S2; sa condition de gain échoue. Le score de Brier n’a donc pas été utilisé pour soutenir H2 et la calibration hors échantillon de S3 n’est pas établie. La sélection S3/λ=0,5 reste le choix de validation fixé par la règle de coût parmi les configurations à moins d’une erreur-type du meilleur résultat.
 
 Sur le test scellé, les différences P3−P2 quantifient la perte imputable au recalage, et P0−P3 la perte entre l’image intacte et l’inverse géométrique oracle. Les valeurs sont des points de pourcentage; les IC sont bootstrapés par couverture (201 par corpus).
 
@@ -103,9 +109,13 @@ Le recalage explique une part importante de la perte pour le recadrage et une pa
 
 ## Décision de l’étape 1
 
-Le test scellé confirme une amélioration de la justesse par recalage et une bonne faisabilité initiale, mais ne franchit pas le seuil de rendement requis pour ajouter un code correcteur. La justesse géométrique P2 reste sous 85 % dans les deux corpus; la récupération exacte demeure très faible, en particulier après recadrage, redimensionnement et transformation composée. L’étape 1 est close avec un **no-go pour l’étape 2 selon les seuils préenregistrés**. Le mode catalogue reste l’usage supporté pour une récupération exacte; la robustesse après transformation demeure une limite de la méthode. Les résultats détaillés sont disponibles dans `sealed_test_summary.csv`, les lignes brutes dans `sealed_test_raw.csv.gz` et la provenance complète dans `sealed_test_provenance.json`.
+Le test scellé confirme une amélioration de la justesse par recalage et une bonne faisabilité initiale. La justesse géométrique P2 reste sous 85 % dans les deux corpus; la récupération exacte demeure très faible, en particulier après recadrage, redimensionnement et transformation composée. Il s’agit d’un **no-go, selon les seuils préenregistrés, pour le profil de correction avec signalement R-a**. Ce résultat n’établit pas que tout code correcteur est impossible : la borne idéale sans signalement appelle une évaluation distincte, particulièrement pour la rotation. La différence entre LFW-val et les corpus naturels, ainsi que l’absence de comparaison S0–S3 sur ces derniers, limitent aussi les conclusions sur la généralisation des paramètres et l’apport propre de la pondération de stabilité. Le mode catalogue reste l’usage supporté pour une récupération exacte; la robustesse après transformation demeure une limite de la méthode. Les résultats détaillés sont disponibles dans `sealed_test_summary.csv`, les lignes brutes dans `sealed_test_raw.csv.gz` et la provenance complète dans `sealed_test_provenance.json`.
 
 L’étape 2 ne sera engagée qu’après le go de l’auteur.
+
+## Référence du mode catalogue
+
+Le pilote existant `results/geometry_registration_pilot.csv` rapporte 40/40 récupérations canoniques exactes pour chacune des deux transformations (rotation +1° et recadrage-restauration 5 %). Il utilise cinq messages de 40 caractères sur chacun de huit contenus contrôlés, tous présents à l’identique dans une galerie de 219 images; l’identification catalogue est 8/8 pour chaque transformation. Ce résultat étaye le mode catalogue en univers fermé, avec requêtes déjà présentes dans la galerie. Il ne mesure pas une recherche sur des images inconnues ni une généralisation hors de cette galerie.
 
 ## Fichiers de résultats principaux
 

@@ -1,0 +1,32 @@
+{
+  "formula": "ceil((1.96*sd_delta/0.03)^2)",
+  "source": "20-cover D0 pilot; paired P2-P1 contrasts for all geometric validation transformations",
+  "selected_n": 201,
+  "rule": "retain preregistered 100-image LFW-val split when the maximum pilot estimate is <=100; otherwise expand before validation",
+  "results": [
+    {
+      "transformation": "rotate1",
+      "paired_contrast": "P2 minus P1 per-cover character accuracy",
+      "n_covers": 19,
+      "mean_delta": 0.021929824561403542,
+      "sd_delta": 0.14934167589739997,
+      "required_n_for_3pp_half_width": 96
+    },
+    {
+      "transformation": "crop5",
+      "paired_contrast": "P2 minus P1 per-cover character accuracy",
+      "n_covers": 19,
+      "mean_delta": 0.09649122807017546,
+      "sd_delta": 0.12407266481117556,
+      "required_n_for_3pp_half_width": 66
+    },
+    {
+      "transformation": "resize08",
+      "paired_contrast": "P2 minus P1 per-cover character accuracy",
+      "n_covers": 19,
+      "mean_delta": -0.20614035087719298,
+      "sd_delta": 0.21682850268737233,
+      "required_n_for_3pp_half_width": 201
+    }
+  ]
+}

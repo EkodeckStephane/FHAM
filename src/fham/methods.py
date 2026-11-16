@@ -4,9 +4,14 @@ import numpy as np
 from PIL import Image
 from scipy.optimize import linear_sum_assignment
 
-from .assignment import random_feasible_assignment, stability_aware_columns
+from .assignment import (
+    random_feasible_assignment,
+    sparse_stability_aware_columns,
+    stability_aware_columns,
+)
 from .config import BLOCK_SIZE
 from .descriptors import descriptor_hashes
+from .stability import _block_payloads
 
 
 @dataclass(frozen=True)
@@ -58,16 +63,16 @@ class BaseMethod:
                     Image.Resampling.LANCZOS,
                 )
             )
+        coordinates = {(location.x, location.y) for location in assignment.locations}
+        payloads = _block_payloads(
+            image, coordinates, assignment.block_size, self.descriptor
+        )
         characters = []
         for location, displacement in zip(
             assignment.locations, assignment.displacements
         ):
-            block = image[
-                location.y:location.y + assignment.block_size,
-                location.x:location.x + assignment.block_size,
-            ]
-            value = descriptor_hashes(block, self.descriptor)[location.arrangement]
-            characters.append(chr(max(0, min(255, value + displacement))))
+            value = payloads[(location.x, location.y)][0][location.arrangement]
+            characters.append(chr(max(0, min(255, int(value) + displacement))))
         return "".join(characters)
 
 
@@ -239,11 +244,19 @@ class StabilityAwareAssignmentMethod(BaseMethod):
     (assumed stable)."""
 
     def __init__(
-        self, max_displacement, lam, block_size=BLOCK_SIZE, descriptor="spectral"
+        self,
+        max_displacement,
+        lam,
+        block_size=BLOCK_SIZE,
+        descriptor="spectral",
+        residual_scale=255.0,
+        sparse_solver=False,
     ):
         super().__init__(block_size, descriptor)
         self.max_displacement = max_displacement
         self.lam = lam
+        self.residual_scale = residual_scale
+        self.sparse_solver = sparse_solver
         self.stabilities: dict[Location, float] = {}
 
     def embed(self, message, image):
@@ -261,8 +274,15 @@ class StabilityAwareAssignmentMethod(BaseMethod):
         stabilities = [
             self.stabilities.get(location, 1.0) for _, location in records
         ]
-        columns = stability_aware_columns(
-            targets, hashes, stabilities, self.max_displacement, self.lam
+        solver = (sparse_stability_aware_columns if self.sparse_solver
+                  else stability_aware_columns)
+        columns = solver(
+            targets,
+            hashes,
+            stabilities,
+            self.max_displacement,
+            self.lam,
+            self.residual_scale,
         )
         if columns is None:
             return None

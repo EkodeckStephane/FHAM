@@ -1,0 +1,25 @@
+{
+  "eligible_configuration_count": 16,
+  "total_configuration_count": 21,
+  "selection": {
+    "method": "S3",
+    "lambda": 0.5,
+    "tau": null,
+    "config": "S3:lambda=0.5:tau=None",
+    "selection_metric": "primary conditional per-symbol accuracy: P1 for photometric transforms; P2 for geometric transforms",
+    "best_mean_accuracy": 0.24916388405114412,
+    "one_se_threshold": 0.2354473789565401,
+    "selected_mean_accuracy": 0.24684646682279485,
+    "selected_mean_unconditional_accuracy": 0.23707930367504837,
+    "selected_feasibility": 0.9529166666666667,
+    "selected_mean_D1": 8.655604561512714,
+    "selected_D1_ratio_to_S0": 2.1228750435787647,
+    "within_one_se_configs": [
+      "S2:lambda=0.5:tau=None",
+      "S3:lambda=0.5:tau=None"
+    ]
+  },
+  "no_eligible_configuration": false,
+  "selection_rule": "feasibility >= 0.95 and mean D1 <= 5x S0; maximize validation accuracy; among configurations within one standard error of best choose lowest D1.",
+  "test_remains_sealed": true
+}

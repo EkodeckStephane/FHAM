@@ -1,0 +1,4 @@
+transform,covers,registration_successes,registration_success_rate,mean_keypoint_matches,mean_ransac_inliers,mean_accuracy_conditional,mean_accuracy_unconditional,exact_messages
+crop5,100,54,0.54,34.1,22.24,0.17339350956372232,0.17165957446808508,0
+resize0.8,100,60,0.6,94.35,93.63,0.3783977898504221,0.3686615087040619,5
+rotate1,100,57,0.57,68.97,51.34,0.24509986663621358,0.24234429400386848,0

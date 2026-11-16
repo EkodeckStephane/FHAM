@@ -1,0 +1,24 @@
+{
+  "formula": "ceil((1.96*sd_delta/0.03)^2)",
+  "source": "20-cover D0 pilot; paired P2-P1 contrasts for the two geometric validation attacks",
+  "selected_n": 100,
+  "rule": "maximum pilot estimate is below 100; retain preregistered 100-image LFW-val split.",
+  "results": [
+    {
+      "transformation": "rotate1",
+      "paired_contrast": "P2 minus P1 per-cover character accuracy",
+      "n_covers": 20,
+      "mean_delta": 0.06578947368421054,
+      "sd_delta": 0.11051558241766186,
+      "required_n_for_3pp_half_width": 53
+    },
+    {
+      "transformation": "crop5",
+      "paired_contrast": "P2 minus P1 per-cover character accuracy",
+      "n_covers": 20,
+      "mean_delta": 0.10526315789473684,
+      "sd_delta": 0.11463039526176617,
+      "required_n_for_3pp_half_width": 57
+    }
+  ]
+}

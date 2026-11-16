@@ -199,9 +199,10 @@ def assignment_channel_sizes(
     if recovered_packed != packed:
         raise ValueError("packed AES-GCM envelope round-trip mismatch")
     packed_compact_bytes = len(packed_envelope)
-    # Fixed framing: 13-byte direct envelope header + nonce + AES-GCM tag.
     direct_compressed = zlib.compress(direct_payload, level=9)
-    direct_bytes = 13 + 12 + len(direct_compressed) + 16
+    direct_bytes = len(
+        AuxiliaryChannel.protect_direct(direct_compressed, b"\x44" * 32)
+    )
     return {
         "feasible": 1,
         "fham_recovery_exact": 1,

@@ -1,0 +1,99 @@
+{
+  "tolerance_percentage_points": 1.0,
+  "checks": [
+    {
+      "table": "8",
+      "metric": "lambda=1.0 character_accuracy",
+      "expected": 0.338,
+      "actual": 0.33775,
+      "absolute_difference_pp": 0.025000000000002798
+    },
+    {
+      "table": "8",
+      "metric": "lambda=0.75 character_accuracy",
+      "expected": 0.551,
+      "actual": 0.5508333333333333,
+      "absolute_difference_pp": 0.016666666666675933
+    },
+    {
+      "table": "8",
+      "metric": "lambda=0.0 character_accuracy",
+      "expected": 0.554,
+      "actual": 0.55425,
+      "absolute_difference_pp": 0.024999999999997247
+    },
+    {
+      "table": "9",
+      "metric": "lambda=0.75 jpeg75 byte_accuracy",
+      "expected": 0.578,
+      "actual": 0.5783699059561128,
+      "absolute_difference_pp": 0.036990595611285926
+    },
+    {
+      "table": "9",
+      "metric": "lambda=0.75 noise2 byte_accuracy",
+      "expected": 0.681,
+      "actual": 0.6810344827586207,
+      "absolute_difference_pp": 0.003448275862061312
+    },
+    {
+      "table": "9",
+      "metric": "lambda=0.75 rotate1 byte_accuracy",
+      "expected": 0.094,
+      "actual": 0.09352142110762797,
+      "absolute_difference_pp": 0.04785788923720308
+    },
+    {
+      "table": "9",
+      "metric": "lambda=1.0 jpeg75 byte_accuracy",
+      "expected": 0.292,
+      "actual": 0.29179728317659354,
+      "absolute_difference_pp": 0.02027168234064458
+    },
+    {
+      "table": "9",
+      "metric": "lambda=1.0 noise2 byte_accuracy",
+      "expected": 0.381,
+      "actual": 0.38113897596656215,
+      "absolute_difference_pp": 0.013897596656214928
+    },
+    {
+      "table": "9",
+      "metric": "lambda=1.0 rotate1 byte_accuracy",
+      "expected": 0.038,
+      "actual": 0.03761755485893415,
+      "absolute_difference_pp": 0.03824451410658486
+    },
+    {
+      "table": "34",
+      "metric": "rotate_pos1 fixed_coordinate_accuracy",
+      "expected": 0.0688,
+      "actual": 0.06875,
+      "absolute_difference_pp": 0.004999999999999449
+    },
+    {
+      "table": "34",
+      "metric": "rotate_pos1 mean_character_accuracy",
+      "expected": 0.3956,
+      "actual": 0.395625,
+      "absolute_difference_pp": 0.0024999999999997247
+    },
+    {
+      "table": "34",
+      "metric": "crop_restore_5pct fixed_coordinate_accuracy",
+      "expected": 0.0025,
+      "actual": 0.0025,
+      "absolute_difference_pp": 0.0
+    },
+    {
+      "table": "34",
+      "metric": "crop_restore_5pct mean_character_accuracy",
+      "expected": 0.31,
+      "actual": 0.31,
+      "absolute_difference_pp": 0.0
+    }
+  ],
+  "maximum_difference_percentage_points": 0.04785788923720308,
+  "passed": true,
+  "exact_message_recovery_table34": "0/40 for both transformations; reproduced"
+}

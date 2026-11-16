@@ -1,0 +1,23 @@
+{
+  "seed": "FHAM-Step1-test-20261116",
+  "selection_size_per_corpus": 201,
+  "candidate_counts": {
+    "BOSSBase": 400,
+    "COCO": 400
+  },
+  "mapped_source_count": {
+    "BOSSBase": 400,
+    "COCO": 400
+  },
+  "previously_used_counts_excluded": {
+    "BOSSBase": 81,
+    "COCO": 159
+  },
+  "eligible_counts": {
+    "BOSSBase": 319,
+    "COCO": 241
+  },
+  "pixel_evaluation_performed": false,
+  "source_manifest_sha256": "d3745ad884e03e87cc5e4ac148a339638c2232da2a028f634264923a68ca9610",
+  "selection_status": "deterministically selected after overlap audit and LFW-val freeze; pixel evaluation awaits the pre-test commit"
+}

@@ -5,7 +5,6 @@ import os
 import zlib
 
 import pandas as pd
-from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 import numpy as np
 from PIL import Image
 
@@ -31,9 +30,8 @@ def main():
                 continue
             compact = AuxiliaryChannel.protect(assignment, key)
             direct_payload = zlib.compress(message.encode("ascii"), level=9)
-            nonce = os.urandom(12)
-            ciphertext = AESGCM(key).encrypt(nonce, direct_payload, b"FHAM-DIRECT-BASELINE")
-            direct_bytes = 13 + len(nonce) + len(ciphertext)
+            direct_envelope = AuxiliaryChannel.protect_direct(direct_payload, key)
+            direct_bytes = len(direct_envelope)
             raw = AuxiliaryChannel.serialize(assignment)
             rows.append({
                 "image": image_name,

@@ -7,6 +7,8 @@ from itertools import count
 import random
 
 import numpy as np
+from scipy.sparse import coo_matrix
+from scipy.sparse.csgraph import min_weight_full_bipartite_matching
 from scipy.optimize import linear_sum_assignment
 
 
@@ -163,8 +165,16 @@ def random_feasible_assignment(targets: list[int], hashes: list[int], bound: int
     return result
 
 
-def stability_aware_cost(target: int, cover_hash: int, stability: float, lam: float) -> float:
-    residual = abs(target - cover_hash) / 255.0
+def stability_aware_cost(
+    target: int,
+    cover_hash: int,
+    stability: float,
+    lam: float,
+    residual_scale: float = 255.0,
+) -> float:
+    if residual_scale <= 0:
+        raise ValueError("residual_scale must be positive")
+    residual = abs(target - cover_hash) / residual_scale
     return lam * residual + (1.0 - lam) * (1.0 - stability)
 
 
@@ -174,6 +184,7 @@ def stability_aware_columns(
     stabilities: list[float],
     bound: int,
     lam: float,
+    residual_scale: float = 255.0,
 ) -> list[int] | None:
     if len(targets) > len(hashes):
         return None
@@ -182,7 +193,9 @@ def stability_aware_columns(
         for column, cover_hash in enumerate(hashes):
             residual = abs(target - cover_hash)
             costs[row, column] = (
-                stability_aware_cost(target, cover_hash, stabilities[column], lam)
+                stability_aware_cost(
+                    target, cover_hash, stabilities[column], lam, residual_scale
+                )
                 if residual <= bound
                 else np.inf
             )
@@ -191,5 +204,47 @@ def stability_aware_columns(
     except ValueError:
         return None
     if not np.isfinite(costs[rows, columns]).all():
+        return None
+    return [int(column) for _, column in sorted(zip(rows, columns))]
+
+
+def sparse_stability_aware_columns(
+    targets: list[int],
+    hashes: list[int],
+    stabilities: list[float],
+    bound: int,
+    lam: float,
+    residual_scale: float,
+) -> list[int] | None:
+    """Exact sparse full matching for the bounded interval assignment graph."""
+    if len(targets) > len(hashes):
+        return None
+    by_hash: dict[int, list[int]] = defaultdict(list)
+    for column, value in enumerate(hashes):
+        by_hash[int(value)].append(column)
+    row_indices, column_indices, weights = [], [], []
+    for row, target in enumerate(targets):
+        for value in range(max(0, int(target) - bound), min(255, int(target) + bound) + 1):
+            for column in by_hash.get(value, ()):
+                residual = abs(int(target) - value)
+                cost = (
+                    lam * residual / residual_scale
+                    + (1.0 - lam) * (1.0 - stabilities[column])
+                )
+                # SciPy's sparse matching treats implicit zeros as absent edges.
+                row_indices.append(row)
+                column_indices.append(column)
+                weights.append(cost if cost > 0 else np.finfo(np.float64).tiny)
+    if not row_indices:
+        return None
+    graph = coo_matrix(
+        (np.asarray(weights), (row_indices, column_indices)),
+        shape=(len(targets), len(hashes)),
+    ).tocsr()
+    try:
+        rows, columns = min_weight_full_bipartite_matching(graph)
+    except ValueError:
+        return None
+    if len(rows) != len(targets):
         return None
     return [int(column) for _, column in sorted(zip(rows, columns))]

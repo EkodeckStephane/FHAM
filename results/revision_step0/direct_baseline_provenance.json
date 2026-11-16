@@ -1,0 +1,20 @@
+{
+  "aes_gcm_tag_bytes": 16,
+  "corrected_fixed_overhead_bytes": 29,
+  "direct_format_version_bytes": 1,
+  "direct_nonce_bytes": 12,
+  "generated_at_utc": "2026-11-15T12:27:19.215241+00:00",
+  "legacy_direct_header_bytes": 13,
+  "method": "Preserve historical inputs, subtract the 12-byte FHAM envelope-header excess, and recompute ratios from raw rows.",
+  "purpose": "correct direct AES-GCM size reference",
+  "removed_fham_specific_bytes": 12,
+  "source_sha256": {
+    "results\\auxiliary_channel_b2_200_raw.csv": "dc1719d4f96327caa5557383c95ada8ab781e05fa272f971f4b44bc452584ec7",
+    "results\\auxiliary_channel_raw.csv": "5e304bdca1b13dd0e81cfd421381f889ea9f1c87e5aa739a90536750bcda6b22",
+    "results\\revision_ablation\\controlled_parameters_dspectral_b12_n200_t3_iall_channel_channel_raw.csv": "38e893e17c0be3e3ab8f1f27dfc12bfe033add7cd6df497e596fcec531501259",
+    "results\\revision_ablation\\controlled_parameters_dspectral_b18-24_n200_t3_iall_channel_channel_raw.csv": "3ca78ed6f076a18a43079587f2f47a8cdf1533ffed0978ee8e2af41477e34667",
+    "results\\revision_ablation\\controlled_parameters_dspectral_b24_n200_channel_raw.csv": "6313840715b2a3dbe86b5697662eee15751f8a98ea4780c495009dfd07f073bf",
+    "results\\revision_ablation\\controlled_parameters_dspectral_b24_n200_t1_i1_channel_channel_raw.csv": "b7bf2f93b8a7715d819b45d26dcdf94ae2b54e2c9b4d8e3c405d3dd63ec1b8cd",
+    "results\\revision_ablation\\controlled_parameters_dspectral_b24_n200_t3_i1_channel_channel_raw.csv": "f42130eed4ffff159fb5982422995caa6592d47697009d6ba1c33ac88537f25f"
+  }
+}

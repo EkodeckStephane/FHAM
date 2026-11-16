@@ -513,11 +513,10 @@ def channel_experiment(images, lengths=(10, 20, 50, 100, 200), trials=10):
                 raw_payload = AuxiliaryChannel.serialize(assignment)
                 compressed = zlib.compress(raw_payload, level=9)
                 direct_compressed = zlib.compress(message.encode("ascii"), level=9)
-                direct_nonce = os.urandom(12)
-                direct_ciphertext = AESGCM(key).encrypt(
-                    direct_nonce, direct_compressed, b"FHAM-DIRECT-BASELINE"
+                direct_envelope = AuxiliaryChannel.protect_direct(
+                    direct_compressed, key
                 )
-                direct_bytes = 13 + len(direct_nonce) + len(direct_ciphertext)
+                direct_bytes = len(direct_envelope)
 
                 tracemalloc.start()
                 start = time.perf_counter()

@@ -26,6 +26,7 @@ class AuxiliaryChannel:
     SERIAL_HEADER = struct.Struct(">4sBHHHI")
     RECORD = struct.Struct(">Hh")
     ENVELOPE_HEADER = struct.Struct(">4sBII")
+    DIRECT_ENVELOPE_HEADER = struct.Struct(">B")
     SHAPED_ENVELOPE_HEADER = struct.Struct(">4sBI")
     SESSION_ENVELOPE_HEADER = struct.Struct(">4sB16sQ12sI")
     SERIAL_MAGIC = b"FHMS"
@@ -118,6 +119,21 @@ class AuxiliaryChannel:
             cls.ENVELOPE_MAGIC, cls.VERSION, len(raw), len(compressed)
         )
         return envelope + nonce + ciphertext
+
+    @classmethod
+    def protect_direct(cls, plaintext, key, aad=b"FHAM-DIRECT-BASELINE", nonce=None):
+        """Build the byte-count reference for directly protected message data.
+
+        The direct format has one public format/version byte, a 12-byte GCM
+        nonce, and the AES-GCM ciphertext and tag. It deliberately excludes
+        the 13-byte FHAM location-record header.
+        """
+        nonce = os.urandom(12) if nonce is None else nonce
+        if len(nonce) != 12:
+            raise ValueError("AES-GCM nonce must contain exactly 12 bytes")
+        header = cls.DIRECT_ENVELOPE_HEADER.pack(cls.VERSION)
+        ciphertext = AESGCM(key).encrypt(nonce, plaintext, aad)
+        return header + nonce + ciphertext
 
     @classmethod
     def recover(cls, envelope, key):

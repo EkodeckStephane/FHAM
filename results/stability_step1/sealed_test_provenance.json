@@ -1,0 +1,62 @@
+{
+  "frozen_commit": "82dfb150ea5d73010d618be39052cd871dec2a4b",
+  "configuration": {
+    "method": "S3",
+    "lambda": 0.5,
+    "tau": null,
+    "config": "S3:lambda=0.5:tau=None",
+    "selection_metric": "primary conditional per-symbol accuracy: P1 for photometric transforms; P2 for rotation, crop, and resize geometric transforms",
+    "best_mean_accuracy": 0.20900850029612136,
+    "one_se_threshold": 0.19094777961193524,
+    "selected_mean_accuracy": 0.20900850029612136,
+    "selected_mean_unconditional_accuracy": 0.20461895551257253,
+    "selected_feasibility": 0.9529166666666667,
+    "selected_mean_D1": 8.655604561512714,
+    "selected_D1_ratio_to_S0": 2.1228750435787647,
+    "within_one_se_configs": [
+      "S2:lambda=0.5:tau=None",
+      "S3:lambda=0.5:tau=None"
+    ]
+  },
+  "receiver_z_flag": 0.5,
+  "configuration_and_manifest_sha256": "cbe06f17f43f4ef2c66d1fa42959b5858b4949395d38d4f98455a783ed97f7f0",
+  "sample_counts": {
+    "BOSSBase": 201,
+    "COCO": 201
+  },
+  "data_root_name": "multicorpus_v2_1000eval_512",
+  "transformations": [
+    "jpeg60",
+    "noise3",
+    "rotate_neg1.5",
+    "crop10",
+    "resize0.7",
+    "combo_rotate1_jpeg75"
+  ],
+  "paths": "P1 fixed coordinates; P2 ORB/RANSAC; P3 known geometric inverse",
+  "preprocessing": "grayscale then Lanczos resize to 512x512",
+  "seed_root": 20261116,
+  "cluster_bootstrap_draws": 10000,
+  "started_epoch_seconds": 1794838185.3137205,
+  "elapsed_seconds": 4339.402146299835,
+  "selection_test_split_sha256": "686c3f0f94e3fe83a4f53c9cf510d95a7128ade95cf88f1c69118417541f3898",
+  "candidate_manifest_sha256": "529e40a8d39fbcdcd21a7513ee03a179f43a25fc86fff263aef46905809b16b8",
+  "protocol_sha256": "08c619815392b23429e3324eec4071067899d56e0b9c985aa2157e5c74b1821b",
+  "software": {
+    "python": "3.13.5",
+    "numpy": "2.2.6",
+    "pandas": "2.2.3",
+    "scipy": "1.17.1",
+    "opencv": "4.12.0",
+    "Pillow": "11.3.0",
+    "scikit_image": "0.25.2"
+  },
+  "scripts_sha256": {
+    "stability_step1_sealed_test.py": "15749e8c352cf62f71e0a52f693d6f49d15459e578abfd43c648812bdf0e4a27",
+    "stability_step1_validation.py": "3dec03e1088fc29c3e42f8594177711bc8010f1271fb7da7ac6180749546c0f1",
+    "stability_step1_receiver_validation.py": "8791be3dd07b9efd4a98b7304e21e37519d74f72966b74c2a9dc55763380a428",
+    "stability_step1_pilot.py": "894bc95810b6a0f7398abbcd15fcc99ce02b4f1335d2c68328a7ac84482fbca0",
+    "stability_step1_estimate.py": "8eeaef017b9f0d86d9a2bc3de2ccd259eb481578d902d4237ebe95d540ba7873"
+  },
+  "raw_sha256": "01c70d8b4df8572a15a3fd73ef7be059180afab91ea156face6a113cb0bbdb68"
+}

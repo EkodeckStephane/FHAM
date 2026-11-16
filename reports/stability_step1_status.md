@@ -2,7 +2,7 @@
 
 **Branche :** `revision/position-stability-2026-11-15`
 **Date :** 16 novembre 2026
-**Périmètre :** étapes 0 et 1 uniquement; le test scellé n’a pas encore été évalué.
+**Périmètre :** étapes 0 et 1 uniquement; le test scellé est terminé. L’étape 2 reste suspendue à l’accord de l’auteur.
 
 ## Reproduction et pilote D0
 
@@ -34,7 +34,7 @@ La règle préétablie sélectionne **S3, λ = 0,5** : justesse conditionnelle m
 | Bruit σ=2, P1 | 9,31 % | 8,01–10,66 % | 0/2 400 |
 | Rotation +1°, P2 | 24,51 % | 19,62–29,49 % | 0/2 400 |
 | Recadrage 5 %, P2 | 17,34 % | 13,63–21,14 % | 0/2 400 |
-| Réduction-restauration ×0,8, P2 | 37,84 % | 31,62–44,14 % | 5/2 400 |
+| Réduction-restauration ×0,8, P2 | 37,84 % | 31,62–44,14 % | 7/2 400 |
 
 Le recalage ORB/RANSAC réussit sur 57/100 couvertures pour la rotation, 54/100 pour le recadrage et 60/100 pour le redimensionnement. Les moyennes de correspondances / inliers RANSAC sont respectivement 68,97/51,34, 34,10/22,24 et 94,35/93,63.
 
@@ -50,13 +50,62 @@ Le seuil retenu sur LFW-val est `z_flag = 0,5`. Sur les chemins primaires, le si
 | Recadrage 5 %, P2 | 0,0179 | 0,0132–0,0230 |
 | Réduction-restauration ×0,8, P2 | 0,0347 | 0,0282–0,0415 |
 
-Le R-a ne rend donc pas un code correcteur viable dans les conditions mesurées. Le test scellé reste néanmoins prévu par le protocole; aucune image de test n’a été décodée à ce stade.
+Le R-a ne rendait donc pas un code correcteur viable dans les conditions LFW-val. Le test scellé a ensuite été exécuté comme prévu; ses résultats sont rapportés ci-dessous.
 
 ## Inventaire du test scellé
 
-Les 400 candidats BOSSBase et 400 candidats COCO ont été reliés au manifeste source. Les SHA-256 des PNG dérivés correspondent tous au manifeste. L’audit d’identifiants et de SHA-256 a exclu 81 candidats BOSSBase et 159 COCO déjà employés dans les résultats FHAM conservés; il reste 319 et 241 candidats éligibles. Une sélection déterministe en retient 201 par corpus. **Seul leur hash a été calculé; aucun pixel n’a été décodé ni analysé.**
+Les 400 candidats BOSSBase et 400 candidats COCO ont été reliés au manifeste source. Les SHA-256 des PNG dérivés correspondent tous au manifeste. L’audit d’identifiants et de SHA-256 a exclu 81 candidats BOSSBase et 159 COCO déjà employés dans les résultats FHAM conservés; il reste 319 et 241 candidats éligibles. Une sélection déterministe en retient 201 par corpus. Lors de cet inventaire prétest, seuls les hashes ont été calculés : le champ `pixels_opened=false` dans le manifeste décrit cet état antérieur à l’évaluation. Les pixels ont ensuite été évalués après le commit de gel.
 
-La configuration S3/λ=0,5 et le seuil R-a 0,5 sont maintenant fixés par LFW-val. Le code, la configuration et les manifestes doivent être commités avant l’unique exécution scellée. Le résultat déterminera la décision finale de l’étape 1; les résultats LFW-val actuels placent déjà toutes les transformations en zone rouge.
+La configuration S3/λ=0,5 et le seuil R-a 0,5 ont été fixés par LFW-val. Le commit prétest est `82dfb150ea5d73010d618be39052cd871dec2a4b`. L’évaluation scellée a ensuite été exécutée une seule fois sur 201 couvertures BOSSBase et 201 COCO. Elle comprend 4 824 messages par combinaison corpus/transformation/chemin, avec 10 000 réplications bootstrap par grappes. Les 402 couvertures ont toutes 408 lignes brutes; le fichier compressé totalise 164 016 lignes et son SHA-256 concorde avec la provenance. Le calcul a duré 4 339,4 secondes (72,3 minutes). Le manifeste, la provenance logicielle, les empreintes des scripts et les résultats bruts compressés sont conservés dans `results/stability_step1/`.
+
+La faisabilité d’affectation est de 100 % dans les 34 cellules corpus/chemin/transformation. Cela confirme que le goulot mesuré après transformation est la reconstruction, non l’affectation initiale.
+
+| Transformation | Chemin | BOSSBase : justesse (IC 95 %) | Messages source exacts | COCO : justesse (IC 95 %) | Messages source exacts |
+|---|---|---:|---:|---:|---:|
+| JPEG 60 | P1 | 47,36 % (45,51–49,22) | 3/4 824 | 55,78 % (54,09–57,46) | 19/4 824 |
+| Bruit σ=3 | P1 | 60,72 % (58,18–63,21) | 75/4 824 | 70,12 % (68,17–72,04) | 112/4 824 |
+| Rotation −1,5° | P2 | 76,84 % (75,27–78,30) | 152/4 824 | 80,80 % (79,83–81,73) | 238/4 824 |
+| Recadrage 10 % | P2 | 57,27 % (55,57–58,89) | 10/4 824 | 59,64 % (58,55–60,73) | 13/4 824 |
+| Réduction ×0,7 | P2 | 62,13 % (60,45–63,78) | 43/4 824 | 66,12 % (64,94–67,29) | 49/4 824 |
+| Rotation +1° puis JPEG 75 | P2 | 51,61 % (49,81–53,45) | 8/4 824 | 58,63 % (57,06–60,19) | 13/4 824 |
+
+ORB/RANSAC réussit le recalage sur 99,50 % des images BOSSBase et 100 % des images COCO pour les quatre transformations géométriques. Il améliore fortement la justesse par rapport aux coordonnées fixes, surtout en rotation et recadrage. La récupération exacte du message source reste rare : les comptes du tableau correspondent aux messages décompressés correctement parmi 4 824 essais par cellule. Au total, 735 des 57 888 messages primaires sont récupérés exactement (1,27 %).
+
+Le rendement maximal R-a, calculé comme `R_max = 1 − f − 2s`, demeure faible. Sur les chemins primaires, les bornes supérieures des IC à 95 % varient de 1,41 % à 2,35 %; la plus basse borne inférieure est 1,14 %. **Toutes les classes de transformation sont en zone rouge** selon le critère préenregistré `R_max < 0,40`. La forte fraction d’effacements signalés par R-a rend le codage correcteur non viable dans cette configuration. Aucune classe ne passe au feu vert de l’étape 2.
+
+## Vérification des hypothèses H1–H3
+
+Les contrastes sont appariés par couverture sur LFW-val, chemin P2, λ=0,5, avec 10 000 réplications bootstrap par grappes et correction de Holm sur les deux transformations de chaque hypothèse. Une couverture sur 100 n’avait aucune affectation faisable pour S1–S3; l’analyse conditionnelle porte donc sur les 99 couvertures faisables (faisabilité moyenne : 96,25 %).
+
+| Hypothèse | Transformation | Différence de justesse | IC 95 % | p de Holm | Verdict |
+|---|---|---:|---:|---:|---|
+| H1 : S2−S1 | Rotation +1° | +3,86 points | +2,96 à +4,81 | 0,00002 | Soutenue |
+| H1 : S2−S1 | Recadrage 5 % | +3,70 points | +2,86 à +4,56 | 0,00002 | Soutenue |
+| H2 : S3−S2 | Rotation +1° | −0,42 point | −0,85 à +0,00 | 0,10970 | Non soutenue |
+| H2 : S3−S2 | Recadrage 5 % | −0,25 point | −0,68 à +0,18 | 0,25358 | Non soutenue |
+
+L’élargissement des transformations de développement améliore donc la justesse sous rotation et recadrage. Le score continu S3 n’améliore pas la justesse par rapport à S2; sa condition de gain échoue, de sorte que le critère supplémentaire de Brier ne peut pas rendre H2 positive. La sélection S3/λ=0,5 reste le choix de validation fixé par la règle de coût parmi les configurations à moins d’une erreur-type du meilleur résultat.
+
+Sur le test scellé, les différences P3−P2 quantifient la perte imputable au recalage, et P0−P3 la perte entre l’image intacte et l’inverse géométrique oracle. Les valeurs sont des points de pourcentage; les IC sont bootstrapés par couverture (201 par corpus).
+
+| Corpus | Transformation | P3−P2, coût du recalage (IC 95 %) | P0−P3, perte après transformation (IC 95 %) |
+|---|---|---:|---:|
+| BOSSBase | Rotation −1,5° | 7,22 (6,12–8,40) | 15,93 (15,14–16,77) |
+| BOSSBase | Recadrage 10 % | 14,91 (13,67–16,19) | 27,83 (26,91–28,77) |
+| BOSSBase | Réduction ×0,7 | 1,27 (0,90–1,75) | 36,60 (35,09–38,11) |
+| BOSSBase | Rotation +1° puis JPEG 75 | 3,21 (2,70–3,76) | 45,18 (43,47–46,87) |
+| COCO | Rotation −1,5° | 4,75 (4,09–5,51) | 14,45 (13,78–15,12) |
+| COCO | Recadrage 10 % | 12,18 (11,26–13,14) | 28,18 (27,54–28,84) |
+| COCO | Réduction ×0,7 | 0,78 (0,60–0,98) | 33,09 (31,88–34,27) |
+| COCO | Rotation +1° puis JPEG 75 | 2,41 (2,00–2,85) | 38,96 (37,48–40,48) |
+
+Le recalage explique une part importante de la perte pour le recadrage et une part plus modérée pour la rotation. Sous réduction, P2 est proche de l’oracle P3, mais la perte par rapport à P0 reste élevée : l’interpolation et l’instabilité des hachages constituent alors la limite dominante. Même avec l’inverse géométrique connu, aucune transformation ne retrouve la justesse de l’image intacte.
+
+## Décision de l’étape 1
+
+Le test scellé confirme une amélioration de la justesse par recalage et une bonne faisabilité initiale, mais ne franchit pas le seuil de rendement requis pour ajouter un code correcteur. La justesse géométrique P2 reste sous 85 % dans les deux corpus; la récupération exacte demeure très faible, en particulier après recadrage, redimensionnement et transformation composée. L’étape 1 est close avec un **no-go pour l’étape 2 selon les seuils préenregistrés**. Le mode catalogue reste l’usage supporté pour une récupération exacte; la robustesse après transformation demeure une limite de la méthode. Les résultats détaillés sont disponibles dans `sealed_test_summary.csv`, les lignes brutes dans `sealed_test_raw.csv.gz` et la provenance complète dans `sealed_test_provenance.json`.
+
+L’étape 2 ne sera engagée qu’après le go de l’auteur.
 
 ## Fichiers de résultats principaux
 
@@ -72,3 +121,10 @@ La configuration S3/λ=0,5 et le seuil R-a 0,5 sont maintenant fixés par LFW-va
 - `results/stability_step1/receiver_validation_rmax_cluster_ci.csv`
 - `results/stability_step1/sealed_candidate_manifest.csv`
 - `results/stability_step1/sealed_test_selection.csv`
+- `results/stability_step1/sealed_test_summary.csv`
+- `results/stability_step1/sealed_test_raw.csv.gz`
+- `results/stability_step1/sealed_test_provenance.json`
+- `results/stability_step1/validation_hypothesis_contrasts.csv`
+- `results/stability_step1/validation_hypothesis_contrasts.json`
+- `results/stability_step1/sealed_geometry_diagnostics.csv`
+- `scripts/analyze_step1_hypotheses.py`

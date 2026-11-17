@@ -1,0 +1,61 @@
+# Revue du protocole FHAM — étape 1bis
+
+**Document relu :** « FHAM — Protocole de l'étape 1bis : images naturelles, profils de hachage, signalement », version datée du 16 novembre 2026, statut au 17 novembre 2026.  
+**Périmètre :** revue scientifique et opérationnelle des 11 sections; aucun calcul d'expérience 1bis n'a été lancé et aucun pixel BOWS2 n'a été ouvert pour cette revue.
+
+## Conclusion de la revue
+
+Le protocole pose les bonnes questions : distinguer l'effet du corpus de celui des transformations, comparer S0 à la stabilité, calibrer le signalement, puis mesurer un véritable décodage Reed–Solomon. Il prévoit aussi une phase exploratoire puis un test scellé.
+
+**Il n'est pas encore prêt à être gelé.** Quatre incohérences changent les expériences réalisables ou l'interprétation des résultats :
+
+1. Le manifeste BOWS2 suivi dans le dépôt contient 10 000 images **256×256**, alors que les profils et les capacités du protocole sont calculés pour 512×512.
+2. Des résultats historiques du dépôt utilisent déjà **1 998 images BOWS2 distinctes** (et un sous-échantillon antérieur de 60 images). Elles doivent être identifiées et exclues des nouveaux jeux A, B et C.
+3. L'audit perceptuel proposé pour BOWS2-C lit les pixels, alors que le protocole exige qu'ils restent fermés jusqu'à la phase B. Il faut définir qui fait cet audit et ce que « pixels jamais ouverts » signifie.
+4. RS(255, k) transmet 255 symboles, mais plusieurs profils et filtres S4q ont moins de 255 positions candidates. Ils ne peuvent donc pas être évalués par ce protocole tel quel.
+
+La suite de la revue précise ces points par section. Les modifications peuvent être faites dans une copie révisée du protocole avant son gel; le fichier original dans Downloads n'a pas été modifié.
+
+## Contrôle des données et des résultats 1bis
+
+**Aucun résultat de l'étape 1bis n'a été trouvé.** Le protocole lui-même indique qu'elle n'est pas lancée. Les résultats BOWS2 historiques du dépôt portent sur des expériences antérieures de capacité et de robustesse; ils ne testent ni les profils 12/24/36/48, ni S4q, ni le nouveau réglage de R-a, ni le décodage RS prévu ici.
+
+Le dépôt contient toutefois des données historiques à prendre en compte :
+
+- dataset/manifests/bows2.csv décrit 10 000 fichiers BOWS2, tous enregistrés en 256×256 niveaux de gris. La source indiquée est C:\Users\User\Downloads\Compressed\BOWS2_extracted\cover.
+- results/raw/stratified_robustness/stratified_robustness_raw.csv contient 1 998 noms d'images BOWS2 distincts, soit 15 984 lignes pour huit transformations. Les 1 998 noms correspondent au manifeste BOWS2.
+- results/raw/benchmark_smoke/benchmark_assignment_raw.csv contient un échantillon BOWS2 antérieur de 60 images et 1 440 lignes. Douze de ces images chevauchent les 1 998 précédentes; il faut donc exclure **2 046 identifiants distincts au total**.
+- Le répertoire BOWS2 externe est présent à la source indiquée et contient 10 000 fichiers. Cette vérification a porté sur les chemins, les noms et le manifeste, sans décoder les pixels.
+- Le rapport d'intégrité de juillet 2026 décrit BOWS2 comme indisponible après échec de téléchargement; cette information est périmée par rapport au chemin source actuel. En revanche, le répertoire dataset_external/BOWS2 n'existe pas dans le dépôt. Corriger l'état de disponibilité sans confondre copie source externe, manifeste et données suivies par Git.
+
+Ces analyses antérieures ne sont pas des résultats 1bis; elles imposent un manifeste d'exclusion des images déjà utilisées. Il reste 7 954 noms après exclusion des 2 046 images connues, avant les autres exclusions par doublon et quasi-doublon.
+
+## Commentaires par section
+
+| Section | Évaluation et correction recommandée |
+|---|---|
+| **1. Objectif, questions et hypothèses** | Les questions sont bien ciblées. Reformuler Q0/H4 comme un **écart descriptif entre deux corpus sous transformations identiques**, pas comme une décomposition causale de « la part due au corpus » : les contenus, l'historique d'acquisition et le traitement restent différents. L'hypothèse H4 est testable avec cette réserve. H5 doit définir comment la perte P0−P3 est agrégée lorsque les profils ont des nombres de blocs et d'emplacements différents. H7 doit compter comme échecs les mots de code non faisables et les échecs d'enregistrement/décodage, et préciser le dénominateur de q(R). |
+| **2. État des corrections de l'étape 1** | Le résumé correspond au rapport publié. Ajouter explicitement que les 2 046 images BOWS2 historiques sont **antérieures à 1bis** et doivent être exclues. Les 40/40 du catalogue sont un pilote en univers fermé, non une validation sur une galerie ouverte. |
+| **3. Données** | **À corriger avant tout calcul :** les dimensions du manifeste sont 256×256, pas 512×512. Le répertoire des images est actuellement accessible, mais le protocole doit choisir le traitement natif 256×256 ou une transformation vers 512×512; cette seconde option réintroduirait l'interpolation que l'étude veut éviter. Avec le natif 256×256, recalculer les partitions de blocs et la capacité. Exclure exactement les 2 046 images déjà analysées, puis archiver la liste d'exclusion et les empreintes. Le pHash des images C exige la lecture des pixels : soit un dépositaire indépendant remet un audit d'identifiants/hashes sans exposer C à l'équipe d'analyse, soit le protocole remplace l'engagement « pixels jamais ouverts » par une définition explicite du prétraitement autorisé. |
+| **4. Facteurs expérimentaux** | Avec 256×256, les nombres d'emplacements sont : L=12, 21×21×4=1 764 (11 bits); L=24, 10×10×4=400 (9 bits); L=36, 7×7×4=196 (8 bits); L=48, 5×5×4=100 (7 bits). Les nombres actuels du tableau sont ceux d'images 512×512 et doivent être remplacés. RS(255,k) est impossible par capacité totale pour L=36 et L=48; pour S4q, même L=24 gardé à 50 % ne conserve que 200 positions. Ajouter une longueur explicite de 255 symboles à l'étude de faisabilité, puis choisir : limiter RS aux profils/filtres laissant au moins 255 positions, ou définir des codes RS raccourcis de longueur n≤N et comparer les taux R à longueur adaptée. Définir aussi si le quantile S4q est calculé par image, arrangement ou ensemble des emplacements, et la règle déterministe de départage. |
+| **5. Transformations** | La séparation développement/validation/test est utile. Écrire les opérateurs exacts : encodeur JPEG et sous-échantillonnage, conversion gris, clipping et graine du bruit, coordonnées et arrondi du crop, interpolation et bordure du resize, ordre des opérations. Pour le composé rotation puis JPEG, P3 doit appliquer uniquement l'inverse géométrique connu après décodage JPEG; JPEG n'est pas inversé. Q0 doit utiliser le même profil, les mêmes attaques, les mêmes familles et graines sur LFW-val et BOWS2-B; le contraste entre corpus reste non apparié au niveau des images. |
+| **6. Métriques et simulation Reed–Solomon** | C'est un bon progrès par rapport à la seule borne 1−2e. Verrouiller la définition de RS : bibliothèque/version, polynôme de champ, élément primitif, construction du mot, gestion des erreurs et effacements et vérification d'exactitude. Préciser que q(R) a pour dénominateur **tous** les blocs tentés, y compris ceux dont l'affectation est infaisable ou dont le recalage échoue. Séparer le rendement de code R de l'efficacité totale de communication, qui inclut les enregistrements FHAM et métadonnées. Le protocole doit tester la longueur réellement insérée par le code; actuellement les longueurs 50/100/200 ne couvrent pas RS(255,k). |
+| **7. Statistiques et taille d'échantillon** | Le bootstrap par couverture convient à la dépendance entre messages d'une image. La formule N actuelle dimensionne un IC de Δa, mais la décision finale porte sur q(R=0,6) avec seulement cinq blocs par couverture; dimensionner aussi N pour l'IC de q avec le regroupement des blocs par image, puis retenir le plus grand N. Définir à l'avance les familles exactes de tests Holm (attaques, profils, comparaisons) et les règles face aux cellules infaisables. Les 8 messages par image en A correspondent à un seul message par famille/longueur : traiter les conclusions comme conditionnelles à ces messages, ou augmenter les répétitions indépendantes pour éviter que le choix de message domine l'estimation. |
+| **8. Procédure par phases et budget** | La phase exploratoire puis le scellé est cohérente, mais plusieurs étapes n'alignent pas leurs jeux : Q0 définit BOWS2-B, tandis que le pont de l'étape 5 semble employer BOWS2-A. Fixer le jeu source une fois. À l'étape 6, inclure explicitement S0 avec les configurations sélectionnées sur B pour calculer Δa. Le budget de l'étape B suppose un profil, alors que le texte autorise un ou deux : doubler cette ligne pour deux profils. Le budget de phase B (≈99 000 lignes) ne découle pas clairement de N×blocs×k×transformations; le recalculer à partir du schéma d'une ligne. Le temps par ligne de l'étape 1 (images 512×512) n'est pas directement transposable aux profils et images 256×256; instrumenter un pilote par profil. |
+| **9. Barrières et feux de décision** | La logique des barrières est lisible. La faisabilité ≥95 % doit être exigée aux longueurs réellement utilisées, notamment 255 (ou n raccourci), pas seulement à 100 symboles. G-A1 est défini sur BOWS2-B, mais son exécution avant/après la sélection doit être clarifiée. G-A2 sélectionne trois configurations sur B puis évalue des IC sur B : cela reste exploratoire et ne doit pas être présenté comme une confirmation indépendante. Réserver l'inférence confirmatoire à C; fixer quelles configurations sont gelées après B. G-A3 est le vrai critère pour un code RS réel. Pour le cas rotation/COCO de l'étape 1, la borne sans signalement ponctuelle est 0,616 mais sa borne basse est 0,597; conserver la règle sur borne basse évite de franchir le seuil vert sur une estimation ponctuelle seule. |
+| **10. Menaces à la validité et replis** | Corriger « COCO non employé à l'étape 1 » : 201 images COCO ont été évaluées au test scellé de l'étape 1. Un contrôle COCO reste possible uniquement avec un échantillon disjoint et un audit des images déjà utilisées; ce serait un nouvel échantillon du même corpus, pas un corpus inédit. Ajouter explicitement l'exclusion des 2 046 images BOWS2 historiques et le conflit entre pHash et fermeture de C. Le plan de repli « tout rouge → catalogue » est cohérent, sous réserve de présenter le pilote catalogue comme une démonstration en univers fermé. |
+| **11. Livrables et schéma** | Ajouter au schéma de données les paramètres complets de transformation/seed, profil exact, identifiant de mot RS et taux, nombre d'erreurs et d'effacements reçus, statut du décodeur, nombre de symboles corrigés et raison d'échec. Fournir le manifeste des images exclues et l'empreinte du fichier de protocole gelé. T2 doit traiter le contraste corpus comme non apparié au niveau image. Les résultats bruts et la page de décision doivent séparer clairement phase A exploratoire et phase B confirmatoire. |
+
+## Corrections nécessaires avant le gel
+
+1. Corriger les dimensions BOWS2 à 256×256 et recalculer F1, N et les capacités.
+2. Construire le manifeste de toutes les images BOWS2 utilisées antérieurement; exclure au minimum les 2 046 identifiants historiques et archiver l'audit.
+3. Choisir une règle de fermeture de BOWS2-C compatible avec l'audit des doublons perceptuels.
+4. Rendre les longueurs RS compatibles avec N et S4q; ajouter la faisabilité à la longueur effectivement codée.
+5. Aligner les jeux A/B dans Q0, les étapes de sélection et les calculs de Δa; corriger les budgets pour un ou deux profils et pour la phase B.
+6. Corriger la référence à COCO comme corpus déjà partiellement utilisé.
+7. Geler seulement après réception du go explicite de l'auteur, conformément à la section 8.
+
+## Réponse sur les résultats
+
+**Je n'ai pas de résultats de l'étape 1bis à transmettre.** Les fichiers BOWS2 antérieurs sont des études de robustesse/capacité réalisées avant ce protocole; ils ne testent pas ses profils, S4q, le nouveau signalement ni Reed–Solomon. Le protocole 1bis doit rester non lancé jusqu'à correction, gel et go explicite.

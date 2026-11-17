@@ -1,0 +1,57 @@
+{
+  "profile_selection_rule": "eligible when at least one method has feasibility >=0.95 at source length 100 and D1 <=5x S0; rank by equal-transform/method cover-macro P3 accuracy",
+  "eligible_profiles": [
+    12
+  ],
+  "profile_scores": [
+    {
+      "profile": 12,
+      "eligible": true,
+      "S0_feasibility": 1.0,
+      "S3_feasibility": 1.0,
+      "mean_D1_best_method": 0.019335041563302412,
+      "index": 0,
+      "mean": 0.5133853455840154,
+      "std": 0.08317667133706254,
+      "standard_error": 0.008317667133706253
+    },
+    {
+      "profile": 24,
+      "eligible": false,
+      "S0_feasibility": 0.485,
+      "S3_feasibility": 0.485,
+      "mean_D1_best_method": 0.31735915655682573,
+      "index": 1,
+      "mean": 0.2780511912993084,
+      "std": 0.10192275787387381,
+      "standard_error": 0.010192275787387382
+    },
+    {
+      "profile": 36,
+      "eligible": false,
+      "S0_feasibility": 0.145,
+      "S3_feasibility": 0.145,
+      "mean_D1_best_method": 0.47126436781609193,
+      "index": 2,
+      "mean": 0.10219791666666665,
+      "std": 0.08179516006710079,
+      "standard_error": 0.008179516006710078
+    },
+    {
+      "profile": 48,
+      "eligible": false,
+      "S0_feasibility": 0.015,
+      "S3_feasibility": 0.015,
+      "mean_D1_best_method": 0.6527777777777778,
+      "index": 3,
+      "mean": 0.014854166666666667,
+      "std": 0.0401755003680855,
+      "standard_error": 0.00401755003680855
+    }
+  ],
+  "selected_profiles_for_F2": [
+    12
+  ],
+  "selection_stage": "exploratory A only; validation and confirmatory interpretation remain separate",
+  "profile_stage_script_sha256": "5508f03b0b51e1e5d9f86a9f336711199532b8a1439a8ca7ba4a2f611e655b95"
+}

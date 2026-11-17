@@ -195,6 +195,8 @@ La phase A franchit trois barrières avant l'ouverture du jeu scellé ; les seui
 
 **Règle de choix de la configuration (comme à l'étape 1).** Parmi les configurations dont la faisabilité est ≥ 95 % à 100 symboles (B = 2) et dont le D₁ moyen est ≤ 5 fois celui de S0, retenir la plus haute justesse a ; si plusieurs sont à moins d'une erreur-type de la meilleure, retenir la moins coûteuse (D₁ le plus bas).
 
+Pour réduire l'espace F2, classer les profils sur A par la moyenne non conditionnelle de justesse P3, en donnant le même poids aux cinq transformations de validation et aux deux méthodes S0/S3; un profil n'est admissible que si au moins une des deux méthodes respecte les deux contraintes ci-dessus à 100 symboles. Retenir les deux profils admissibles les mieux classés (ou le seul s'il n'y en a qu'un). En cas d'égalité à moins d'une erreur-type, prendre le profil au plus faible D₁ moyen. Si aucun profil n'est admissible, ne pas lancer F2 et conclure que le profil de base ne satisfait pas le seuil de capacité préétabli.
+
 | Barrière | Condition (phase A, BOWS2-B) | Si franchie | Sinon |
 | --- | --- | --- | --- |
 | G-A1, hachage | au moins un profil avec a\_P3 ≥ 0,95 sous JPEG 75 et bruit σ = 2 (borne inférieure de l'IC ≥ 0,92) et faisabilité ≥ 95 % à 100 symboles | passer à G-A2 | orange si le meilleur a\_P3 est dans \[0,90 ; 0,95\[ : combiner profil, S4q et signalement, puis réévaluer ; rouge si < 0,90 : arrêt de 1bis, étape 1ter (hachage à marge ou autre descripteur) |

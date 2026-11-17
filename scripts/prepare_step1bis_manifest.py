@@ -55,13 +55,14 @@ def bands(value: int) -> tuple[int, int, int, int]:
     return tuple((value >> shift) & 0xFFFF for shift in (48, 32, 16, 0))
 
 
-def near_reference(candidate_hash: int, reference_index: dict[int, set[int]]) -> list[tuple[int, int]]:
+def near_reference(candidate_hash: int, reference_index: dict[int, set[int]],
+                   references: list[dict]) -> list[tuple[int, int]]:
     possible: set[int] = set()
     for band_id, band_value in enumerate(bands(candidate_hash)):
         possible.update(reference_index.get((band_id << 16) | band_value, set()))
-    return [(reference_id, (candidate_hash ^ reference_hash).bit_count())
-            for reference_id, reference_hash in possible
-            if (candidate_hash ^ reference_hash).bit_count() <= 4]
+    return [(reference_id, distance)
+            for reference_id in possible
+            if (distance := (candidate_hash ^ references[reference_id]["phash_int"]).bit_count()) <= 4]
 
 
 def build_reference_index(references: list[dict]) -> dict[int, set[int]]:
@@ -145,6 +146,9 @@ def main() -> None:
     historical = historical_bows2_ids()
     references = load_cross_corpus_references(historical, by_name)
     reference_index = build_reference_index(references)
+    reference_sha_index: dict[str, list[int]] = defaultdict(list)
+    for reference_id, reference in enumerate(references):
+        reference_sha_index[reference["sha256"]].append(reference_id)
 
     rows = []
     for relative_path, source_row in sorted(bows_rows.items()):
@@ -164,9 +168,9 @@ def main() -> None:
 
     matches = []
     for row in rows:
-        cross = near_reference(row["phash_int"], reference_index)
+        cross = near_reference(row["phash_int"], reference_index, references)
         # Exact byte matches are detected independently of perceptual hash.
-        exact = [i for i, ref in enumerate(references) if row["sha256"] == ref["sha256"]]
+        exact = reference_sha_index.get(row["sha256"], [])
         match_ids = set(i for i, _ in cross) | set(exact)
         row["cross_corpus_matches"] = sorted(match_ids)
         for reference_id in sorted(match_ids):

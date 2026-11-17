@@ -46,16 +46,18 @@ Ces analyses antérieures ne sont pas des résultats 1bis; elles imposent un man
 | **10. Menaces à la validité et replis** | Corriger « COCO non employé à l'étape 1 » : 201 images COCO ont été évaluées au test scellé de l'étape 1. Un contrôle COCO reste possible uniquement avec un échantillon disjoint et un audit des images déjà utilisées; ce serait un nouvel échantillon du même corpus, pas un corpus inédit. Ajouter explicitement l'exclusion des 2 046 images BOWS2 historiques et le conflit entre pHash et fermeture de C. Le plan de repli « tout rouge → catalogue » est cohérent, sous réserve de présenter le pilote catalogue comme une démonstration en univers fermé. |
 | **11. Livrables et schéma** | Ajouter au schéma de données les paramètres complets de transformation/seed, profil exact, identifiant de mot RS et taux, nombre d'erreurs et d'effacements reçus, statut du décodeur, nombre de symboles corrigés et raison d'échec. Fournir le manifeste des images exclues et l'empreinte du fichier de protocole gelé. T2 doit traiter le contraste corpus comme non apparié au niveau image. Les résultats bruts et la page de décision doivent séparer clairement phase A exploratoire et phase B confirmatoire. |
 
-## Corrections nécessaires avant le gel
+## Corrections intégrées avant le gel
 
-1. Corriger les dimensions BOWS2 à 256×256 et recalculer F1, N et les capacités.
-2. Construire le manifeste de toutes les images BOWS2 utilisées antérieurement; exclure au minimum les 2 046 identifiants historiques et archiver l'audit.
-3. Choisir une règle de fermeture de BOWS2-C compatible avec l'audit des doublons perceptuels.
-4. Rendre les longueurs RS compatibles avec N et S4q; ajouter la faisabilité à la longueur effectivement codée.
-5. Aligner les jeux A/B dans Q0, les étapes de sélection et les calculs de Δa; corriger les budgets pour un ou deux profils et pour la phase B.
-6. Corriger la référence à COCO comme corpus déjà partiellement utilisé.
-7. Geler seulement après réception du go explicite de l'auteur, conformément à la section 8.
+1. Dimensions natives BOWS2 fixées à 256×256; capacités recalculées.
+2. Exclusion des 2 046 identifiants BOWS2 historiques et audit pHash déterministe préenregistré; exécution encore à venir.
+3. Règle de curation hash-only et fermeture analytique de BOWS2-C clarifiées.
+4. Mot RS(255,k) limité aux cellules ayant au moins 255 positions; infaisabilité comptée dans le dénominateur.
+5. Q0 formulée comme contraste descriptif apparié en transformations; budgets à établir par mesure pilote.
+6. Usage antérieur de COCO corrigé; nouvel échantillon éventuel distinct des 201 images de l'étape 1.
+7. Protocole gelé et go de l'auteur reçu; contrôle de régression franchi.
 
-## Réponse sur les résultats
+## État d'exécution — 17 novembre 2026
 
-**Je n'ai pas de résultats de l'étape 1bis à transmettre.** Les fichiers BOWS2 antérieurs sont des études de robustesse/capacité réalisées avant ce protocole; ils ne testent pas ses profils, S4q, le nouveau signalement ni Reed–Solomon. Le protocole 1bis doit rester non lancé jusqu'à correction, gel et go explicite.
+Le go explicite de l'auteur pour exécuter l'étape 1bis a été reçu. Les corrections du protocole ont été gelées avant toute opération de déduplication ou analyse BOWS2. Le contrôle S3, λ = 0,5, a été exécuté sur 20 couvertures LFW-val dans Python 3.13.5/OpenCV 4.12.0, puis comparé aux mêmes 20 couvertures archivées, avec les mêmes messages, attaques et chemins. Les 280 conditions appariées ont un écart maximal de 0,00 point de pourcentage; le contrôle est franchi.
+
+Les résultats BOWS2 historiques restent exclus des résultats 1bis : ils ne couvrent pas ses profils, S4q, le signalement redéfini ni Reed–Solomon. Aucun pixel BOWS2 n'a encore été utilisé pour calculer une métrique FHAM. La prochaine opération est l'audit hash-only de déduplication et le gel des partitions A/B/C.

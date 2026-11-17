@@ -1,0 +1,85 @@
+{
+  "seed": 20261116,
+  "validation_names": [
+    "lfw_013",
+    "lfw_189",
+    "lfw_094",
+    "lfw_059",
+    "lfw_130",
+    "lfw_114",
+    "lfw_148",
+    "lfw_022",
+    "lfw_025",
+    "lfw_034",
+    "lfw_183",
+    "lfw_192",
+    "lfw_006",
+    "lfw_106",
+    "lfw_033",
+    "lfw_068",
+    "lfw_196",
+    "lfw_115",
+    "lfw_005",
+    "lfw_095"
+  ],
+  "validation_cover_count": 20,
+  "validation_sha256": {
+    "lfw_013": "4398f1bc91cb4e5583498c1a0b9849b48629ab0c04a2467de50d0cd3e8d4e769",
+    "lfw_189": "efcc89a8b161f49e110abcb593806187981d1d44455b213cd918208271f68239",
+    "lfw_094": "aaaa2efd65a8bd0ba1e6a90e7de662fe2f73e4a6010e54c19fcb882c3ed04860",
+    "lfw_059": "3493b0f651d9cb73978c489d73404bc98fee526968a9aef1dd76982f17969012",
+    "lfw_130": "db32cd1c3206f33c1810f0c97de757514f536a5b9b620889e33f87abd6e2de9b",
+    "lfw_114": "73bce5e84d8501e2ae068fc341c3fb46976a2f698e7247e4d4603d4e711fd349",
+    "lfw_148": "7bc27bbd25dfe5bf0b47eb5160a94f1ce12b2df489349b383691946787845f24",
+    "lfw_022": "d85120dfb76ae95b58ba8f52f827b0dc192dd6752eff074feee1746d00d20c78",
+    "lfw_025": "54e2865f810219aef3bf610a709548ca5821e5fe9dcb408eb31c43a1dd9c3e65",
+    "lfw_034": "535979939ad71c13a11b2c8012a05586190815d762f47bbe6abf38013b69aa71",
+    "lfw_183": "d83ecf65b4b527ce0b3683bdfb72ce84ade3f147580443544a81de8e42b37548",
+    "lfw_192": "224de31abe662ca062247209cd722276302cc9cd6bbc1479ee0f487033d2821f",
+    "lfw_006": "2d9fb94b2dc6f91b2053fcbd1a4acbb97427db99163846dcd92817aa7550c9a6",
+    "lfw_106": "196503c9c48a7dac53007b7200264a182dc99085d39e6bcc6463275187ca3082",
+    "lfw_033": "fcf9e32751f3990d242492635e7695a5face71fa1077be6968b4660dff726f3f",
+    "lfw_068": "6340d14f4e5606eaeb5a6039de2ccb3873bd5ea262ba08fbf12b2f625f474e31",
+    "lfw_196": "30dd2fbb38bec71bd66db012d6ae099e263f9d78fcc2fc6ee3e579efef5d9ede",
+    "lfw_115": "bb6618bc2ff21daa5fd65f6450192fd52b2eb57f9c8dfdde4c5f85f79ef1db8b",
+    "lfw_005": "2131350a5f9ed283befac3453797ad40f7d2a24610e7598a8232d59fcb6b8eed",
+    "lfw_095": "e440727540701089167cd62620bddc684d248f68a00467d2ed8ca5566315d220"
+  },
+  "profile": "spectral 12x12, B=2, zlib-9 before assignment",
+  "methods": [
+    "S0",
+    "S1",
+    "S2",
+    "S3",
+    "S4"
+  ],
+  "lambda_grid": [
+    0.5,
+    0.75,
+    0.9,
+    0.95,
+    1.0
+  ],
+  "tau_grid": [
+    0.5,
+    0.8,
+    0.9,
+    0.95,
+    0.99
+  ],
+  "messages_per_cover_family_length": 3,
+  "source_lengths": [
+    100,
+    200
+  ],
+  "transforms": [
+    "jpeg75",
+    "noise2",
+    "rotate1",
+    "crop5",
+    "resize0.8"
+  ],
+  "geometry_paths": "P1 fixed coordinates; P2 ORB/RANSAC estimate; P3 known affine oracle",
+  "solver": "SciPy sparse min-weight full bipartite matching; exact objective",
+  "elapsed_seconds": 67.10262979986146
+}

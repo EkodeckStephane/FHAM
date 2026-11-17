@@ -1,0 +1,31 @@
+{
+  "configuration": "S3:lambda=0.5:tau=None",
+  "covers": 20,
+  "cover_condition_pairs": 280,
+  "reference_cover_set_matches_reproduction": true,
+  "maximum_absolute_difference_percentage_points": 0.0,
+  "tolerance_percentage_points": 0.05,
+  "passed": true,
+  "cover_ids": [
+    "lfw_005",
+    "lfw_006",
+    "lfw_013",
+    "lfw_022",
+    "lfw_025",
+    "lfw_033",
+    "lfw_034",
+    "lfw_059",
+    "lfw_068",
+    "lfw_094",
+    "lfw_095",
+    "lfw_106",
+    "lfw_114",
+    "lfw_115",
+    "lfw_130",
+    "lfw_148",
+    "lfw_183",
+    "lfw_189",
+    "lfw_192",
+    "lfw_196"
+  ]
+}

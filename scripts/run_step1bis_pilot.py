@@ -189,6 +189,10 @@ def main() -> None:
         "profile": "spectral, L=12, B=2, BOWS2 native grayscale 256x256",
         "methods": "S0 and S3 lambda=0.5, stability estimated on the ten frozen development transforms",
         "messages": "four families x source lengths 100/200, fixed index 00, zlib level 9",
+        "message_sha256": {
+            f"{family}_{length}_00.bin": hashlib.sha256(source).hexdigest()
+            for (family, length), source in messages.items()
+        },
         "validation": "JPEG75, noise sigma 2, rotation +1 degree, crop 5 percent, resize 0.8; P3 oracle for geometry",
         "sd_delta": sd_delta,
         "sd_delta_by_transform": {str(key): float(value) for key, value in delta_sd.items()},
@@ -198,6 +202,16 @@ def main() -> None:
         "sealed_sample_n": sample_n,
         "eligible_BOWS2_C": 7525,
         "phase_b_author_go_received": False,
+        "script_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        "transform_script_sha256": hashlib.sha256(
+            (ROOT / "scripts" / "stability_step1_pilot.py").read_bytes()
+        ).hexdigest(),
+        "split_manifest_sha256": hashlib.sha256(
+            (ROOT / "results" / "stability_step1" / "step1bis" / "manifest" / "split_manifest.csv").read_bytes()
+        ).hexdigest(),
+        "environment_sha256": hashlib.sha256(
+            (ROOT / "results" / "stability_step1" / "step1bis_environment.json").read_bytes()
+        ).hexdigest(),
         "elapsed_seconds": time.perf_counter() - started,
     }
     (out / "pilot_provenance.json").write_text(json.dumps(provenance, indent=2), encoding="utf-8")

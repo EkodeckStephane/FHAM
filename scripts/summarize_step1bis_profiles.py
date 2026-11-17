@@ -194,7 +194,7 @@ def main() -> None:
     print("BOWS2-A P3 accuracy:")
     print(recovery_summary[(recovery_summary.split == "A") & (recovery_summary.path == "P3")].to_string(index=False), flush=True)
     print("Q0 bridge:")
-    print(recovery_summary[(recovery_summary.transform.isin(VALIDATION)) & (recovery_summary.path == "P3") & (recovery_summary.profile == 12)].to_string(index=False), flush=True)
+    print(recovery_summary[(recovery_summary["transform"].isin(VALIDATION)) & (recovery_summary.path == "P3") & (recovery_summary.profile == 12)].to_string(index=False), flush=True)
 
 
 if __name__ == "__main__":

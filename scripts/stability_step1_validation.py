@@ -102,6 +102,8 @@ def main():
                         help="diagnostic cover limit; use default 100 for the preregistered run")
     parser.add_argument("--resume", action="store_true",
                         help="reuse covers with completed per-cover summaries")
+    parser.add_argument("--step1bis-regression", action="store_true",
+                        help="run only the preregistered S3, lambda=0.5 regression configuration")
     args = parser.parse_args()
     dev_names, val_names = split_names()
     val_names = val_names[:args.limit]
@@ -147,6 +149,9 @@ def main():
         )
         attacked = _cover_transforms(image, image_index)
         configs = _configs(lookup, s1, s2, s3)
+        if args.step1bis_regression:
+            configs = [config for config in configs
+                       if config[0] == "S3" and config[1] == 0.5]
         local_assignments, local_recovery = [], []
 
         for family, length, trial, source in (

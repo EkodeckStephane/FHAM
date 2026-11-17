@@ -110,11 +110,22 @@ def feasibility_for(method, image, index):
     return rows
 
 
-def process(path: Path, row, index: int, msg_map):
+def process(path: Path, row, index: int, msg_map, selected=None):
     image = read_gray(path)
     if image.shape != (256, 256):
         raise ValueError(f"Expected 256x256 BOWS2 image: {row.source_id} {image.shape}")
     lookup, locations, configs = build_methods(image, index)
+    if selected is not None:
+        configs = [entry for entry in configs if any(
+            entry[0] == item["method"]
+            and ((entry[1] is None and item["lambda"] is None)
+                 or (entry[1] is not None and item["lambda"] is not None
+                     and math.isclose(entry[1], item["lambda"])))
+            and ((entry[2] is None and item["filter_q"] is None)
+                 or (entry[2] is not None and item["filter_q"] is not None
+                     and math.isclose(entry[2], item["filter_q"])))
+            for item in selected
+        )]
     attacked = validation._cover_transforms(image, index)
     assignments, recoveries, feasibilities = [], [], []
     for name, lam, q, method in configs:
@@ -161,6 +172,12 @@ def run(stage: str, limit: int | None):
     msg_map = messages(indices)
     out = OUT / stage
     out.mkdir(parents=True, exist_ok=True)
+    selected = None
+    if stage == "B":
+        selection_path = OUT / "frozen_selection_A.json"
+        if not selection_path.exists():
+            raise FileNotFoundError("B is locked until frozen_selection_A.json is created")
+        selected = json.loads(selection_path.read_text(encoding="utf-8"))["stage_B_configurations"]
     started = time.perf_counter()
     for i, row in enumerate(rows.itertuples(index=False)):
         stem = Path(row.relative_path).stem
@@ -168,7 +185,7 @@ def run(stage: str, limit: int | None):
         if marker.exists():
             print(f"[{stage} {i+1}/{len(rows)}] {stem} already complete; skip", flush=True)
             continue
-        result = process(ROOT_IMAGES / row.relative_path, row, i, msg_map)
+        result = process(ROOT_IMAGES / row.relative_path, row, i, msg_map, selected)
         for df, suffix in zip(result, ("assignments", "recovery", "feasibility")):
             df.to_csv(out / f"{stem}_{suffix}.csv.gz", index=False, compression="gzip")
         print(f"[{stage} {i+1}/{len(rows)}] {stem} complete; elapsed={time.perf_counter()-started:.1f}s", flush=True)
@@ -180,6 +197,8 @@ def run(stage: str, limit: int | None):
                   "opencv": __import__("cv2").__version__, "python": sys.version,
                   "elapsed_seconds": time.perf_counter()-started,
                   "script_sha256": sha(Path(__file__))}
+    if selected is not None:
+        provenance["frozen_selection"] = selected
     (out / "run.json").write_text(json.dumps(provenance, indent=2, default=list), encoding="utf-8")
 
 

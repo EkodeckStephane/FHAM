@@ -166,7 +166,7 @@ def main() -> None:
     wide["delta_S3_minus_S0"] = wide["S3"] - wide["S0"]
     wide.to_csv(out / "per_cover_deltas.csv", index=False)
     delta_sd = (
-        wide[wide.transform.isin(VALIDATION)]
+        wide[wide["transform"].isin(VALIDATION)]
         .groupby("transform").delta_S3_minus_S0.std(ddof=1)
     )
     sd_delta = float(delta_sd.max())

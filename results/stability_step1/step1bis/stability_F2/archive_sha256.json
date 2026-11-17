@@ -1,0 +1,28 @@
+{
+  "description": "Consolidated results and provenance for Step 1bis F2; per-cover working CSV chunks remain locally available and are covered in the stage provenance.",
+  "files": {
+    "A_raw_assignments.csv.gz": "369d0c7c9dbf3ef293809a1521e171bc52d682909527d3b9b2e799fd8685da87",
+    "A_raw_recovery.csv.gz": "50aee67f935ce5bca78331bb5e7c6515d2e074ddeb030122b406f56fb9659a88",
+    "A_raw_feasibility.csv.gz": "9438cc0a2bdb1ea668b2aa3640183d192a4046b99713d38bfeaa7637f2ba396b",
+    "A_configuration_summary.csv": "ed5b22e445e226852132805df018c8a7b65c8b963ef99c54f0f4ddc5eaf18443",
+    "A_cover_configuration_metrics.csv": "20ea9023ac0ab14aae57110c59d60b094ef7c20a488f9f93202bad6529d23b77",
+    "A_cover_transform_metrics.csv": "fac099f73b2b9ebfdcf2e677a5dafdd05337c6f1aa9001c8d7d05793d4e8984e",
+    "A_run.json": "f87b22820d961dc6bfe3a833749b27873f1ef55472bfc61638b3f8a7a846126e",
+    "frozen_selection_A.json": "91f74fa76b8aa6862ef7f4ee16630e4dbb3a676db7e44fd4cef9357c5caaece2",
+    "B_raw_assignments.csv.gz": "94843971e9017681c3d735f9a7cf6f27678ffad72a5e8b525e54a2ca85b4c59d",
+    "B_raw_recovery.csv.gz": "6e3c549b38552fc7af015e23a3eb55025ee5a0d7a14b8e4545d2f08d49db56d2",
+    "B_raw_feasibility.csv.gz": "fef2ab8f8b330f385b990039792f29ddd8038c48756afef518f8cf36fa516d4b",
+    "B_configuration_summary.csv": "d55472e34e92b904d07333d831c3aa9ccd4e6c829312ab59efe7ccebd5f62ab9",
+    "B_transform_summary.csv": "82c7ed8974258c00dcd2b589477cbe6b21b4fcbda3a2fb14cb4d3de5f488a08f",
+    "B_all_path_summary.csv": "a78a7642525ead7f04de8e3dc5ffc4bf71d8b0fda2622fa03b904ae06c8b6155",
+    "B_family_path_summary.csv": "70963b53531e702bd71345addf730bd05894593c3f233cc9dc4ac98c426f88a4",
+    "B_cover_configuration_metrics.csv": "e3d2e34dbab919f9d236f700614d35aa924e7d0838c7f1bb64bc080715867d96",
+    "B_cover_transform_metrics.csv": "29f52def7663a02ac18d769d195d018e8ec2457baeb935fccb622f94fe9b064f",
+    "B_G_A1_cells.csv": "78e7d0efb1d0123528ce6710f911c05b0a18c6abc5ecce0c77f07210ba3e3bab",
+    "B_G_A1_configurations.csv": "3d72e87c3ebe501fef6435687d6287d294aaf24d83cedb1e54e80f88e713b66d",
+    "B_G_A2_paired_deltas.csv": "a915f22d7b1d5126a66a36d99e9f3183f7710bfb71187f154d75ec3513bb378f",
+    "B_gate_verdict.json": "af3a5e06b10ee94553ddee8be5bd46c7fd3d887e780e946c5ada7bb1cd2f29b5",
+    "B_run.json": "76af4bc604a5e7ae35bcafdb0111a0dd808d4ddee2b4e417ed1b49d93c12d88c",
+    "rapport_F2_1bis.md": "89ae06f33040150f345059913d9cccb6f1a0cba1eccae9b603b030edcad50726"
+  }
+}

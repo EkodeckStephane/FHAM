@@ -29,6 +29,9 @@ def main():
     assignments = pd.concat((pd.read_csv(p) for p in assignment_files), ignore_index=True)
     recovery = pd.concat((pd.read_csv(p) for p in recovery_files), ignore_index=True)
     feasibility = pd.concat((pd.read_csv(p) for p in feasibility_files), ignore_index=True)
+    assignments.to_csv(BASE / "A_raw_assignments.csv.gz", index=False, compression="gzip")
+    recovery.to_csv(BASE / "A_raw_recovery.csv.gz", index=False, compression="gzip")
+    feasibility.to_csv(BASE / "A_raw_feasibility.csv.gz", index=False, compression="gzip")
 
     p3 = recovery[(recovery["path"] == "P3") & recovery["transform"].isin(TRANSFORMS)].copy()
     cover_transform = p3.groupby(["cover", "method", "lambda", "filter_q", "transform"],
@@ -94,7 +97,16 @@ def main():
         "frozen_utc_note": "selection frozen after A and before B; local timestamp recorded by git commit",
         "BOWS2_C_pixels_opened": False,
     }
-    (BASE / "frozen_selection_A.json").write_text(json.dumps(provenance, indent=2), encoding="utf-8")
+    frozen_path = BASE / "frozen_selection_A.json"
+    if frozen_path.exists():
+        frozen = json.loads(frozen_path.read_text(encoding="utf-8"))
+        frozen_selection = frozen["stage_B_configurations"]
+        if [(x["method"], x["lambda"], x["filter_q"]) for x in frozen_selection] != [
+                (x["method"], x["lambda"], x["filter_q"]) for x in selected]:
+            raise RuntimeError("A rerun would change the already frozen B selection")
+        print("Existing B selection is frozen; leaving frozen_selection_A.json unchanged")
+    else:
+        frozen_path.write_text(json.dumps(provenance, indent=2), encoding="utf-8")
     print(summary[["method", "lambda", "filter_q", "p3_macro_mean", "p3_se",
                    "feasibility_100", "mean_D1", "D1_ratio_to_S0", "eligible"]].to_string(index=False))
     print("\nFrozen B configurations:")

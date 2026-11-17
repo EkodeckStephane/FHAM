@@ -33,6 +33,10 @@ venv/
 # Large external datasets are referenced by manifest + SHA-256, never copied here
 dataset_external/
 
+# Per-cover working chunks for Step 1bis F2 are archived as stage-level CSV.gz files.
+/results/stability_step1/step1bis/stability_F2/A/
+/results/stability_step1/step1bis/stability_F2/B/
+
 # OS / editor
 .DS_Store
 Thumbs.db

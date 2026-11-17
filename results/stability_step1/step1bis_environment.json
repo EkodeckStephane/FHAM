@@ -1,0 +1,21 @@
+{
+  "recorded_before_step1bis_regression": true,
+  "timestamp_local": "2026-11-17",
+  "runtime_deviation_from_repository_lock": "Python 3.11.9 on Windows 10; the repository lock targets Python 3.13",
+  "python": "3.11.9",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "processor": "Intel64 Family 6 Model 165 Stepping 2, GenuineIntel",
+  "packages": {
+    "cryptography": "49.0.0",
+    "opencv-python": "5.0.0.93",
+    "numpy": "2.4.6",
+    "pandas": "3.0.5",
+    "Pillow": "12.3.0",
+    "PyYAML": "6.0.3",
+    "reedsolo": "1.7.0",
+    "scikit-image": "0.26.0",
+    "scikit-learn": "1.9.0",
+    "scipy": "1.17.1"
+  },
+  "note": "No dependency was installed or upgraded for the step 1bis run after this record. The exact environment is disclosed because it differs from requirements-lock.txt."
+}

@@ -1,0 +1,31 @@
+{
+  "method": "SHA-256 plus preregistered 64-bit pHash; exact Hamming audit at threshold 4",
+  "pHash": "Pillow L grayscale; 32x32 LANCZOS; scipy.fft.dctn type II, norm=ortho; row-major 8x8 low-frequency coefficients; median of 63 AC coefficients; strict greater-than threshold; MSB first",
+  "phash_band_audit": "four contiguous 16-bit bands; every pair with Hamming distance <=4 shares at least one band",
+  "bows2_source_manifest_sha256": "19dbe1e2f9c0a25bc8e75d22631fe89fcea3b8fadaa54d6ea1dde8b59d4f78d2",
+  "historical_bows2_identifiers": 2046,
+  "cross_corpus_reference_images": 3073,
+  "dedicated_scenes11_source_available": false,
+  "scenes11_scope_note": "No standalone Scenes-11 image bundle is present in the repository or declared local manifests; all 219 local stress images and eight controlled images are included in the hash-only audit.",
+  "bows2_native_images_hashed": 10000,
+  "all_bows2_ids_matching_a_dedup_reference": 2056,
+  "nonhistorical_candidates_matching_a_reference": 10,
+  "intra_bows2_matched_pairs": 10,
+  "intra_bows2_excluded_images": 20,
+  "eligible_after_all_exclusions": 7925,
+  "split_counts_including_excluded": {
+    "C": 7525,
+    "excluded": 2075,
+    "B": 200,
+    "A": 200
+  },
+  "pixels_used_only_for_hash_deduplication": true,
+  "evaluation_pixels_opened": {
+    "A": false,
+    "B": false,
+    "C": false
+  },
+  "phase_b_author_go_received": false,
+  "dedup_script_sha256": "b2cec7af64ce5a4098f50e03393491437096e2c57e9dc760804631e054f44cf0",
+  "environment_record_sha256": "7e2b47e9fdea36369f1c36777f50c697a673c70d47e872c34e97bf0eb7e1486b"
+}

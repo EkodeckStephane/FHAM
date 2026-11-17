@@ -149,6 +149,12 @@ def main() -> None:
     reference_sha_index: dict[str, list[int]] = defaultdict(list)
     for reference_id, reference in enumerate(references):
         reference_sha_index[reference["sha256"]].append(reference_id)
+    pd.DataFrame([{
+        "reference_dataset": row["dataset"],
+        "reference_id": row["source_id"],
+        "sha256": row["sha256"],
+        "phash": f"{row['phash_int']:016x}",
+    } for row in references]).to_csv(OUT / "dedup_reference_hashes.csv", index=False)
 
     rows = []
     for relative_path, source_row in sorted(bows_rows.items()):
@@ -252,7 +258,11 @@ def main() -> None:
         "dedicated_scenes11_source_available": False,
         "scenes11_scope_note": "No standalone Scenes-11 image bundle is present in the repository or declared local manifests; all 219 local stress images and eight controlled images are included in the hash-only audit.",
         "bows2_native_images_hashed": len(rows),
-        "cross_corpus_matched_candidates": len(cross_excluded),
+        "all_bows2_ids_matching_a_dedup_reference": len(cross_excluded),
+        "nonhistorical_candidates_matching_a_reference": sum(
+            bool(row["cross_corpus_match_count"])
+            for row in rows if not row["historically_used"]
+        ),
         "intra_bows2_matched_pairs": len(local_pairs),
         "intra_bows2_excluded_images": len(intra_excluded),
         "eligible_after_all_exclusions": len(eligible),
@@ -260,6 +270,10 @@ def main() -> None:
         "pixels_used_only_for_hash_deduplication": True,
         "evaluation_pixels_opened": {"A": False, "B": False, "C": False},
         "phase_b_author_go_received": False,
+        "dedup_script_sha256": file_sha256(Path(__file__)),
+        "environment_record_sha256": file_sha256(
+            ROOT / "results" / "stability_step1" / "step1bis_environment.json"
+        ),
     }
     (OUT / "dedup_provenance.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
     print(json.dumps(summary, indent=2))

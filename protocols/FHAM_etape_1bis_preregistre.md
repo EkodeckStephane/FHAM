@@ -94,7 +94,7 @@ Quatre facteurs varient ; B = 2, le solveur global (SciPy) et les familles de me
 | 36 × 36 | 7 × 7 | 196 | 8 | 12 × 12 |
 | 48 × 48 | 5 × 5 | 100 | 7 | 16 × 16 |
 
-Longueurs testées : 50, 100, 200 symboles après zlib, et 255 symboles non compressés pour un mot RS(255,k). La faisabilité est rapportée à chaque longueur et profil. Un profil dont N < n est déclaré structurellement infaisable à n; une longueur ne sert pas de critère d'élimination pour des longueurs plus courtes.
+Faisabilité évaluée à 50, 100 et 200 octets source après zlib, plus 255 symboles non compressés pour un mot RS(255,k). Les métriques de robustesse utilisent les huit messages fixés `dataset/messages/{uniform_bytes,printable_ascii,natural_text,adversarial_repeated}_{100,200}_00.bin` (source 100/200 octets, un message par famille et longueur, indice `_00` figé). Les 50 octets servent uniquement à la faisabilité par longueur. Les validations à 24 messages utilisent les indices `_00`, `_01`, `_02` pour les quatre familles et les longueurs 100/200. Un profil dont N < n après compression est déclaré structurellement infaisable à n; une longueur ne sert pas de critère d'élimination pour des longueurs plus courtes.
 
 **F2 : méthode de stabilité.** Les méthodes S0 à S3 sont définies comme à l'étape 1 (dev étendu pour S2 et S3). Nouveauté : S4q, qui ne garde que les q % d'emplacements de meilleur s(p), puis applique la L1 globale sans terme de stabilité.
 
@@ -160,13 +160,13 @@ L'unité statistique est la couverture, car les messages et les blocs d'une mêm
 - **Intervalles.** Bootstrap par grappes sur les couvertures, 10 000 tirages, intervalle à 95 % par percentiles. Intervalles de Wilson pour les taux de faisabilité.
 - **Tests.** Test de permutation apparié par inversion de signe, 100 000 tirages, p = (1 + k) / (100 001) où k est le nombre de tirages au moins aussi extrêmes ; plus petit p atteignable ≈ 0,00001. Correction de Holm sur chaque famille d'hypothèses (H4 à H7). Les IC restent la preuve principale ; les p ne sont jamais présentés comme des p bootstrap.
 - **Comparaisons appariées.** Mêmes (couverture, message, transformation) pour toutes les configurations ; pour le pont Q0, mêmes transformations et même configuration sur LFW-val et BOWS2-B.
-- **Taille du jeu scellé.** Un pilote de 20 couvertures de BOWS2-A estime sd\_Δ pour les contrastes de justesse et sd\_q pour le taux de succès RS, à partir de la fraction de blocs réussis par couverture. N est fixé pour une demi-largeur d'intervalle de 3 points sur les deux critères, avec un plancher de 200 :
+- **Taille du jeu scellé.** Un pilote de 20 couvertures de BOWS2-A estime sd\_Δ, l'écart-type entre couvertures des différences appariées de justesse S3−S0 (P3, chacune des cinq transformations de validation; retenir le maximum). Pour q(R), fraction de cinq mots RS correctement décodés par couverture, utiliser la borne conservatrice sd\_q = 0,5 pour une variable dans [0,1], sans l'estimer sur le pilote. N est fixé pour une demi-largeur normale de 3 points sur les deux critères, avec un plancher de 200 :
 
 ```latex
 N = \max\left(200,\ \left\lceil \left( \frac{1{,}96 \cdot sd_{\Delta}}{0{,}03} \right)^{2} \right\rceil,\ \left\lceil \left( \frac{1{,}96 \cdot sd_{q}}{0{,}03} \right)^{2} \right\rceil \right)
 ```
 
-Les couvertures, et non les blocs individuels, sont les grappes du calcul de sd\_q. Le code RS, le profil, le régime de signalement et les attaques utilisés pour le pilote de dimensionnement sont gelés dans le protocole avant son exécution.
+Les couvertures, et non les blocs individuels, sont les grappes du calcul de sd\_q. La borne sd\_q=0,5 implique N≥1 068; le N final est le maximum entre 1 068 et le résultat obtenu avec sd\_Δ. Cette approche conservative évite de choisir le jeu scellé à partir d'une configuration RS qui n'est pas encore sélectionnée. Le code RS et les paramètres sont figés avant son évaluation.
 
 - **Blocs Reed–Solomon.** 5 blocs par couverture et par valeur de k ; q(R) avec IC par grappes sur les couvertures.
 - **Exploratoire contre confirmatoire.** Les résultats de la phase A (BOWS2-A et B) sont explorés sur une grille large : toutes les cellules sont rapportées, aucune n'est présentée comme confirmation. La configuration retenue est réévaluée sur BOWS2-C pour limiter la malédiction du gagnant.
@@ -179,9 +179,9 @@ La phase A (exploratoire) occupe les étapes 4 à 8 ; la phase B (confirmatoire,
 1. **Go et gel (arrêt).** Go explicite de l'auteur. Gel et commit de ce document, de la branche, des versions exactes (consignées dans le fichier de provenance), des graines, du manifeste BOWS2 et de l'audit de doublons. L'environnement réellement disponible est utilisé sans mise à niveau de dépendance durant l'expérience. BOWS2-C : pixels non ouverts.
 2. **Contrôle de régression (arrêt).** Sur 20 couvertures de LFW-val, reproduire la configuration S3, λ = 0,5, profil 12 × 12 du rapport de l'étape 1 ; écart toleré ≤ 0,05 point (l'écart maximal de la reproduction précédente était de 0,048).
 3. **Instrumenter.** Paramètre de taille de bloc ; filtre S4q ; signalement par vote ; harnais Reed–Solomon (encodage, insertion comme message, décodage avec effacements) ; stockage des différences d\_i.
-4. **Pilote.** 20 couvertures de BOWS2-A pour estimer sd\_Δ et fixer N (section 7).
-5. **Étape A : profils et pont.** 100 couvertures de BOWS2-A × 8 messages (4 familles × 2 longueurs × 1 message), 4 profils × {S0, S3 λ = 0,5}, transformations de validation, chaînes P0 à P3. Pont Q0 : même protocole sur 100 couvertures de BOWS2-B et les 100 couvertures LFW-val, profil 12 × 12, S0 et S3, mêmes attaques et mêmes messages. Barrière G-A1.
-6. **Étape B : stabilité.** Sur le ou les deux meilleurs profils, grille F2 sur BOWS2-A (100 couvertures × 8 messages) ; les 3 meilleures configurations selon la règle de la section 9 sont réévaluées sur BOWS2-B (200 couvertures × 24 messages). Barrière G-A2.
+4. **Pilote.** 20 couvertures de BOWS2-A, profil L=12, pour estimer sd\_Δ sur les huit messages fixés, S0/S3 λ=0,5 et les cinq transformations de validation sous P3; sd\_q=0,5 conservateur. Calculer et figer N selon la section 7.
+5. **Étape A : profils et pont.** 100 couvertures de BOWS2-A × 8 messages (4 familles × longueurs 100/200 × indice `_00`), 4 profils × {S0, S3 λ = 0,5}, transformations de validation, chaînes P0 à P3. Faisabilité séparée aux longueurs 50/100/200. Pont Q0 : même protocole sur les 100 premières couvertures de BOWS2-B et les 100 couvertures LFW-val, profil 12 × 12, S0 et S3, mêmes attaques et mêmes huit messages. Barrière G-A1 après l'étape B, sur les configurations évaluées sur BOWS2-B.
+6. **Étape B : stabilité.** Sur le ou les deux meilleurs profils, grille F2 sur BOWS2-A (100 couvertures × 8 messages); les trois meilleures configurations selon la règle de la section 9 sont réévaluées sur BOWS2-B (200 couvertures × 24 messages, indices `_00` à `_02`). Ces réévaluations servent aussi à juger G-A1 et G-A2; elles restent exploratoires et ne sont pas indépendantes de la sélection.
 7. **Étape C : signalement.** Grille F3 réglée sur BOWS2-A, évaluée sur BOWS2-B dans les trois régimes.
 8. **Étape D : Reed–Solomon (arrêt).** Blocs RS sur BOWS2-B : 200 couvertures × 5 blocs × 3 valeurs de k. Barrière G-A3, puis rapport exploratoire et décision d'ouvrir ou non la phase B.
 9. **Phase B.** Gel de la configuration (commit), ouverture de BOWS2-C une seule fois, transformations du jeu scellé, k = 153 (R = 0,6) pour les blocs ; aucun réglage après ouverture.

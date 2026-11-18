@@ -1,0 +1,45 @@
+{
+  "seed": 20261118,
+  "protocol_commit_expected": "cf655f8",
+  "D_images": [
+    "2463.pgm",
+    "5212.pgm",
+    "3435.pgm",
+    "9873.pgm",
+    "7958.pgm"
+  ],
+  "D_sha256": {
+    "2463.pgm": "860ec814c0fea5e908bddfb235bb5aa0f5d91e87809e4c88c8cc2d32478fbc05",
+    "5212.pgm": "7c4da148f7932920e8b8e0a72924a09ec6e732fc507ba16c657c8b31469de010",
+    "3435.pgm": "7f59c62a7d4d0629fa6d2005741b952d1d8c4ba3d96f55b4578853988acda607",
+    "9873.pgm": "3ce1b96052c89e4440d64e2d3196979e21e86a2a95d27350917dfe4c47e3d680",
+    "7958.pgm": "c6d2f68d67e5567ba49d66423c5bf9864b307853bfda27ac3240eb3f211c5772"
+  },
+  "run_limit": 5,
+  "profiles": [
+    12,
+    24
+  ],
+  "bounds": [
+    2,
+    4,
+    8
+  ],
+  "K_per_family": 100,
+  "development": "JPEG Q~U[70,90] excluding 74..76; Gaussian sigma~U[1,2.4] excluding 1.9..2.1",
+  "validation": {
+    "JPEG": 75,
+    "noise_sigma": 2
+  },
+  "messages": "4 families x indices 00..02; zlib level 9; source lengths 100 and 200",
+  "python": "3.13.5 (tags/v3.13.5:6cb20a2, Jun 11 2025, 16:15:46) [MSC v.1943 64 bit (AMD64)]",
+  "numpy": "2.2.6",
+  "scipy": "1.17.1",
+  "opencv": "4.12.0",
+  "evaluation_pixels_opened": {
+    "D": true,
+    "E": false,
+    "C": false,
+    "F": false
+  }
+}

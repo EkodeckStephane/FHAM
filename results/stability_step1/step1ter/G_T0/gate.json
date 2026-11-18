@@ -1,0 +1,11 @@
+{
+  "configuration": "S3 lambda=0.5, B=2, L=12, zlib-9",
+  "covers_per_group": 20,
+  "messages_per_cover": 8,
+  "paired_rows": 4480,
+  "raw_metric_match": "exact",
+  "maximum_absolute_percentage_point_difference": 0.0,
+  "tolerance_percentage_points": 0.05,
+  "passed": true,
+  "elapsed_seconds": 168.71446559997275
+}

@@ -147,8 +147,7 @@ def evaluate_cover(row, cover_idx):
                     method.image_shape = image.shape
                     assignment = method.embed(payload, image)
                     feasible = assignment is not None
-                    if source_length == 100:
-                        feasible_cover &= feasible
+                    feasible_cover &= feasible
                     acc = exact = None
                     if feasible:
                         for attack_name, attack in (
@@ -181,7 +180,7 @@ def evaluate_cover(row, cover_idx):
                     "D1": None, "accuracy": None, "exact": None,
                     "robust_positions": len(robust), "total_positions": len(locations),
                     "elapsed_cover_seconds": time.perf_counter()-t0})
-        print(f"[D {cover_idx+1}/100] {row.source_id} L={profile} robust={len(robust)}/{len(locations)} elapsed={time.perf_counter()-t0:.1f}s", flush=True)
+        print(f"[D {cover_idx+1}] {row.source_id} L={profile} robust={len(robust)}/{len(locations)} elapsed={time.perf_counter()-t0:.1f}s", flush=True)
     return all_summary, all_diag, all_margins, all_location_scores
 
 
@@ -198,6 +197,8 @@ def main():
     if len(d) != args.limit:
         raise RuntimeError(f"Need {args.limit} hash-frozen BOWS2-D images")
     provenance = {"seed": SEED, "protocol_commit_expected": "cf655f8",
+                  "analysis_script_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+                  "manifest_commit": "8d7d9e7",
                   "D_images": d.source_id.tolist(), "D_sha256": dict(zip(d.source_id, d.sha256)),
                   "run_limit": args.limit,
                   "profiles": PROFILES, "bounds": BOUNDS, "K_per_family": 100,

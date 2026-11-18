@@ -46,7 +46,7 @@ def messages(length: int):
 def decode_from_cache(assignment, received_cache, descriptor: str) -> bytes:
     hashes = []
     for location, delta in zip(assignment.locations, assignment.displacements):
-        value = received_cache[(location.x, location.y)][location.arrangement]
+        value = received_cache[(location.x, location.y)][0][location.arrangement]
         hashes.append(max(0, min(255, int(value) + int(delta))))
     return bytes(hashes)
 

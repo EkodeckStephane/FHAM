@@ -1,0 +1,21 @@
+{
+  "G_T3_overall": "red",
+  "descriptor_decisions": [
+    {
+      "descriptor": "dct_sumabs",
+      "G_T1_green_any_B": false,
+      "G_T2_accuracy_and_bits_same_B": false,
+      "by_B": "[{\"B\": 2, \"G_T1_green\": false, \"G_T2_accuracy_ok\": false, \"fixed_bits_le20\": true, \"passes_both\": false}, {\"B\": 4, \"G_T1_green\": false, \"G_T2_accuracy_ok\": false, \"fixed_bits_le20\": true, \"passes_both\": false}, {\"B\": 8, \"G_T1_green\": false, \"G_T2_accuracy_ok\": false, \"fixed_bits_le20\": true, \"passes_both\": false}]",
+      "G_T3": "red"
+    },
+    {
+      "descriptor": "mean_ordinal",
+      "G_T1_green_any_B": false,
+      "G_T2_accuracy_and_bits_same_B": false,
+      "by_B": "[{\"B\": 2, \"G_T1_green\": false, \"G_T2_accuracy_ok\": false, \"fixed_bits_le20\": true, \"passes_both\": false}, {\"B\": 4, \"G_T1_green\": false, \"G_T2_accuracy_ok\": false, \"fixed_bits_le20\": true, \"passes_both\": false}, {\"B\": 8, \"G_T1_green\": false, \"G_T2_accuracy_ok\": false, \"fixed_bits_le20\": true, \"passes_both\": false}]",
+      "G_T3": "red"
+    }
+  ],
+  "E_C_F_evaluation_pixels_opened": false,
+  "interpretation": "Exploratory D only. E remains reserved for Step 5 if a candidate is retained; C/F remain closed unless Step 6 is reached."
+}

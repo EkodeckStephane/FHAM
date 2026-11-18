@@ -10,10 +10,11 @@ import csv
 import gzip
 import math
 import zlib
-from collections import Counter, defaultdict, deque
+from collections import defaultdict
 from pathlib import Path
 
 import numpy as np
+from fham_matching import max_matching
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = ROOT / "results" / "stability_step1" / "step1ter"
@@ -28,52 +29,6 @@ BOOTSTRAP_REPS = 10_000
 def csv_rows(path: Path):
     with path.open("r", newline="", encoding="utf-8-sig") as f:
         yield from csv.DictReader(f)
-
-
-def max_matching(adjacency: list[list[int]], n_right: int) -> int:
-    """Hopcroft-Karp cardinality for a bipartite graph with left-side symbols."""
-    n_left = len(adjacency)
-    left_match = [-1] * n_left
-    right_match = [-1] * n_right
-    distance = [0] * n_left
-    inf = n_left + 1
-
-    def bfs() -> bool:
-        q = deque()
-        for u in range(n_left):
-            if left_match[u] < 0:
-                distance[u] = 0
-                q.append(u)
-            else:
-                distance[u] = inf
-        found = False
-        while q:
-            u = q.popleft()
-            for v in adjacency[u]:
-                mate = right_match[v]
-                if mate < 0:
-                    found = True
-                elif distance[mate] == inf:
-                    distance[mate] = distance[u] + 1
-                    q.append(mate)
-        return found
-
-    def dfs(u: int) -> bool:
-        for v in adjacency[u]:
-            mate = right_match[v]
-            if mate < 0 or (distance[mate] == distance[u] + 1 and dfs(mate)):
-                left_match[u] = v
-                right_match[v] = u
-                return True
-        distance[u] = inf
-        return False
-
-    cardinality = 0
-    while bfs():
-        for u in range(n_left):
-            if left_match[u] < 0 and dfs(u):
-                cardinality += 1
-    return cardinality
 
 
 # Saved robust positions from 1ter Step 4b, indexed once per cover/descriptor.

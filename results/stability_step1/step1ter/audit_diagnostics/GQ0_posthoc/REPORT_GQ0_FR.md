@@ -48,3 +48,5 @@ Les taux individuels et les IC bootstrap par grappes de couvertures (10 000 rép
 Pour le descripteur exploratoire C-moyenne à B=8, la médiane du déficit représente 14,82 % de la longueur comprimée : cela tombe dans la zone 10–25 % de la barrière G-Q0, si l’on applique cette barrière telle qu’écrite. La section 2 du brouillon dit cependant d’abandonner A2 au-delà de 10 %, tandis que la section 9 autorise A2 avec p≥30 % dans la zone 10–25 %. Le brouillon ne permet donc pas de prendre une décision cohérente sur la poursuite d’A2 avant correction et gel.
 
 Ce diagnostic ne mesure ni Reed–Solomon, ni le remplissage non robuste, ni le choix de couverture, ni la transmission géométrique. Le déficit décrit une affectation partielle sur les positions robustes telles que définies par le criblage 1ter (K=50 pour les descripteurs de remplacement). Il ne prouve pas que le code correcteur récupérera les symboles manquants après perturbation.
+
+Les compléments D6 (mot codé avec parité) et D7 (distribution des hachages et fenêtres saturées) sont documentés séparément dans `REPORT_D6_D7_FR.md`.

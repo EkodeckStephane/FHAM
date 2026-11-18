@@ -1,32 +1,36 @@
-# Revue du brouillon de protocole 1quater
+# Audit du protocole 1quater corrigé
 
-**État :** revue préparatoire; le protocole fourni dans Downloads n’a pas été modifié ni gelé. Le diagnostic G-Q0 est exécuté sur les sorties déjà ouvertes de 1ter et reste explicitement post hoc. Aucune mesure A1–A5 n’a été lancée.
+**État :** lecture complète de `FHAM — Protocole de l'étape 1quater déficit d'affectation, effacements et repli(1).md` (18 novembre 2026). Les corrections proposées dans les dix points précédents sont présentes pour l’essentiel. Le fichier de Downloads n’a pas été modifié depuis ce dépôt. G-Q0, D6 et D7 sont des diagnostics post hoc sur D-a; aucune cellule A1–A5 n’a été lancée.
 
-## Corrections nécessaires avant gel
+## Corrections vérifiées
 
-1. **Règle contradictoire pour A2 (bloquant).** La section 2 abandonne A2 si le déficit médian dépasse 10 % de n; la section 9 classe 10–25 % en orange et poursuit A2 avec p≥30 %. G-Q0 donne, pour C-moyenne B=8, une médiane d/n de 14,82 % : ces deux règles conduisent à des décisions opposées. Choisir une seule règle avant le gel. Le tableau G-Q0 est descriptif et n’autorise pas à sélectionner après coup la branche favorable.
-2. **Définition de n et ordre compression/codage (bloquant).** 1ter affecte les octets après zlib-9; le brouillon appelle n la longueur source et calcule par ailleurs le coût RS en fonction de n. Définir séparément la longueur source, la longueur comprimée, les octets de CRC éventuels et la longueur du mot codé. Définir si p est un pourcentage des octets source ou des octets comprimés et comment l’arrondi est appliqué.
-3. **Longueur maximale Reed–Solomon GF(256) (bloquant pour 200 octets).** Le mot RS standard sur GF(256) a au plus 255 symboles. Dans les fichiers actuels, les messages uniformes de 200 octets font 211 octets après zlib-9; avec 30 % de parité, cela ferait 275 symboles. Le protocole doit spécifier le découpage en blocs RS, la taille de chaque bloc, les parités par bloc et le traitement du dernier bloc. Sinon A1/A2 à 200 octets n’est pas défini.
-4. **G-Q1 ambigu.** La courbe est demandée « par message », mais n* est défini au singulier. Définir n* séparément pour chacun des 12 messages et pour la faisabilité conjointe des 12, puis préciser laquelle détermine la porte. Garder aussi la longueur source et la longueur comprimée dans les sorties.
-5. **Robustesse K incohérente avec 1ter.** Le criblage C-moyenne/C-DCT de 1ter utilise K=50 JPEG et K=50 bruit (provenance archivée); K=100 s’applique à l’analyse spectrale antérieure. Pour le G-Q0 post hoc, les positions déjà calculées doivent rester inchangées. Pour D-b, déclarer K=100 comme un nouveau choix du protocole, et définir exactement la règle de robustesse et l’estimation de stabilité utilisée pour classer les positions non robustes.
-6. **Messages de 25 octets absents.** Le dépôt contient actuellement les fichiers 10, 50, 100 et 200 octets pour les quatre familles, mais pas 25. Définir avant le gel leur génération déterministe. Pour une courbe imbriquée, on peut préenregistrer les 25 premiers octets des mêmes fichiers de 50 octets, avec un contrôle SHA-256; sinon produire et geler de nouveaux messages et leurs graines.
-7. **Combinaison des leviers et règle de sélection.** Les étapes A2, A3 et A4 sont successives, mais le protocole ne dit pas clairement si elles sont testées isolément ou composées. Définir les configurations admissibles (A2 seul, A3 seul, A4 seul, combinaisons autorisées), les dépendances entre elles et la procédure d’optimisation avant D-b. Inclure p, q, m et B dans la table de toutes les cellules réellement testées.
-8. **Coût de communication incomplet pour A4 et G-Q2.** La formule b_source couvre le coût fixe d’affectation et le bitmap, mais pas le nonce/tag AES-GCM, le cadrage du record, l’identifiant de couverture, ni le nombre d’images envoyé lorsque le message est découpé. Déclarer si une galerie est prépartagée; rapporter à la fois le coût de la couche d’affectation et le coût réel du record/communication, avec les identifiants et arrondis. La porte 24 bits/octets doit préciser laquelle de ces métriques elle borne.
-9. **Validation E et choix de N.** Le calcul de N utilise un pilote de 20 couvertures tiré de E, alors qu’E est ensuite présenté comme validation à passage unique. Séparer explicitement le pilote du jeu confirmatoire E, ou estimer N sur D-b; ne pas réutiliser des observations E qui ont influencé le choix de configuration dans la validation finale.
-10. **Sécurité et revendications.** Le protocole exclut la sécurité de bout en bout et la détectabilité. Il peut évaluer les effets capacité/RS, mais ne pourra pas lever à lui seul les critiques Reviewer 2 sur la chaîne de communication, l’association image–métadonnées, le rejeu et l’établissement de clés. Séparer ces conclusions dans l’article et dans la lettre de réponse.
+- G-Q0 est explicitement descriptif et ne choisit plus de branche; G-Q2 décide sur D-b.
+- Les longueurs source, comprimée et codée sont distinguées; le CRC reste dans le record.
+- Les mots RS sont segmentés en blocs équilibrés de 128 symboles maximum, sous la limite GF(256).
+- G-Q1 rapporte n* par message et pour la conjonction des 12 cas. Comme la mesure est explicitement descriptive, aucun seuil d’acceptation additionnel n’est nécessaire; écrire que n* est calculé parmi les quatre longueurs testées (25, 50, 100, 200) et « non atteint » si aucune ne satisfait la borne basse de Wilson 0,90.
+- K=50 par famille correspond bien au criblage C-moyenne 1ter; K=100 est une sensibilité prévue sur D-b.
+- Les messages de 25 octets sont définis comme préfixes des messages de 50 octets avec empreintes à geler.
+- La grille de 160 cellules et sa règle de choix sont explicitement données.
+- b_assign est séparé de b_total; D-b sert à estimer la taille N; la sécurité complète est hors périmètre et reste à traiter ailleurs dans l’article.
 
-## Diagnostic G-Q0 déjà réalisé
+## Points résiduels avant gel
 
-- 7 200 cas individuels reconstruits à partir des positions robustes et des messages fixés; accord exact avec les étiquettes de faisabilité 1ter : 7 200/7 200.
-- Pour C-moyenne à B=8 : 224/1 200 messages infaisables; déficit médian 13,5 symboles comprimés; médiane d/n=14,82 %; moyenne `d_vide=4,39` et `d_Hall=17,02` par cas infaisable.
-- Les seuils contradictoires de G-Q0 s’appliqueraient précisément à ce résultat; corriger cette contradiction avant tout gel.
-- Sur C-moyenne B=8, 13/100 couvertures ont au moins un octet cible sans candidat robuste; médiane 0, Q90=3, maximum 91. Parmi les messages infaisables, 109/224 contiennent au moins un symbole sans candidat, tandis que 216/224 ont aussi un déficit résiduel de couplage.
-- Le détail, les IC bootstrap par message, le script et les limites sont dans `results/stability_step1/step1ter/audit_diagnostics/GQ0_posthoc/`.
+1. **D6 : utiliser la parité réelle pour la borne.** Le brouillon propose des octets pseudo-aléatoires pour étendre le mot. C’est un proxy utile pour une sensibilité, mais `d≤P` n’est une condition nécessaire sur le succès par effacements que si le déficit est calculé sur le mot RS effectivement encodé. Le diagnostic exécuté ci-joint utilise les deux : le proxy aléatoire et les mots exacts générés par `reedsolo` 1.7.0. Pour D6, retenir la parité RS exacte comme résultat principal et conserver le proxy comme comparaison exploratoire.
+2. **Seuil de préfiltrage D6.** Le brouillon dit qu’une fraction `d≤P` sous 0,90 exclut le passage de G-Q2, dont la réussite minimale est 0,95. C’est une condition suffisante pour écarter A2 seul, mais une fraction entre 0,90 et 0,95 l’écarte aussi sur ce critère, si la borne est interprétée sur la même moyenne de messages. À préciser avant de décider du calcul A2 seul; les interactions A3/A4 peuvent encore changer la conclusion.
+3. **D7 et portée du diagnostic.** La surcharge d’une valeur x dans sa fenêtre ±B est un témoin Hall suffisant pour un symbole seul, mais son absence n’établit pas la faisabilité : les fenêtres de plusieurs valeurs peuvent se recouvrir. Le rapport D7 distingue les surcharges unitaires des déficits qui n’apparaissent qu’en combinant plusieurs valeurs.
+4. **Définition de F dans b_total.** La formule utilise `F+4+2`; le texte définit F à la fois comme partie fixe comprenant le CRC et la longueur, et comme 29 octets de format/nonce/tag. Dire explicitement si F exclut les 4 octets de CRC et les 2 de longueur. Résoudre aussi l’écart 29/41 octets avant d’interpréter b_total. La porte de 24 bits porte sur b_assign et n’est pas affectée, mais b_total ne doit pas rester ambigu.
+5. **Périmètre de la moyenne à G-Q2.** Le texte indique moyenne des 12 messages et tableaux par famille; conserver également les quatre moyennes de famille et les bornes individuelles pour éviter qu’une famille très compressible ne masque un coût ou un échec plus élevé dans une autre.
+6. **A4 prépartagé.** L’hypothèse de galerie prépartagée est maintenant explicite. Le coût d’acquisition/distribution de la galerie reste hors b_total; garder A4 qualifié comme mode catalogue et ne pas présenter cette mesure comme un coût complet de communication pour une galerie non partagée.
 
-## Statut des jeux
+## Résultats D6/D7 à annexer au protocole
 
-La provenance 1ter liste 100 couvertures D pour le criblage/plafond; le manifeste gelé contient 200 couvertures D. Les 100 restantes sont donc candidates à D-b. Avant le gel, il faut confirmer leur absence de tout calcul de pixel dans les autres journaux/scripts 1ter et figer leur liste exacte par SHA-256. E, C et F restent fermés.
+- **D6, RS exact, C-moyenne, B=8, D-a :** les fractions de cas où `d≤P` sont 81,3 %, 87,3 %, 90,2 %, 92,1 % et 92,5 % pour p=0, 10, 20, 30 et 40 %. Avec le seuil G-Q2 de 95 %, même p=40 ne laisse que 92,5 % de cas potentiellement récupérables sous canal parfait dans D-a. C’est une borne de filtrage descriptive sur D-a, pas une décision confirmatoire sur D-b. B=4 atteint 89,2 % à p=40.
+- **D6, familles à B=8/p=40 :** octets uniformes 90,7 %, ASCII 89,3 %, texte naturel 91,3 %, octet répété 98,7 %. La moyenne sur 12 messages est 92,5 %.
+- **D7 :** l’entropie des hashes robustes est en moyenne 6,760 bits contre 7,395 sur toutes les positions; support effectif 119,9 contre 171,8; part dans les dix valeurs dominantes 21,8 % contre 17,1 %. Cela confirme une concentration statistique associée à la sélection robuste, sans prouver qu’elle explique à elle seule les déficits.
+- **D7 à B=8 :** 142/224 messages infaisables ont une surcharge de fenêtre pour une valeur seule; 82 ont un résidu de Hall sans surcharge unitaire, compatible avec des collisions entre fenêtres de valeurs différentes.
 
-## Décision
+Le calcul détaillé et ses limites figurent dans `results/stability_step1/step1ter/audit_diagnostics/GQ0_posthoc/REPORT_D6_D7_FR.md`.
 
-G-Q0 est exploitable comme diagnostic descriptif post hoc. Il n’autorise pas à conclure que Reed–Solomon réussira : à C-moyenne B=8, le déficit comprend une composante Hall plus importante que la composante de symboles isolés, et le canal ajoute encore erreurs et dépendances. A2 mérite d’être évalué seulement après clarification de ses seuils, de la longueur RS et du budget de bits. Aucune étape A1–A5 ne doit commencer avant correction et gel du protocole, puis autorisation de lancement.
+## Statut recommandé
+
+Le texte révisé est proche d’un gel, mais le point F/b_total doit être clarifié et la règle D6 doit distinguer parité RS exacte du proxy aléatoire. Une fois ces retouches réalisées, figer le protocole et les manifestes D-b par hash, puis arrêter avant toute cellule si une précondition ou un budget mesuré ne correspond pas au document. Les résultats de sécurité de bout en bout, association image–record, rejeu, établissement des clés et détectabilité réseau restent des tâches séparées liées aux reviewers.

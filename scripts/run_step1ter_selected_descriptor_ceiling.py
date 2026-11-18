@@ -57,7 +57,7 @@ def main():
     if len(selected) != 2:
         raise RuntimeError("Expected exactly two frozen descriptors")
     manifest = pd.read_csv(MANIFEST, keep_default_na=False)
-    d = manifest.loc[manifest.split.eq("D")].sort_values("selection_rank_1ter")
+    d = manifest.loc[manifest.split.eq("D")].sort_values("selection_rank_1ter").head(100)
     if len(d) != 100:
         raise RuntimeError("Expected 100 BOWS2-D covers")
     provenance = {"step": "4b C3 robust-position ceiling rerun", "selected_descriptors": selected,

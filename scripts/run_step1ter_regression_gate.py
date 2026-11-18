@@ -47,7 +47,8 @@ def main() -> None:
                 pd.read_csv(output / f"{row.source_id}_recovery.csv.gz")
                 for _ in [0]
             ], ignore_index=True)
-            archived = archived.loc[(archived.method.eq(CONFIG[0]))
+            archived = archived.loc[(archived.profile.eq(12))
+                                     & (archived.method.eq(CONFIG[0]))
                                      & (archived["lambda"].eq(CONFIG[1]))]
             merged = frame.merge(archived, on=KEYS, suffixes=("_new", "_old"),
                                  validate="one_to_one")

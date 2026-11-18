@@ -81,7 +81,7 @@ def main():
         for descriptor in selected:
             pos = pd.read_csv(SCREEN / f"{stem}_positions.csv.gz")
             pos = pos.loc[pos.descriptor.eq(descriptor)]
-            profile = int(pos.block_size.iloc[0])
+            profile = 12 if descriptor in ("mean_ordinal", "dct_sumabs") else 18
             locations = [Location(int(r.x), int(r.y), int(r.arrangement))
                          for r in pos.itertuples(index=False)]
             hash_by_location = {loc: int(value) for loc, value in zip(locations, pos.hash_value)}

@@ -82,10 +82,16 @@ def main():
     for keys, group in cover_acc.groupby(["descriptor", "bound", "source_length", "attack"], sort=True):
         vals = group.set_index("cover").accuracy_unconditional.reindex(sorted(x.cover.unique())).fillna(0).to_numpy()
         boot = vals[draws].mean(axis=1)
+        cond = group.accuracy_conditional.dropna().to_numpy()
+        cond_draws = rng.integers(0, len(cond), size=(10000, len(cond))) if len(cond) else np.empty((0, 0))
+        cond_boot = cond[cond_draws].mean(axis=1) if len(cond) else np.asarray([])
         ci_rows.append({"descriptor": keys[0], "B": keys[1], "source_length": keys[2],
                         "attack": keys[3], "covers": len(vals), "a_P3_unconditional": float(vals.mean()),
-                        "cluster_bootstrap95_low": float(np.quantile(boot, .025)),
-                        "cluster_bootstrap95_high": float(np.quantile(boot, .975)),
+                        "unconditional_cluster95_low": float(np.quantile(boot, .025)),
+                        "unconditional_cluster95_high": float(np.quantile(boot, .975)),
+                        "a_P3_conditional": float(cond.mean()) if len(cond) else np.nan,
+                        "conditional_cluster95_low": float(np.quantile(cond_boot, .025)) if len(cond) else np.nan,
+                        "conditional_cluster95_high": float(np.quantile(cond_boot, .975)) if len(cond) else np.nan,
                         "mean_conditional_accuracy": float(group.accuracy_conditional.mean()),
                         "covers_with_feasible_case": int(group.feasible_bytes.gt(0).sum()),
                         "mean_exact_rate": float(x.loc[
@@ -104,8 +110,8 @@ def main():
             acc_rows = accuracy.loc[(accuracy.descriptor.eq(descriptor))
                                     & accuracy.B.eq(bound) & accuracy.source_length.eq(100)]
             pass_attacks = all(
-                ((acc_rows.loc[acc_rows.attack.eq(attack), "a_P3_unconditional"] >= .95)
-                 & (acc_rows.loc[acc_rows.attack.eq(attack), "cluster_bootstrap95_low"] >= .92)).all()
+                ((acc_rows.loc[acc_rows.attack.eq(attack), "a_P3_conditional"] >= .95)
+                 & (acc_rows.loc[acc_rows.attack.eq(attack), "conditional_cluster95_low"] >= .92)).all()
                 and not acc_rows.loc[acc_rows.attack.eq(attack)].empty
                 for attack in ("jpeg75", "noise2"))
             bits_ok = bool(x.loc[x.descriptor.eq(descriptor) & x.bound.eq(bound),

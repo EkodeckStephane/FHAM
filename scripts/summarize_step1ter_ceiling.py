@@ -56,7 +56,19 @@ def main() -> None:
     robust.to_csv(OUT / "robust_position_summary.csv", index=False)
 
     bit_files = sorted(DATA.glob("*_bits.csv"))
-    bits = pd.concat([pd.read_csv(p) for p in bit_files], ignore_index=True)
+    bit_frames = []
+    expected_comparisons = {12: 100 * (1764 // 4), 24: 100 * (400 // 4)}
+    for path in bit_files:
+        frame = pd.read_csv(path)
+        expected = frame.profile.map(expected_comparisons)
+        if frame.comparisons.eq(expected * 4).all():
+            frame["comparisons"] = expected
+        elif not frame.comparisons.eq(expected).all():
+            raise RuntimeError(f"Unexpected bit-flip denominator in {path.name}")
+        frame["flip_rate"] = frame.flips / frame.comparisons
+        frame.to_csv(path, index=False)
+        bit_frames.append(frame)
+    bits = pd.concat(bit_frames, ignore_index=True)
     bits["bit_msb_index"] = 7 - bits.bit_lsb_index
     bit_summary = bits.groupby(["profile", "family", "arrangement", "bit_msb_index"], as_index=False).agg(
         flips=("flips", "sum"), comparisons=("comparisons", "sum"))

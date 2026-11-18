@@ -105,8 +105,8 @@ def score_and_diagnostics(image, profile, cover_idx):
     diag = []
     for (fam, arrangement, bit), flip_count in sorted(bit_flips.items()):
         diag.append({"family": fam, "arrangement": arrangement, "bit_lsb_index": bit,
-                     "flips": flip_count, "comparisons": 100 * len(locations),
-                     "flip_rate": flip_count / (100 * len(locations))})
+                     "flips": flip_count, "comparisons": 100 * (len(locations) // 4),
+                     "flip_rate": flip_count / (100 * (len(locations) // 4))})
     margins = [{"arrangement": a, "bit_lsb_index": b,
                 "median_abs_margin": float(np.median(vals)),
                 "p05_abs_margin": float(np.quantile(vals, .05)),

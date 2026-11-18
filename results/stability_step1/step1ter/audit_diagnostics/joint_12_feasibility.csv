@@ -1,0 +1,13 @@
+descriptor,B,source_bytes,covers_feasible_all_12,covers,rate
+dct_sumabs,2,100,5,100,0.050000
+dct_sumabs,2,200,1,100,0.010000
+dct_sumabs,4,100,26,100,0.260000
+dct_sumabs,4,200,8,100,0.080000
+dct_sumabs,8,100,47,100,0.470000
+dct_sumabs,8,200,30,100,0.300000
+mean_ordinal,2,100,15,100,0.150000
+mean_ordinal,2,200,7,100,0.070000
+mean_ordinal,4,100,49,100,0.490000
+mean_ordinal,4,200,28,100,0.280000
+mean_ordinal,8,100,68,100,0.680000
+mean_ordinal,8,200,57,100,0.570000

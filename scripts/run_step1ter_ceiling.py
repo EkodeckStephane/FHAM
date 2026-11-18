@@ -4,6 +4,7 @@ from __future__ import annotations
 import hashlib
 import io
 import json
+import argparse
 import math
 import sys
 import time
@@ -185,20 +186,28 @@ def evaluate_cover(row, cover_idx):
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--limit", type=int, default=100,
+                        help="Use 5 for the frozen timing pilot; 100 for the full D evaluation.")
+    args = parser.parse_args()
+    if args.limit not in (5, 100):
+        raise ValueError("The preregistered run permits only --limit 5 or --limit 100")
     OUT.mkdir(parents=True, exist_ok=True)
     manifest = pd.read_csv(MANIFEST, keep_default_na=False)
-    d = manifest.loc[manifest.split.eq("D")].sort_values("selection_rank_1ter").head(100)
-    if len(d) != 100:
-        raise RuntimeError("Need 100 hash-frozen BOWS2-D images")
+    d = manifest.loc[manifest.split.eq("D")].sort_values("selection_rank_1ter").head(args.limit)
+    if len(d) != args.limit:
+        raise RuntimeError(f"Need {args.limit} hash-frozen BOWS2-D images")
     provenance = {"seed": SEED, "protocol_commit_expected": "cf655f8",
                   "D_images": d.source_id.tolist(), "D_sha256": dict(zip(d.source_id, d.sha256)),
+                  "run_limit": args.limit,
                   "profiles": PROFILES, "bounds": BOUNDS, "K_per_family": 100,
                   "development": "JPEG Q~U[70,90] excluding 74..76; Gaussian sigma~U[1,2.4] excluding 1.9..2.1",
                   "validation": {"JPEG": 75, "noise_sigma": 2},
                   "messages": "4 families x indices 00..02; zlib level 9; source lengths 100 and 200",
                   "python": sys.version, "numpy": np.__version__, "scipy": __import__("scipy").__version__,
                   "opencv": cv2.__version__, "evaluation_pixels_opened": {"D": True, "E": False, "C": False, "F": False}}
-    (OUT / "run_provenance.json").write_text(json.dumps(provenance, indent=2), encoding="utf-8")
+    provenance_name = "pilot_run_provenance.json" if args.limit == 5 else "run_provenance.json"
+    (OUT / provenance_name).write_text(json.dumps(provenance, indent=2), encoding="utf-8")
     for i, row in enumerate(d.itertuples(index=False)):
         marker = OUT / f"{Path(row.source_id).stem}_ceiling.csv"
         if marker.exists():

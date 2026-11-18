@@ -1,0 +1,15 @@
+{
+  "phase": "step0 hash-only reservation; no FHAM metrics",
+  "seed": "FHAM-1ter-20261118",
+  "source_root": "C:\\Users\\User\\Downloads\\Compressed\\cpu_stego_experiments\\datasets\\BOSSbase",
+  "source_count": 10000,
+  "prior_candidates_excluded": 400,
+  "prior_sha256_excluded": 400,
+  "intra_candidate_near_duplicates_excluded": 260,
+  "eligible_after_exclusions": 9321,
+  "F_count": 200,
+  "manifest_sha256": "40729ef56d255dcc1e46a6e573272787a4e6807891d1f3f381b62005803206b8",
+  "evaluation_pixels_opened": false,
+  "evaluation_metrics_run": false,
+  "pHash": "Pillow grayscale 32x32 LANCZOS; SciPy DCT-II orthonormal; low-frequency 8x8; median AC; MSB-first"
+}

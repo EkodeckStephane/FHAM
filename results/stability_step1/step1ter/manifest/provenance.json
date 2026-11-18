@@ -1,0 +1,22 @@
+{
+  "phase": "step0 hash-only partition freeze",
+  "seed": "FHAM-1ter-20261118",
+  "input_manifest": "results\\stability_step1\\step1bis\\manifest\\split_manifest.csv",
+  "input_manifest_sha256": "5641772015edebe7042a958814c59fb5614afc1eb07fac1bc3932af968dec35a",
+  "output_manifest": "bows2_D_E_C_manifest.csv",
+  "output_manifest_sha256": "b82fef163e1a77281fb40abbd7841e0788e7a586dc2dd23bd23cc3ee83c893fe",
+  "counts": {
+    "A": 200,
+    "B": 200,
+    "C": 7125,
+    "D": 200,
+    "E": 200
+  },
+  "ordering": "ascending SHA256(seed + ':' + source_sha256), source_id tie-break, applied only to the prior C rows",
+  "evaluation_pixels_opened": {
+    "D": false,
+    "E": false,
+    "C": false
+  },
+  "evaluation_metrics_run": false
+}

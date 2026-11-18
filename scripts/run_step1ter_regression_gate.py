@@ -15,6 +15,7 @@ import run_step1bis_profiles as ref
 SPLIT = ROOT / "results/stability_step1/step1bis/manifest/split_manifest.csv"
 OUT = ROOT / "results/stability_step1/step1ter/G_T0"
 BASE = ROOT / "results/stability_step1/step1bis/profile_stage"
+ARCHIVE_PROVENANCE = BASE / "summaries/summary_provenance.json"
 CONFIG = ("S3", 0.5)
 KEYS = ["cover", "family", "source_length", "message_index", "transform", "path"]
 
@@ -22,17 +23,23 @@ KEYS = ["cover", "family", "source_length", "message_index", "transform", "path"
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     split = pd.read_csv(SPLIT).sort_values("selection_rank")
+    archived_covers = json.loads(ARCHIVE_PROVENANCE.read_text(encoding="utf-8"))["covers_by_group"]
     messages = ref.fixed_messages((0,))  # 4 families × 2 source lengths = 8
     rows = []
     started = time.perf_counter()
     for group in ("A", "B"):
-        selected = split.loc[split.split.eq(group)].head(20)
+        group_rows = split.loc[split.split.eq(group)].reset_index(drop=True)
+        names = archived_covers["A_profile_screen" if group == "A" else "B_q0_bridge"][:20]
+        selected = group_rows.loc[group_rows.source_id.isin(names)].copy()
+        selected["original_index"] = selected.source_id.map(
+            {source_id: i for i, source_id in enumerate(group_rows.source_id)})
+        selected = selected.set_index("source_id").loc[names].reset_index()
         if len(selected) != 20:
             raise RuntimeError(f"Expected 20 existing {group} covers")
         output = BASE / ("A_profile_screen" if group == "A" else "B_q0_bridge")
-        for index, row in enumerate(selected.itertuples(index=False)):
+        for row in selected.itertuples(index=False):
             record = ref.make_record(ref.BOWS2_ROOT / row.relative_path,
-                                     "BOWS2", group, row.source_id, index)
+                                     "BOWS2", group, row.source_id, int(row.original_index))
             _, recovery, _ = ref.process_cover(record, (12,), messages, q0_only=True)
             frame = recovery.loc[(recovery.method.eq(CONFIG[0]))
                                  & (recovery["lambda"].eq(CONFIG[1]))].copy()

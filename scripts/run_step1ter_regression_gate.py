@@ -44,7 +44,7 @@ def main() -> None:
             frame = recovery.loc[(recovery.method.eq(CONFIG[0]))
                                  & (recovery["lambda"].eq(CONFIG[1]))].copy()
             archived = pd.concat([
-                pd.read_csv(output / f"{Path(row.source_id).stem}_recovery.csv.gz")
+                pd.read_csv(output / f"{row.source_id}_recovery.csv.gz")
                 for _ in [0]
             ], ignore_index=True)
             archived = archived.loc[(archived.method.eq(CONFIG[0]))

@@ -37,7 +37,7 @@ def main() -> None:
         if len(selected) != 20:
             raise RuntimeError(f"Expected 20 existing {group} covers")
         output = BASE / ("A_profile_screen" if group == "A" else "B_q0_bridge")
-        for row in selected.itertuples(index=False):
+        for ordinal, row in enumerate(selected.itertuples(index=False)):
             record = ref.make_record(ref.BOWS2_ROOT / row.relative_path,
                                      "BOWS2", group, row.source_id, int(row.original_index))
             _, recovery, _ = ref.process_cover(record, (12,), messages, q0_only=True)
@@ -62,7 +62,7 @@ def main() -> None:
             merged["group"] = group
             merged["cover_sha256"] = row.sha256
             rows.append(merged[KEYS + ["group", "cover_sha256", "n_correct_new", "n_symbols_new"]])
-            print(f"G-T0 {group} {index+1}/20 {row.source_id}: exact", flush=True)
+            print(f"G-T0 {group} {ordinal+1}/20 {row.source_id}: exact", flush=True)
     paired = pd.concat(rows, ignore_index=True)
     paired["accuracy"] = paired.n_correct_new / paired.n_symbols_new
     agg = paired.groupby(["group", "transform", "path"], as_index=False).agg(

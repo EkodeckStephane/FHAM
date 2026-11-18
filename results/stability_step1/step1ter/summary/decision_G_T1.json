@@ -1,0 +1,24 @@
+{
+  "D_covers": 100,
+  "profiles": [
+    12,
+    24
+  ],
+  "G_T1_overall": "red",
+  "eligible_green_cells": [],
+  "best_point_cell": {
+    "profile": 12,
+    "B": 8,
+    "successes": 2,
+    "covers": 100,
+    "point_estimate": 0.02,
+    "wilson95_low": 0.00550196755016235,
+    "wilson95_high": 0.07001179072854388,
+    "G_T1": "red"
+  },
+  "C_F_E_evaluation_pixels_opened": false,
+  "notes": [
+    "E is reserved for the Step 5 held-out validation; C/F remain reserved for Step 6.",
+    "Smoothed per-family scores are derived from the saved empirical stability counts."
+  ]
+}

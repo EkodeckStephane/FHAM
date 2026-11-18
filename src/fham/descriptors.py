@@ -4,6 +4,7 @@ import numpy as np
 from scipy.fft import dctn
 
 from .hashing import hash_block_arrangements
+from .abdulsattar import AbdulsattarMethod
 
 
 def _as_gray_uint8(block: np.ndarray) -> np.ndarray:
@@ -56,6 +57,40 @@ def wavelet_gradient_hashes(block: np.ndarray) -> list[int]:
     return _ordinal_arrangements(values)
 
 
+def mean_ordinal_hashes(block: np.ndarray) -> list[int]:
+    """Four eight-bit arrangements based on mean intensity in each 3x3 cell."""
+    gray = _as_gray_uint8(block).astype(np.float64)
+    side = gray.shape[0]
+    sub_side = side // 3
+    values = [float(gray[r*sub_side:(r+1)*sub_side,
+                         c*sub_side:(c+1)*sub_side].mean())
+              for r in range(3) for c in range(3)]
+    return _ordinal_arrangements(values)
+
+
+def dct_sumabs_hashes(block: np.ndarray) -> list[int]:
+    """Four arrangements using |C00|+|C01|+|C10| on each 4x4 cell."""
+    gray = _as_gray_uint8(block).astype(np.float64)
+    side = gray.shape[0]
+    sub_side = side // 3
+    values = []
+    for row in range(3):
+        for col in range(3):
+            sub = gray[row*sub_side:(row+1)*sub_side,
+                       col*sub_side:(col+1)*sub_side]
+            coeff = dctn(sub, type=2, norm="ortho")
+            values.append(float(abs(coeff[0, 0]) + abs(coeff[0, 1]) + abs(coeff[1, 0])))
+    return _ordinal_arrangements(values)
+
+
+def abdulsattar_arr4_hashes(block: np.ndarray) -> list[int]:
+    """One Arr.4 eight-bit hash for a single 18x18 window."""
+    gray = _as_gray_uint8(block)
+    if gray.shape != (18, 18):
+        raise ValueError("Abdulsattar Arr.4 requires an 18x18 window")
+    return [int(AbdulsattarMethod._arrangement_four_hashes(gray, 18)[0, 0])]
+
+
 def _ordinal_arrangements(values: list[float]) -> list[int]:
     orders = (
         (0, 1, 2, 5, 8, 7, 6, 3, 4),
@@ -82,6 +117,9 @@ DESCRIPTORS = {
     "spectral": spectral_hashes,
     "dct_ordinal": dct_ordinal_hashes,
     "wavelet_gradient": wavelet_gradient_hashes,
+    "mean_ordinal": mean_ordinal_hashes,
+    "dct_sumabs": dct_sumabs_hashes,
+    "abdulsattar_arr4": abdulsattar_arr4_hashes,
 }
 
 

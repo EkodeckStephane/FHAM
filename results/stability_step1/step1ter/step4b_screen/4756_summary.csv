@@ -1,0 +1,5 @@
+cover,cover_sha256,descriptor,block_size,positions,robust_positions,robust_fraction,distinct_hash_values,robust_distinct_hash_values,elapsed_seconds
+4756.pgm,cbeed80c98aa9cf306ace0bfbc033a2cce3f1fea33eef3dfee7c798c5096276b,spectral,12,1764,216,0.12244897959183673,253,123,2.0207579997368157
+4756.pgm,cbeed80c98aa9cf306ace0bfbc033a2cce3f1fea33eef3dfee7c798c5096276b,mean_ordinal,12,1764,493,0.27947845804988664,245,179,1.405577199999243
+4756.pgm,cbeed80c98aa9cf306ace0bfbc033a2cce3f1fea33eef3dfee7c798c5096276b,dct_sumabs,12,1764,365,0.20691609977324263,245,159,1.7339774002321064
+4756.pgm,cbeed80c98aa9cf306ace0bfbc033a2cce3f1fea33eef3dfee7c798c5096276b,abdulsattar_arr4,18,1600,411,0.256875,225,159,6.843784300144762

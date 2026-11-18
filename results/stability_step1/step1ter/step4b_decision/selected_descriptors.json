@@ -1,0 +1,12 @@
+{
+  "selected_top_two": [
+    "mean_ordinal",
+    "dct_sumabs"
+  ],
+  "ranking_rule": "mean robust fraction across 100 D covers, rounded to six decimals; no tie occurred",
+  "screen_count": 100,
+  "K_per_family": 50,
+  "descriptor_ranking_sha256": "8a8ccb3c64578f76d50473fa6f744eaf1a7b3857837d62e206825fab2baec7ee",
+  "E_C_F_evaluation_pixels_opened": false,
+  "status": "exploratory selection for C3 ceiling rerun on D"
+}

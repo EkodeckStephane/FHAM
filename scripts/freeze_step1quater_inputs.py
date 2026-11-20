@@ -244,6 +244,7 @@ def main() -> None:
         "branch": git("branch", "--show-current"),
         "base_commit_before_freeze": git("rev-parse", "HEAD"),
         "input_freeze_commit": prior_metadata.get("input_freeze_commit"),
+        "protocol_freeze_commit": prior_metadata.get("protocol_freeze_commit"),
         "python": platform.python_version(),
         "platform": platform.platform(),
         "libraries": versions,

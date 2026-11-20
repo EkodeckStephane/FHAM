@@ -3,6 +3,7 @@
   "branch": "revision/position-stability-2026-11-15",
   "base_commit_before_freeze": "5c71ac210286b74aa1a31f749e630ec2b2a992fb",
   "input_freeze_commit": "438f02508f7d87207d24b0a17d72d9a28ff6d1bf",
+  "protocol_freeze_commit": "aa5b68bc02f88bb053dcc60070f48f59672c0919",
   "python": "3.11.9",
   "platform": "Windows-10-10.0.26200-SP0",
   "libraries": {

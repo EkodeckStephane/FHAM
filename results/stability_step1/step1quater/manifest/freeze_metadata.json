@@ -1,7 +1,7 @@
 {
   "protocol": "FHAM 1quater preregistration",
   "branch": "revision/position-stability-2026-11-15",
-  "base_commit_before_freeze": "9a4dff1af6c69754478a95a0d597399e6cbb5e80",
+  "base_commit_before_freeze": "5c71ac210286b74aa1a31f749e630ec2b2a992fb",
   "input_freeze_commit": "438f02508f7d87207d24b0a17d72d9a28ff6d1bf",
   "python": "3.11.9",
   "platform": "Windows-10-10.0.26200-SP0",
@@ -25,7 +25,7 @@
   "source_seed_csv_sha256": "a3ab3c65c0b662f747cf4e558095f73ee3977e70f21aff77a5e8d846cc13c42a",
   "seed_schedule_sha256": "b0e067e8655402a64bfa465fa36e0f4af99996d8b8248b4cb7fe13a5a8c9e5e1",
   "serializer_measurement_sha256": "3680bddba8fa094b6309214150a8f31ee64e66a78d2068546bce96003355fbd9",
-  "protocol_sha256": "700b1e15e430665863d7f82dbf5de8a3cc90716034b6dc9593603ac7495c7392",
+  "protocol_sha256": "e0b9c8d4911cdbfb1c510c2f0ff7468d21a4f20539f31d01cc805c98855aafb4",
   "source_partition_manifest_sha256": "b82fef163e1a77281fb40abbd7841e0788e7a586dc2dd23bd23cc3ee83c893fe",
   "D_a_provenance_sha256": "a0e12fed7fefd05c7854f0e1c9facedd08f2377d6387bbac837c8ea5ff0a78c0",
   "opened_pixel_data": {

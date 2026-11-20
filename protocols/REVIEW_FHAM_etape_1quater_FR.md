@@ -13,6 +13,7 @@
 - Les blocs RS sont définis sur GF(256), de longueur source maximale 128, avec P_b=ceil(p·l_b). La condition de décodage utilise P_b et non le taux p : e+2t≤P_b.
 - A1 est indexé en octets source L_src ; A3 plafonne la sélection non robuste sur L_cw (ou n sans code). `b_assign` distingue les symboles effectivement placés du bitmap complet.
 - La règle de coût b_total évite le double comptage : b_total=8(F+Z_9)/L_src. L'enveloppe FHAM ajoute F=41 octets fixes ; le format direct ajoute 29. L'en-tête interne de 15 octets est dans le plaintext compressé.
+- Le corps 1quater est maintenant spécifié champ par champ : identifiant de configuration, longueurs source/comprimée/codée, CRC, annuaire des segments et couvertures, bitmap et enregistrements des positions. Les IDs de configuration et le traitement des segments A4 sont déterministes.
 - Limite d'implémentation consignée : le sérialiseur actuel accepte un objet `Assignment` seulement. Il ne produit pas encore le corps 1quater avec CRC, bitmap et identifiants de galerie. Z_9 et b_total ne seront donc pas revendiqués avant l'implémentation et la mesure byte-for-byte de ce corps.
 
 ## Section 9 — barrières
@@ -33,7 +34,7 @@ Les empreintes et la procédure reproductible sont dans `results/stability_step1
 ## Conditions préalables encore ouvertes avant A1–A5
 
 1. Exécuter le sérialiseur du corps 1quater décrit à la section 6, figer son implémentation, puis mesurer Z_9 et b_total. Cette étape est obligatoire avant de rapporter le coût complet ; elle ne change pas F=41 déjà mesuré.
-2. Vérifier que les fichiers source des 100 images D-b sont disponibles localement et correspondent aux SHA-256 gelés. Le présent préflight a seulement consulté les manifestes hash-only.
-3. Après ces deux vérifications, committer le gel des entrées et du protocole. La grille A1–A5 n'est pas lancée à ce stade.
+2. Vérifier que les fichiers source des 100 images D-b sont disponibles localement et correspondent aux SHA-256 gelés. Le présent préflight a seulement consulté les manifestes hash-only ; le lecteur D: n'est pas monté dans l'environnement courant.
+3. Implémenter puis vérifier le sérialiseur 1quater avant de mesurer Z_9 ou b_total. Le gel de la liste des entrées est commité ; la grille A1–A5 n'est pas lancée.
 
 Les critiques de sécurité de la chaîne complète, la synchronisation géométrique et le coût de distribution de la galerie A4 restent hors périmètre de ce protocole et doivent demeurer explicitement qualifiés dans l'article et la réponse aux reviewers.

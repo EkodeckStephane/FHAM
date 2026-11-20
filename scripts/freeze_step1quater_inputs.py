@@ -233,10 +233,17 @@ def main() -> None:
         versions["cv2_runtime"] = cv2.__version__
     except ImportError:
         versions["cv2_runtime"] = None
+    prior_metadata_path = OUT / "freeze_metadata.json"
+    prior_metadata = (
+        json.loads(prior_metadata_path.read_text(encoding="utf-8"))
+        if prior_metadata_path.exists()
+        else {}
+    )
     metadata = {
         "protocol": "FHAM 1quater preregistration",
         "branch": git("branch", "--show-current"),
         "base_commit_before_freeze": git("rev-parse", "HEAD"),
+        "input_freeze_commit": prior_metadata.get("input_freeze_commit"),
         "python": platform.python_version(),
         "platform": platform.platform(),
         "libraries": versions,

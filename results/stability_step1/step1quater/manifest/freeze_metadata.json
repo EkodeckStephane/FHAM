@@ -1,7 +1,7 @@
 {
   "protocol": "FHAM 1quater preregistration",
   "branch": "revision/position-stability-2026-11-15",
-  "base_commit_before_freeze": "5c71ac210286b74aa1a31f749e630ec2b2a992fb",
+  "base_commit_before_freeze": "5eaf8f16d65bc1b3d0b62050c3acab2f0dced6f3",
   "input_freeze_commit": "438f02508f7d87207d24b0a17d72d9a28ff6d1bf",
   "protocol_freeze_commit": "aa5b68bc02f88bb053dcc60070f48f59672c0919",
   "python": "3.11.9",
@@ -20,6 +20,9 @@
   "D_a_count": 100,
   "D_b_count": 100,
   "D_b_named_output_files_in_step1ter": 0,
+  "D_b_source_root": "C:\\Users\\User\\Downloads\\Compressed\\BOWS2_extracted\\cover",
+  "D_b_source_files_sha256_verified": true,
+  "D_b_source_files_sha256_verified_count": 100,
   "D_b_sha256_csv": "73d14ff3b9ce16c6668224215491b72a8995b72e4e555c9d1925078b5097ad9f",
   "message_count": 48,
   "message_manifest_sha256": "e5135ca384b71aaefc936e81ed7b10946537d312e1153873f4c0f9d982b02561",

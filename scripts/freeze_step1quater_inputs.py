@@ -24,6 +24,7 @@ SEED_CSV = ROOT / "dataset/message_manifests/message_seeds.csv"
 D_MANIFEST = ROOT / "results/stability_step1/step1ter/manifest/bows2_D_E_C_manifest.csv"
 DA_PROVENANCE = ROOT / "results/stability_step1/step1ter/step2_3/run_provenance.json"
 PROTOCOL = ROOT / "protocols/FHAM_etape_1quater_preregistre.md"
+BOWS2_SOURCE_ROOT = Path.home() / "Downloads/Compressed/BOWS2_extracted/cover"
 
 
 def sha256_bytes(data: bytes) -> str:
@@ -78,6 +79,17 @@ def main() -> None:
             + ", ".join(named_output_hits[:10])
         )
     db_rows.sort(key=lambda row: (int(row["selection_rank_1ter"] or 10**9), row["source_id"]))
+    db_source_verified = False
+    db_source_file_count = 0
+    if BOWS2_SOURCE_ROOT.is_dir():
+        for row in db_rows:
+            source_path = BOWS2_SOURCE_ROOT / row["source_id"]
+            if not source_path.is_file():
+                raise RuntimeError(f"D-b source file missing: {source_path}")
+            if sha256_file(source_path) != row["sha256"]:
+                raise RuntimeError(f"D-b source SHA-256 mismatch: {source_path.name}")
+            db_source_file_count += 1
+        db_source_verified = db_source_file_count == len(db_rows)
     d_b_path = OUT / "D_b_images_sha256.csv"
     with d_b_path.open("w", encoding="utf-8", newline="") as stream:
         writer = csv.DictWriter(
@@ -253,6 +265,9 @@ def main() -> None:
         "D_a_count": len(da_ids),
         "D_b_count": len(db_rows),
         "D_b_named_output_files_in_step1ter": len(named_output_hits),
+        "D_b_source_root": str(BOWS2_SOURCE_ROOT) if BOWS2_SOURCE_ROOT.is_dir() else None,
+        "D_b_source_files_sha256_verified": db_source_verified,
+        "D_b_source_files_sha256_verified_count": db_source_file_count,
         "D_b_sha256_csv": sha256_file(d_b_path),
         "message_count": len(message_rows),
         "message_manifest_sha256": sha256_file(msg_path),

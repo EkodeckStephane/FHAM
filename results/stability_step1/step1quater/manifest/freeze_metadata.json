@@ -2,6 +2,7 @@
   "protocol": "FHAM 1quater preregistration",
   "branch": "revision/position-stability-2026-11-15",
   "base_commit_before_freeze": "9a4dff1af6c69754478a95a0d597399e6cbb5e80",
+  "input_freeze_commit": "438f02508f7d87207d24b0a17d72d9a28ff6d1bf",
   "python": "3.11.9",
   "platform": "Windows-10-10.0.26200-SP0",
   "libraries": {

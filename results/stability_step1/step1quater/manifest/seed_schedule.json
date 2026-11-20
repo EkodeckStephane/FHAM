@@ -1,0 +1,33 @@
+{
+  "protocol": "FHAM-1quater-v1",
+  "master_seed": 20261120,
+  "bit_generator": "numpy.random.PCG64",
+  "derivation": "first 64 bits (big-endian) of SHA-256(UTF-8('FHAM-1quater-v1|20261120|<stream>|<stable identifiers>'))",
+  "stable_identifiers": [
+    "D-b image sha256",
+    "message_id",
+    "attack family",
+    "replicate index"
+  ],
+  "named_streams": {
+    "robustness/jpeg": 15990156537028033704,
+    "robustness/noise": 16919508202029566254,
+    "attacks/jpeg": 4135709933305444506,
+    "attacks/noise": 662017702810117750,
+    "A4/candidate_draws": 7771237928511044760,
+    "RS/parity_sensitivity": 5018121103019903029,
+    "bootstrap/cluster": 5001889455071913542,
+    "permutation/sign_flip": 8226182556787816610
+  },
+  "message_seeds_source": "dataset/message_manifests/message_seeds.csv",
+  "reedsolo": {
+    "version": "1.7.0",
+    "field": "GF(256)",
+    "nsize": 255,
+    "fcr": 0,
+    "generator": 2,
+    "prim": "0x11D",
+    "c_exp": 8
+  },
+  "note": "Seeds are frozen for reproducibility; no A1-A5 measurements are run by this preflight."
+}

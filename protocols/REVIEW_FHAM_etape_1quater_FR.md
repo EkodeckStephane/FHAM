@@ -1,36 +1,39 @@
-# Audit du protocole 1quater corrigé
+# Relecture avant gel du protocole 1quater
 
-**État :** lecture complète de `FHAM — Protocole de l'étape 1quater déficit d'affectation, effacements et repli(1).md` (18 novembre 2026). Les corrections proposées dans les dix points précédents sont présentes pour l’essentiel. Le fichier de Downloads n’a pas été modifié depuis ce dépôt. G-Q0, D6 et D7 sont des diagnostics post hoc sur D-a; aucune cellule A1–A5 n’a été lancée.
+**Date : 20 novembre 2026.** Relecture des sections 2, 4, 6 et 9 du protocole fourni (version (2)), corrections intégrées à `FHAM_etape_1quater_preregistre.md`. Aucun calcul A1–A5 n'a été exécuté.
 
-## Corrections vérifiées
+## Section 2 — diagnostics et résultats post hoc
 
-- G-Q0 est explicitement descriptif et ne choisit plus de branche; G-Q2 décide sur D-b.
-- Les longueurs source, comprimée et codée sont distinguées; le CRC reste dans le record.
-- Les mots RS sont segmentés en blocs équilibrés de 128 symboles maximum, sous la limite GF(256).
-- G-Q1 rapporte n* par message et pour la conjonction des 12 cas. Comme la mesure est explicitement descriptive, aucun seuil d’acceptation additionnel n’est nécessaire; écrire que n* est calculé parmi les quatre longueurs testées (25, 50, 100, 200) et « non atteint » si aucune ne satisfait la borne basse de Wilson 0,90.
-- K=50 par famille correspond bien au criblage C-moyenne 1ter; K=100 est une sensibilité prévue sur D-b.
-- Les messages de 25 octets sont définis comme préfixes des messages de 50 octets avec empreintes à geler.
-- La grille de 160 cellules et sa règle de choix sont explicitement données.
-- b_assign est séparé de b_total; D-b sert à estimer la taille N; la sécurité complète est hors périmètre et reste à traiter ailleurs dans l’article.
+- D6 et D7 sont présentés comme déjà exécutés sur D-a, avec les valeurs vérifiées du rapport : 92,5 % à B=8/p=40 pour les mots RS exacts ; entropie 6,760 bits ; décomposition 142/224 et 82/224.
+- La phrase qui jugeait D6 sur un mot non codé a été retirée. La grille de D-b demeure intégrale ; les résultats D-a restent exploratoires.
+- La longueur comprimée est notée L_c, le mot codé L_cw et la longueur source L_src ; le déficit est défini sur le mot effectivement affecté.
 
-## Points résiduels avant gel
+## Section 4 — facteurs et coûts
 
-1. **D6 : utiliser la parité réelle pour la borne.** Le brouillon propose des octets pseudo-aléatoires pour étendre le mot. C’est un proxy utile pour une sensibilité, mais `d≤P` n’est une condition nécessaire sur le succès par effacements que si le déficit est calculé sur le mot RS effectivement encodé. Le diagnostic exécuté ci-joint utilise les deux : le proxy aléatoire et les mots exacts générés par `reedsolo` 1.7.0. Pour D6, retenir la parité RS exacte comme résultat principal et conserver le proxy comme comparaison exploratoire.
-2. **Seuil de préfiltrage D6.** Le brouillon dit qu’une fraction `d≤P` sous 0,90 exclut le passage de G-Q2, dont la réussite minimale est 0,95. C’est une condition suffisante pour écarter A2 seul, mais une fraction entre 0,90 et 0,95 l’écarte aussi sur ce critère, si la borne est interprétée sur la même moyenne de messages. À préciser avant de décider du calcul A2 seul; les interactions A3/A4 peuvent encore changer la conclusion.
-3. **D7 et portée du diagnostic.** La surcharge d’une valeur x dans sa fenêtre ±B est un témoin Hall suffisant pour un symbole seul, mais son absence n’établit pas la faisabilité : les fenêtres de plusieurs valeurs peuvent se recouvrir. Le rapport D7 distingue les surcharges unitaires des déficits qui n’apparaissent qu’en combinant plusieurs valeurs.
-4. **Définition de F dans b_total.** La formule utilise `F+4+2`; le texte définit F à la fois comme partie fixe comprenant le CRC et la longueur, et comme 29 octets de format/nonce/tag. Dire explicitement si F exclut les 4 octets de CRC et les 2 de longueur. Résoudre aussi l’écart 29/41 octets avant d’interpréter b_total. La porte de 24 bits porte sur b_assign et n’est pas affectée, mais b_total ne doit pas rester ambigu.
-5. **Périmètre de la moyenne à G-Q2.** Le texte indique moyenne des 12 messages et tableaux par famille; conserver également les quatre moyennes de famille et les bornes individuelles pour éviter qu’une famille très compressible ne masque un coût ou un échec plus élevé dans une autre.
-6. **A4 prépartagé.** L’hypothèse de galerie prépartagée est maintenant explicite. Le coût d’acquisition/distribution de la galerie reste hors b_total; garder A4 qualifié comme mode catalogue et ne pas présenter cette mesure comme un coût complet de communication pour une galerie non partagée.
+- Les blocs RS sont définis sur GF(256), de longueur source maximale 128, avec P_b=ceil(p·l_b). La condition de décodage utilise P_b et non le taux p : e+2t≤P_b.
+- A1 est indexé en octets source L_src ; A3 plafonne la sélection non robuste sur L_cw (ou n sans code). `b_assign` distingue les symboles effectivement placés du bitmap complet.
+- La règle de coût b_total évite le double comptage : b_total=8(F+Z_9)/L_src. L'enveloppe FHAM ajoute F=41 octets fixes ; le format direct ajoute 29. L'en-tête interne de 15 octets est dans le plaintext compressé.
+- Limite d'implémentation consignée : le sérialiseur actuel accepte un objet `Assignment` seulement. Il ne produit pas encore le corps 1quater avec CRC, bitmap et identifiants de galerie. Z_9 et b_total ne seront donc pas revendiqués avant l'implémentation et la mesure byte-for-byte de ce corps.
 
-## Résultats D6/D7 à annexer au protocole
+## Section 9 — barrières
 
-- **D6, RS exact, C-moyenne, B=8, D-a :** les fractions de cas où `d≤P` sont 81,3 %, 87,3 %, 90,2 %, 92,1 % et 92,5 % pour p=0, 10, 20, 30 et 40 %. Avec le seuil G-Q2 de 95 %, même p=40 ne laisse que 92,5 % de cas potentiellement récupérables sous canal parfait dans D-a. C’est une borne de filtrage descriptive sur D-a, pas une décision confirmatoire sur D-b. B=4 atteint 89,2 % à p=40.
-- **D6, familles à B=8/p=40 :** octets uniformes 90,7 %, ASCII 89,3 %, texte naturel 91,3 %, octet répété 98,7 %. La moyenne sur 12 messages est 92,5 %.
-- **D7 :** l’entropie des hashes robustes est en moyenne 6,760 bits contre 7,395 sur toutes les positions; support effectif 119,9 contre 171,8; part dans les dix valeurs dominantes 21,8 % contre 17,1 %. Cela confirme une concentration statistique associée à la sélection robuste, sans prouver qu’elle explique à elle seule les déficits.
-- **D7 à B=8 :** 142/224 messages infaisables ont une surcharge de fenêtre pour une valeur seule; 82 ont un résidu de Hall sans surcharge unitaire, compatible avec des collisions entre fenêtres de valeurs différentes.
+- G-Q1 définit L_src* et rapporte distinctement les 12 messages et l'événement conjoint ; aucun seuil d'acceptation additionnel n'est introduit.
+- Les intervalles G-Q2 sont disjoints : vert si succès≥0,95 et b_assign≤24 ; orange si succès∈[0,90;0,95[ ou b_assign∈]24;28] ; rouge si succès<0,90 ou b_assign>28.
+- E, C et F restent fermés jusqu'aux barrières indiquées. Le test présent vérifie seulement l'identité hash des entrées ; aucun pixel D-b n'a été ouvert.
 
-Le calcul détaillé et ses limites figurent dans `results/stability_step1/step1ter/audit_diagnostics/GQ0_posthoc/REPORT_D6_D7_FR.md`.
+## Gel des entrées et mesure préalable
 
-## Statut recommandé
+- D-a : 100 images tirées de la provenance 1ter. D-b : les 100 autres entrées du split D, excluant les identifiants et hashes de D-a ; aucune sortie 1ter nommée par les identifiants D-b n'a été trouvée.
+- Messages : 48 artefacts tracés (4 familles × 3 indices × 4 longueurs). Les 12 fichiers de 25 octets sont les préfixes byte-for-byte des fichiers de 50 octets correspondants.
+- Reed–Solomon : `reedsolo==1.7.0`; versions runtime et graines consignées dans le manifeste.
+- Mesure du sérialiseur courant : en-tête interne 15 octets, zlib-9 de l'en-tête vide 21 octets, enveloppe FHAM vide 62 octets, dont F=41 ; enveloppe directe vide 29 octets, dont F=29.
 
-Le texte révisé est proche d’un gel, mais le point F/b_total doit être clarifié et la règle D6 doit distinguer parité RS exacte du proxy aléatoire. Une fois ces retouches réalisées, figer le protocole et les manifestes D-b par hash, puis arrêter avant toute cellule si une précondition ou un budget mesuré ne correspond pas au document. Les résultats de sécurité de bout en bout, association image–record, rejeu, établissement des clés et détectabilité réseau restent des tâches séparées liées aux reviewers.
+Les empreintes et la procédure reproductible sont dans `results/stability_step1/step1quater/manifest/`; `scripts/freeze_step1quater_inputs.py` refait ces contrôles sans lancer la grille.
+
+## Conditions préalables encore ouvertes avant A1–A5
+
+1. Exécuter le sérialiseur du corps 1quater décrit à la section 6, figer son implémentation, puis mesurer Z_9 et b_total. Cette étape est obligatoire avant de rapporter le coût complet ; elle ne change pas F=41 déjà mesuré.
+2. Vérifier que les fichiers source des 100 images D-b sont disponibles localement et correspondent aux SHA-256 gelés. Le présent préflight a seulement consulté les manifestes hash-only.
+3. Après ces deux vérifications, committer le gel des entrées et du protocole. La grille A1–A5 n'est pas lancée à ce stade.
+
+Les critiques de sécurité de la chaîne complète, la synchronisation géométrique et le coût de distribution de la galerie A4 restent hors périmètre de ce protocole et doivent demeurer explicitement qualifiés dans l'article et la réponse aux reviewers.

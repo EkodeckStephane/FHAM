@@ -1,0 +1,16 @@
+{
+  "implementation": "src/fham/channel.py::AuxiliaryChannel",
+  "implementation_sha256": "b900aa386ffae6487c5fce3baca5bdd41790890001961f2260ac4418e2edbd6e",
+  "serialization_header_bytes": 15,
+  "compressed_empty_serialized_payload_bytes": 21,
+  "compact_public_header_bytes": 13,
+  "nonce_bytes": 12,
+  "gcm_tag_bytes": 16,
+  "fham_fixed_envelope_overhead_bytes": 41,
+  "direct_public_header_bytes": 1,
+  "direct_fixed_envelope_overhead_bytes": 29,
+  "empty_fham_envelope_total_bytes": 62,
+  "direct_empty_envelope_total_bytes": 29,
+  "measurement_method": "serialize empty Assignment; zlib level 9; protect with AES-GCM; subtract compressed plaintext length from envelope length; deterministic direct nonce for byte-count reproducibility",
+  "note": "The current Assignment serializer does not yet encode the 1quater CRC, erasure bitmap, or gallery identifiers. Its F=41 envelope overhead is measured; full 1quater Z9/b_total requires the versioned 1quater body serializer before reporting."
+}

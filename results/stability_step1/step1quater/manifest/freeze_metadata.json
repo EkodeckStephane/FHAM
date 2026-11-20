@@ -1,0 +1,38 @@
+{
+  "protocol": "FHAM 1quater preregistration",
+  "branch": "revision/position-stability-2026-11-15",
+  "base_commit_before_freeze": "9a4dff1af6c69754478a95a0d597399e6cbb5e80",
+  "python": "3.11.9",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "libraries": {
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "Pillow": "12.3.0",
+    "opencv-python": "5.0.0.93",
+    "cryptography": "49.0.0",
+    "reedsolo": "1.7.0",
+    "cv2_runtime": "5.0.0"
+  },
+  "reedsolo_required": "1.7.0",
+  "D_a_source": "results/stability_step1/step1ter/step2_3/run_provenance.json",
+  "D_a_count": 100,
+  "D_b_count": 100,
+  "D_b_named_output_files_in_step1ter": 0,
+  "D_b_sha256_csv": "73d14ff3b9ce16c6668224215491b72a8995b72e4e555c9d1925078b5097ad9f",
+  "message_count": 48,
+  "message_manifest_sha256": "e5135ca384b71aaefc936e81ed7b10946537d312e1153873f4c0f9d982b02561",
+  "source_seed_csv_sha256": "a3ab3c65c0b662f747cf4e558095f73ee3977e70f21aff77a5e8d846cc13c42a",
+  "seed_schedule_sha256": "b0e067e8655402a64bfa465fa36e0f4af99996d8b8248b4cb7fe13a5a8c9e5e1",
+  "serializer_measurement_sha256": "3680bddba8fa094b6309214150a8f31ee64e66a78d2068546bce96003355fbd9",
+  "protocol_sha256": "700b1e15e430665863d7f82dbf5de8a3cc90716034b6dc9593603ac7495c7392",
+  "source_partition_manifest_sha256": "b82fef163e1a77281fb40abbd7841e0788e7a586dc2dd23bd23cc3ee83c893fe",
+  "D_a_provenance_sha256": "a0e12fed7fefd05c7854f0e1c9facedd08f2377d6387bbac837c8ea5ff0a78c0",
+  "opened_pixel_data": {
+    "D_a": "previously analyzed",
+    "D_b": false,
+    "E": false,
+    "C": false,
+    "F": false
+  },
+  "A1_A5_executed": false
+}

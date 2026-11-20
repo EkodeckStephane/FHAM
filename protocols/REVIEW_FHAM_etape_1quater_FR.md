@@ -34,7 +34,7 @@ Les empreintes et la procédure reproductible sont dans `results/stability_step1
 ## Conditions préalables encore ouvertes avant A1–A5
 
 1. Exécuter le sérialiseur du corps 1quater décrit à la section 6, figer son implémentation, puis mesurer Z_9 et b_total. Cette étape est obligatoire avant de rapporter le coût complet ; elle ne change pas F=41 déjà mesuré.
-2. Vérifier que les fichiers source des 100 images D-b sont disponibles localement et correspondent aux SHA-256 gelés. Le présent préflight a seulement consulté les manifestes hash-only ; le lecteur D: n'est pas monté dans l'environnement courant.
+2. Établir la correspondance entre les 100 identifiants `.pgm` D-b gelés et les images effectivement disponibles. `D:\dataset` est accessible, mais contient les archives PCAP du jeu ISCX ; le corpus Baleba fourni contient 400 PNG BOWS2 en niveaux de gris, 256 × 256, sous noms hashés. Aucun manifeste de correspondance vers les identifiants source `.pgm` n'a été trouvé. Aucune comparaison de pixels n'a été faite et aucun fichier de ce corpus dérivé n'a été substitué au split D-b.
 3. Implémenter puis vérifier le sérialiseur 1quater avant de mesurer Z_9 ou b_total. Le gel de la liste des entrées est commité ; la grille A1–A5 n'est pas lancée.
 
 Les critiques de sécurité de la chaîne complète, la synchronisation géométrique et le coût de distribution de la galerie A4 restent hors périmètre de ce protocole et doivent demeurer explicitement qualifiés dans l'article et la réponse aux reviewers.

@@ -1,0 +1,32 @@
+{
+  "status": "hash-only manifests frozen; no selected image pixels read",
+  "selection_date": "2026-11-21",
+  "extension": "post hoc at author direction after initial G-2 stop",
+  "source_manifests": {
+    "results\\stability_step1\\step1bis\\manifest\\split_manifest.csv": "5641772015edebe7042a958814c59fb5614afc1eb07fac1bc3932af968dec35a",
+    "results\\stability_step1\\step1quater\\run\\final_freeze\\C_final_manifest_hash_only.csv": "25bf93c00f84310d3db0a0d5175abb5e6e3ba4c0e62614aa4533bdcb5eeba0c5",
+    "results\\stability_step1\\step1ter\\manifest\\bossbase_F_hash_only_manifest.csv": "40729ef56d255dcc1e46a6e573272787a4e6807891d1f3f381b62005803206b8",
+    "results\\stability_step1\\step1quater\\run\\final_freeze\\F_final_manifest_hash_only.csv": "7fae253792d790da10042c71fe4e0e6e8118f5c5c8717dfe9bdb732cb0aa7f96"
+  },
+  "manifests": {
+    "E_geo": {
+      "count": 200,
+      "sha256": "f932eccd1dbef7cb4290891e3b7ea9b80d0eccb50c0d96cb12d5b93c22ef48aa"
+    },
+    "C_geo": {
+      "count": 200,
+      "sha256": "02920231b222ec61b192d364c308af37f87fd19e92eb8159e8b3bca212e04fbe"
+    },
+    "F_geo": {
+      "count": 200,
+      "sha256": "3ef18386b490c570f23ec37de8d6bdb4a36c4a8bea9cfb0fe3ee818311131034"
+    }
+  },
+  "exclusions": {
+    "E_C": "previous 1quater C images, historically used images, within-BOWS2 near-duplicates and cross-corpus matches",
+    "C_geo": "all E_geo exclusions plus all E_geo images",
+    "F_geo": "prior 1ter candidates/hashes/near duplicates, intra-candidate duplicates, prior 1quater F images"
+  },
+  "p4_grid": "625 local candidates per segment; full ranges and order in the committed post-hoc extension protocol",
+  "sealed_labels": "the sets are post-hoc exploratory due to the initial G-G2 stop; each is still opened once after P4 freeze"
+}

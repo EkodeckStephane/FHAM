@@ -195,16 +195,18 @@ def _decode(segment, image):
 
 
 def _p4(segment, attacked, model, side, deadline=None):
-    start = time.perf_counter()
+    wall_start = time.perf_counter()
+    cpu_start = time.process_time()
     last = (False, len(segment["codeword"]), len(segment["codeword"]), None)
     if model is None:
         return {"exact": 0, "erasures": last[1], "symbol_errors": last[2],
-                "candidates_tested": 0, "seconds": time.perf_counter() - start,
+                "candidates_tested": 0, "cpu_seconds": time.process_time() - cpu_start,
+                "wall_seconds": time.perf_counter() - wall_start,
                 "recovered": None, "winning_angle_offset": None, "winning_scale_factor": None,
                 "winning_dx": None, "winning_dy": None}
     tested = 0
     for rank, offset in enumerate(P4_GRID, 1):
-        if deadline is not None and time.perf_counter() >= deadline:
+        if deadline is not None and time.process_time() >= deadline:
             break
         candidate = _transform_for_offset(model, offset, side)
         aligned = _aligned(attacked, candidate)
@@ -212,12 +214,14 @@ def _p4(segment, attacked, model, side, deadline=None):
         tested = rank
         if last[0]:
             return {"exact": 1, "erasures": int(last[1]), "symbol_errors": int(last[2]),
-                    "candidates_tested": rank, "seconds": time.perf_counter() - start,
+                    "candidates_tested": rank, "cpu_seconds": time.process_time() - cpu_start,
+                    "wall_seconds": time.perf_counter() - wall_start,
                     "recovered": last[3],
                     "winning_angle_offset": offset[0], "winning_scale_factor": offset[1],
                     "winning_dx": offset[2] * side / 256, "winning_dy": offset[3] * side / 256}
     return {"exact": 0, "erasures": int(last[1]), "symbol_errors": int(last[2]),
-            "candidates_tested": tested, "seconds": time.perf_counter() - start,
+            "candidates_tested": tested, "cpu_seconds": time.process_time() - cpu_start,
+            "wall_seconds": time.perf_counter() - wall_start,
             "recovered": last[3],
             "winning_angle_offset": None, "winning_scale_factor": None,
             "winning_dx": None, "winning_dy": None}
@@ -326,7 +330,8 @@ def _run_trials(dataset, trial_rows, by_id, read_new_codebooks):
                                          "transform": transform_name, "chain": chain,
                                          "assignment_feasible": 0, "exact_message": 0,
                                          "cover0": "", "cover1": "",
-                                         "p4_candidates_total": 0, "p4_seconds": 0.0})
+                                         "p4_candidates_total": 0, "p4_cpu_seconds": 0.0,
+                                         "p4_wall_seconds": 0.0})
             if n % 5 == 0:
                 _persist_trials(dataset, rows, message_rows)
             continue
@@ -348,7 +353,7 @@ def _run_trials(dataset, trial_rows, by_id, read_new_codebooks):
             segments.append(segment)
         segment_results = []
         for transform_name in TRANSFORMS:
-            p4_deadline = time.perf_counter() + 60.0
+            p4_deadline = time.process_time() + 60.0
             transform_data = []
             for si, segment in enumerate(segments):
                 cover_id = segment["cover_id"]
@@ -356,16 +361,20 @@ def _run_trials(dataset, trial_rows, by_id, read_new_codebooks):
                 image_sha = str(by_id[cover_id].sha256)
                 variants = _variants(original, image_sha, int(trial["attempt"]))
                 attacked, true_model, severity = variants[transform_name]
-                registration_started = time.perf_counter()
+                registration_wall_started = time.perf_counter()
+                registration_cpu_started = time.process_time()
                 model, matches, inliers = _estimate_model(original, attacked)
-                registration_seconds = time.perf_counter() - registration_started
+                registration_wall_seconds = time.perf_counter() - registration_wall_started
+                registration_cpu_seconds = time.process_time() - registration_cpu_started
                 transform_data.append((si, segment, cover_id, original, attacked,
                                        true_model, severity, model, matches, inliers,
-                                       registration_seconds))
+                                       registration_cpu_seconds, registration_wall_seconds))
             for (si, segment, cover_id, original, attacked, true_model, severity,
-                 model, matches, inliers, registration_seconds) in transform_data:
+                 model, matches, inliers, registration_cpu_seconds,
+                 registration_wall_seconds) in transform_data:
                 p4 = _p4(segment, attacked, model, original.shape[0], p4_deadline)
-                p4["seconds"] += registration_seconds
+                p4["cpu_seconds"] += registration_cpu_seconds
+                p4["wall_seconds"] += registration_wall_seconds
                 p1 = _decode(segment, attacked)
                 p2 = _decode(segment, _aligned(attacked, model)) if model is not None else (False, len(segment["codeword"]), len(segment["codeword"]), None)
                 oracle = warp(attacked, inverse_map=true_model, output_shape=original.shape,
@@ -386,13 +395,15 @@ def _run_trials(dataset, trial_rows, by_id, read_new_codebooks):
                        "P4_exact_segment": int(p4["exact"]), "P4_erasures": p4["erasures"],
                        "P4_symbol_errors": p4["symbol_errors"],
                        "P4_candidates_tested": p4["candidates_tested"],
-                       "P4_seconds": p4["seconds"],
+                       "P4_cpu_seconds": p4["cpu_seconds"],
+                       "P4_wall_seconds": p4["wall_seconds"],
                        "P4_angle_offset": p4["winning_angle_offset"],
                        "P4_scale_factor": p4["winning_scale_factor"],
                        "P4_dx": p4["winning_dx"], "P4_dy": p4["winning_dy"],
                        "symbols_total": len(segment["codeword"]),
                        "symbols_assigned": int(np.count_nonzero(segment["assignment"]["positions"] >= 0)),
-                       "registration_seconds": registration_seconds}
+                       "registration_cpu_seconds": registration_cpu_seconds,
+                       "registration_wall_seconds": registration_wall_seconds}
                 row["_p1_recovered"] = p1[3]
                 row["_p2_recovered"] = p2[3]
                 row["_p3_recovered"] = p3[3]
@@ -415,7 +426,8 @@ def _run_trials(dataset, trial_rows, by_id, read_new_codebooks):
                                      "exact_message": exact,
                                      "cover0": selected[0], "cover1": selected[1],
                                      "p4_candidates_total": sum(r["P4_candidates_tested"] for r in cell) if name == "P4" else 0,
-                                     "p4_seconds": sum(r["P4_seconds"] for r in cell) if name == "P4" else 0.0})
+                                     "p4_cpu_seconds": sum(r["P4_cpu_seconds"] for r in cell) if name == "P4" else 0.0,
+                                     "p4_wall_seconds": sum(r["P4_wall_seconds"] for r in cell) if name == "P4" else 0.0})
         if n % 5 == 0:
             _persist_trials(dataset, rows, message_rows)
             print(f"{dataset}: {n}/{len(trial_rows)} gallery trials complete", flush=True)
@@ -508,12 +520,14 @@ def _summarize(dataset):
         attempts=("exact_message", "count"), exact_rate=("exact_message", "mean"),
         feasible_rate=("assignment_feasible", "mean"),
         mean_p4_candidates=("p4_candidates_total", "mean"),
-        mean_p4_seconds=("p4_seconds", "mean"))
+        mean_p4_cpu_seconds=("p4_cpu_seconds", "mean"),
+        mean_p4_wall_seconds=("p4_wall_seconds", "mean"))
     overall = messages.groupby(["transform", "chain"], as_index=False).agg(
         attempts=("exact_message", "count"), exact_rate=("exact_message", "mean"),
         feasible_rate=("assignment_feasible", "mean"),
         mean_p4_candidates=("p4_candidates_total", "mean"),
-        mean_p4_seconds=("p4_seconds", "mean"))
+        mean_p4_cpu_seconds=("p4_cpu_seconds", "mean"),
+        mean_p4_wall_seconds=("p4_wall_seconds", "mean"))
     overall["family"] = "ALL"
     summary = pd.concat([summary, overall], ignore_index=True)
     rng = np.random.default_rng(20261121)
@@ -576,6 +590,10 @@ def main():
     metadata = {"scope": "post-hoc P4 extension; exploratory, not confirmatory",
                 "protocol": "protocols/FHAM_etape_2_extension_posthoc_P4_sealed_2026-11-21.md",
                 "dataset": args.dataset, "attempts_per_message": args.attempts_per_message,
+                "timing_definition": {
+                    "p4_budget": "60 seconds active process CPU time per message-transformation cell, shared across both segments; ORB/RANSAC included",
+                    "reported": "P4 CPU seconds and wall-clock seconds, separately",
+                },
                 "p4_grid_candidates_per_segment": len(P4_GRID),
                 "p4_max_candidates_per_message": 2 * len(P4_GRID),
                 "p4_grid": {"angle_deg": list(ANGLE_OFFSETS), "relative_scale": list(SCALE_OFFSETS),

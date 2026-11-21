@@ -1,0 +1,52 @@
+{
+  "protocol": "FHAM-1quater-v1",
+  "stage": "D-b G-Q2 selected configuration frozen before E pixel access",
+  "branch": "revision/position-stability-2026-11-15",
+  "source_commit": "6e00246202ed0fc638ab4e804d3fe67803e9feae",
+  "source_commit_is_clean": false,
+  "selected_configuration": {
+    "config_id": 50,
+    "p": 10,
+    "q": 5,
+    "m": 2,
+    "B": 4,
+    "success_jpeg": 0.9616666666666666,
+    "success_noise": 0.9633333333333334,
+    "success_combined": 0.9616666666666666,
+    "feasibility": 0.975,
+    "b_assign": 14.122285067334337,
+    "b_total": 26.186491081559264
+  },
+  "selection_rule": "both channel estimates >=0.95; equal-message mean b_assign <=24; choose lowest b_assign then p,q,m,B ascending",
+  "G_Q2": "green",
+  "eligible_cells": 104,
+  "D_b_image_manifest_sha256": "73d14ff3b9ce16c6668224215491b72a8995b72e4e555c9d1925078b5097ad9f",
+  "message_manifest_sha256": "e5135ca384b71aaefc936e81ed7b10946537d312e1153873f4c0f9d982b02561",
+  "seed_schedule_sha256": "b0e067e8655402a64bfa465fa36e0f4af99996d8b8248b4cb7fe13a5a8c9e5e1",
+  "protocol_sha256": "e0b9c8d4911cdbfb1c510c2f0ff7468d21a4f20539f31d01cc805c98855aafb4",
+  "artifacts_sha256": {
+    "robustness_summary.csv": "9bb6a95aabf5416823480721cef323f1b23682e57c5e3a1b134fe0970a7b8ea3",
+    "A1_by_cover_message.csv": "52cc5853943bc545335abb63df2c49412d6e6c436568127cd8820e95c52cd995",
+    "A1_joint_summary.csv": "0ee90bdf4b9050899cba1dfa0b828ecdbff41c316a17a42c68b9934c348902d2",
+    "A1_Lsrc_star.csv": "5f5caa9e204767b93f636aaa8c83170a2a0479782b2e4c766ee1092bef3d15f1",
+    "grid_trials_12x100.csv.gz": "9648f8d342f77a3c907795548ecaa0efc2ddf88a69abd741c5e6625113e82b1d",
+    "grid_summary.csv": "ed49d0f56a37780be78055bdad5ac4cfe92441a8d5087df0d7713855c9217858",
+    "A4_segmented_trials.csv.gz": "ae997366f8e00604fcdc83c017e399aa0eef0719d06c6d3a1c00f88aa421e175",
+    "A4_segmented_summary.csv": "0d7d506ca36ca86d9f0a02e1ea7c4d0bc759f6c7ecefa0a606c49a7be8e124fc",
+    "selected_config_cluster_bootstrap_10000.csv.gz": "b19d4ea98e147166db32308409565234dc39e3ee0e31d9781db2931b6a62481a",
+    "selected_config_cluster_bootstrap_summary.csv": "90780f16953588347c4d683cf747785f1640a17241490b9de358d9f4e225cb20",
+    "H12_H14_paired_permutation.csv": "b33c6b7e934b8009ef5c75645ee9a4450cac381755477031cd55b03d4b059cde",
+    "H12_H14_descriptive.csv": "36fd9a61b0dc9f173a6958f9921acbcc1206f014090e55eb4da563dc0d253050",
+    "H14_independence_diagnostic.json": "0a98b03389431d8c6a7ee3c3fca0682648ebff534ddae3c6366f98a40140e651"
+  },
+  "analysis_code_sha256": {
+    "run_step1quater.py": "eb3db9c6ce2c6b9a255cb684a3b2c81b84831e16cfeada15d3c00113524bfb98",
+    "run_step1quater_segmented.py": "142a926f0d00085c68470413569866a816f31a951c8a1e7b20b36fce6e4ee5a2",
+    "summarize_step1quater.py": "602994a08119e3dd16bf861c54c810042b96fd9bbd113f8cff5daaa90e38d614",
+    "analyze_step1quater_stats.py": "349e2081549b804ba9f69df4d898d8ad62ebcde79fcbebf005735210ad8408fa"
+  },
+  "E_pixels_opened": false,
+  "C_pixels_opened": false,
+  "F_pixels_opened": false,
+  "G_Q3_authorized_by_frozen_protocol": true
+}

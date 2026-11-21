@@ -1,0 +1,21 @@
+{
+  "G_Q2": "green",
+  "selection_rule": "both channel estimates >=0.95; equal-message mean b_assign <=24; choose lowest b_assign then p,q,m,B ascending",
+  "selected": {
+    "config_id": 50,
+    "p": 10,
+    "q": 5,
+    "m": 2,
+    "B": 4,
+    "success_jpeg": 0.9616666666666666,
+    "success_noise": 0.9633333333333334,
+    "success_combined": 0.9616666666666666,
+    "feasibility": 0.975,
+    "b_assign": 14.122285067334337,
+    "b_total": 26.186491081559264
+  },
+  "eligible_cells": 104,
+  "b_assign_interpretation": "equal-weight mean of the 12 within-message means, conditional on a feasible transmitted record",
+  "b_total_interpretation": "same aggregation; complete 1quater body zlib-9 plus measured F=41-byte envelope overhead",
+  "E_authorized_by_frozen_protocol": true
+}

@@ -1,0 +1,8 @@
+{
+  "branch": "p=0,q=0,B=8",
+  "single_cover_feasibility_macro12": 0.8383333333333333,
+  "expected_if_independent_m3_macro12": 0.9921958333333332,
+  "observed_m3_feasibility_macro12": 0.9916666666666667,
+  "ratio_observed_to_independence_expectation": 0.9994666711460694,
+  "interpretation": "diagnostic comparison; independence is not assumed as a guarantee"
+}

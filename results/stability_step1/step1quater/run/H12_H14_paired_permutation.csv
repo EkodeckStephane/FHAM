@@ -1,0 +1,4 @@
+hypothesis,paired_outcome,mean_cluster_difference,clusters,permutations,p_raw_two_sided,p_holm
+H12_RS40_vs_noRS,both,0.42774834152775326,100,100000,9.99990000099999e-06,2.999970000299997e-05
+H13_q5_vs_q0_feasibility,feasible,0.0007692307692307692,100,100000,1.0,1.0
+H14_m3_vs_m1_feasibility,feasible,0.15423820623820622,100,100000,9.99990000099999e-06,2.999970000299997e-05

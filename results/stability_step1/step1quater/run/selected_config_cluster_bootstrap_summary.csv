@@ -1,0 +1,6 @@
+metric,mean,ci95_low,ci95_high,bootstrap_replicates,cluster_unit
+feasibility,0.9745535,0.9499999999999998,0.9916666666666667,10000,D-b cover pool; m candidates redrawn without replacement per attempt
+jpeg,0.9601850833333334,0.9308333333333332,0.9825,10000,D-b cover pool; m candidates redrawn without replacement per attempt
+noise,0.9600814166666667,0.9308333333333332,0.9816666666666668,10000,D-b cover pool; m candidates redrawn without replacement per attempt
+b_assign,14.121538969908904,14.073102159512922,14.164339091047575,10000,D-b cover pool; m candidates redrawn without replacement per attempt
+b_total,26.152854600244243,26.005166849564816,26.299303389187234,10000,D-b cover pool; m candidates redrawn without replacement per attempt

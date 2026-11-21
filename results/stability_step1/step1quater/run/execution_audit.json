@@ -1,0 +1,17 @@
+{
+  "protocol": "FHAM-1quater-v1",
+  "valid_primary_grid": "grid_trials_12x100.csv.gz",
+  "valid_segmented_grid": "A4_segmented_trials.csv.gz",
+  "excluded_intermediate_runs": [
+    {
+      "artifact": "grid_trials_ABORTED_incorrect_48_message_scope.csv.gz",
+      "reason": "The first runner version included all 48 A1 messages in A2-A4; the frozen A2-A4 scope is the 12 messages of 100 source bytes. The run was stopped before interpretation and rerun with the frozen scope."
+    },
+    {
+      "artifact": "A4_segmented_trials_ABORTED_column_order.csv.gz",
+      "reason": "An initial chunked CSV writer changed column order between chunks. Schema checks detected misaligned fields; these rows were excluded and the segmented analysis was rerun with a fixed schema and invariant checks."
+    }
+  ],
+  "E_C_F_pixels_opened": false,
+  "selected_configuration_changed_after_GQ2": false
+}

@@ -1,0 +1,40 @@
+{
+  "protocol": "FHAM-1quater-v1 + pre-open clarification dated 2026-11-21",
+  "GQ2_lock_sha256": "0cc18a607cc12d0b7cd47a5061be11d29f00b27bf9d93f451d3c48de28598a52",
+  "E_gate_sha256": "723f3312bde0cf1240f089f6497c73c7aaf0c593f931e9650fecc71c77de46dc",
+  "D_b_trials_sha256": "9648f8d342f77a3c907795548ecaa0efc2ddf88a69abd741c5e6625113e82b1d",
+  "C_source_partition_sha256": "b82fef163e1a77281fb40abbd7841e0788e7a586dc2dd23bd23cc3ee83c893fe",
+  "F_hash_only_manifest_sha256": "40729ef56d255dcc1e46a6e573272787a4e6807891d1f3f381b62005803206b8",
+  "delta_operational_definition": "Per-source-cover success rate for each frozen channel, averaged over the 12 frozen 100-byte messages and the available D-b gallery attempts; sample SD across source-cover clusters; take the larger channel SD.",
+  "channel_sd_D_b": {
+    "success_jpeg": 0.11704284632172193,
+    "success_noise": 0.06819015034139671
+  },
+  "N_C_by_channel": {
+    "success_jpeg": 200,
+    "success_noise": 200
+  },
+  "N_C_frozen": 200,
+  "N_F_frozen": 200,
+  "C_selection": "Deterministic SHA-256 ranking of the frozen C partition rows using seed FHAM-1quater-C-final-20261121; first N_C rows.",
+  "F_selection": "The 200-item hash-only F split reserved in 1ter; no reselection.",
+  "pixel_state_at_freeze": {
+    "C": false,
+    "F": false
+  },
+  "C_manifest_sha256": "25bf93c00f84310d3db0a0d5175abb5e6e3ba4c0e62614aa4533bdcb5eeba0c5",
+  "F_manifest_sha256": "7fae253792d790da10042c71fe4e0e6e8118f5c5c8717dfe9bdb732cb0aa7f96",
+  "GQ2_configuration": {
+    "config_id": 50,
+    "p": 10,
+    "q": 5,
+    "m": 2,
+    "B": 4,
+    "success_jpeg": 0.9616666666666666,
+    "success_noise": 0.9633333333333334,
+    "success_combined": 0.9616666666666666,
+    "feasibility": 0.975,
+    "b_assign": 14.122285067334337,
+    "b_total": 26.186491081559264
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "protocol": "FHAM-1quater-v1 + pre-open clarification 2026-11-21",
+  "primary_uncertainty_method": "10,000-replicate percentile bootstrap resampling source covers; section 7 specifies cover as the statistical unit.",
+  "GQ4_C_green": true,
+  "GQ4_F_green": true,
+  "point_gap_C_F_jpeg": 0.040416666666666434,
+  "point_gap_C_F_noise": 0.04208333333333325,
+  "point_gap_threshold": 0.05,
+  "both_corpora_lower_bound_ge_0_92": true,
+  "point_gaps_below_0_05": true,
+  "GQ4_status": "green",
+  "N200_macro_Wilson_diagnostic": {
+    "C_jpeg_lower": 0.9042130012276914,
+    "C_noise_lower": 0.8980683070423372,
+    "F_jpeg_lower": 0.9568342712073097,
+    "F_noise_lower": 0.9497129130941735,
+    "note": "This message-averaged Wilson diagnostic treats a rounded mean as a binomial count; it is not the cover-cluster interval used for the primary G-Q4 decision."
+  },
+  "contrast_uncertainty": {
+    "F_minus_C_jpeg": {
+      "mean": 0.036543624999999955,
+      "ci95": [
+        0.014166666666666768,
+        0.062083333333333046
+      ]
+    },
+    "F_minus_C_noise": {
+      "mean": 0.03437299999999996,
+      "ci95": [
+        0.011249999999999982,
+        0.06000000000000005
+      ]
+    },
+    "point_gap_jpeg": 0.040416666666666434,
+    "point_gap_noise": 0.04208333333333325,
+    "interpretation": "Independent cluster bootstrap on each corpus; paired replicate indices are not observations paired across corpora.",
+    "replicates": 10000
+  },
+  "limitations": [
+    "C clustered lower bounds pass narrowly; individual message success varies, with minima 0.855 (JPEG) and 0.820 (noise).",
+    "Independent-corpus bootstrap intervals for F\u2212C include differences above 0.05 even though point gaps are below 0.05.",
+    "The result applies to the frozen BOWS2-C and BOSSBase-F samples and selected configuration; it does not establish transfer to other datasets or parameter settings."
+  ]
+}

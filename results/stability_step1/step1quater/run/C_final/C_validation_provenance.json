@@ -1,0 +1,32 @@
+{
+  "protocol": "FHAM-1quater-v1 + pre-open clarification 2026-11-21",
+  "corpus": "C",
+  "N": 200,
+  "manifest_sha256": "25bf93c00f84310d3db0a0d5175abb5e6e3ba4c0e62614aa4533bdcb5eeba0c5",
+  "preopen_lock_sha256": "991bb51910b372be48f376326a1fdd7ac2d93d2e35809db73c1f2895ea678073",
+  "GQ2_lock_sha256": "0cc18a607cc12d0b7cd47a5061be11d29f00b27bf9d93f451d3c48de28598a52",
+  "E_gate_sha256": "723f3312bde0cf1240f089f6497c73c7aaf0c593f931e9650fecc71c77de46dc",
+  "config": {
+    "config_id": 50,
+    "p": 10,
+    "q": 5,
+    "m": 2,
+    "B": 4
+  },
+  "images": 200,
+  "messages": 12,
+  "attempts": 2400,
+  "pixels_opened": {
+    "C": true,
+    "F": false
+  },
+  "result_sha256": {
+    "C_provisional_gate.json": "e5ec8b2cfdcdd147540f03d2c3e596881c5dc0617a153893f57084188b396971",
+    "C_validation_trials.csv.gz": "f420c8d4d34b059b7a21bb26c806250b6c2a80135cf80d5c947a56cfa5dec1eb",
+    "C_cover_message_outcomes.csv.gz": "1cd5108b4a0c186f801da2bd37f0bdabbae4128a5bb087d1e88bfaa7923eb847",
+    "C_robustness_summary.csv": "1194ed93950f6361f551bed518864f444b92e5b678e89fdb9ef040765d7b0ede",
+    "C_cluster_bootstrap_10000.csv.gz": "f435722cf58844de03d4e004fa212598f130c88fa70642119cd3d491e2b8e2b7",
+    "C_cluster_bootstrap_summary.csv": "c360e049e76072d4cdf77b5c7cab24aaf483702d725814935723fba96f4f141c"
+  },
+  "state": "single-pass outcomes and 10,000-replicate cover-cluster bootstrap complete"
+}

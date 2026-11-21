@@ -1,0 +1,53 @@
+{
+  "corpus": "F",
+  "images": 200,
+  "messages": 12,
+  "attempts": 2400,
+  "macro_success_jpeg": 0.9874999999999998,
+  "macro_success_noise": 0.9820833333333332,
+  "per_message_min_jpeg": 0.97,
+  "per_message_min_noise": 0.96,
+  "pooled_wilson_jpeg": [
+    0.9822117547485882,
+    0.991230146510568
+  ],
+  "pooled_wilson_noise": [
+    0.9759545588153218,
+    0.9866713213187326
+  ],
+  "N200_macro_wilson_jpeg": [
+    0.9568342712073097,
+    0.9948857622067417
+  ],
+  "N200_macro_wilson_noise": [
+    0.9497129130941735,
+    0.9921955735836505
+  ],
+  "all_checks": true,
+  "config": {
+    "config_id": 50,
+    "p": 10,
+    "q": 5,
+    "m": 2,
+    "B": 4
+  },
+  "pixel_opened": true,
+  "cluster_bootstrap_10000": {
+    "feasibility": {
+      "ci95_low": 0.9795833333333334,
+      "ci95_high": 0.9966666666666666
+    },
+    "jpeg": {
+      "ci95_low": 0.9775,
+      "ci95_high": 0.9954166666666664
+    },
+    "noise": {
+      "ci95_low": 0.9683333333333332,
+      "ci95_high": 0.9908333333333332
+    }
+  },
+  "GQ4_green_by_frozen_wilson_gate": true,
+  "bootstrap_lower_ge_0_92": true,
+  "GQ4_green_by_N200_macro_Wilson_diagnostic": true,
+  "GQ4_green_by_preregistered_cover_cluster_bootstrap": true
+}

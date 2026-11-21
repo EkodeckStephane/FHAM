@@ -1,0 +1,4 @@
+metric,mean,ci95_low,ci95_high,replicates,cluster_unit
+feasibility,0.9646124583333334,0.945,0.9804166666666666,10000,source cover; m=2 candidates redrawn
+jpeg,0.9513202083333333,0.9270833333333334,0.97125,10000,source cover; m=2 candidates redrawn
+noise,0.94666675,0.9233333333333333,0.96625,10000,source cover; m=2 candidates redrawn

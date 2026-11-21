@@ -1,0 +1,20 @@
+{
+  "F_minus_C_jpeg": {
+    "mean": 0.036543624999999955,
+    "ci95": [
+      0.014166666666666768,
+      0.062083333333333046
+    ]
+  },
+  "F_minus_C_noise": {
+    "mean": 0.03437299999999996,
+    "ci95": [
+      0.011249999999999982,
+      0.06000000000000005
+    ]
+  },
+  "point_gap_jpeg": 0.040416666666666434,
+  "point_gap_noise": 0.04208333333333325,
+  "interpretation": "Independent cluster bootstrap on each corpus; paired replicate indices are not observations paired across corpora.",
+  "replicates": 10000
+}

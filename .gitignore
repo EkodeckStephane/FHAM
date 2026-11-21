@@ -37,6 +37,12 @@ dataset_external/
 /results/stability_step1/step1bis/stability_F2/A/
 /results/stability_step1/step1bis/stability_F2/B/
 
+# Step 2 transient endpoint databases and raw per-session files are kept local;
+# compact, reproducible result bundles and summaries are versioned separately.
+/results/step2/detection/full_capture/
+/results/step2/detection/pilot_capture/
+/results/step2/detection/messages/
+
 # OS / editor
 .DS_Store
 Thumbs.db

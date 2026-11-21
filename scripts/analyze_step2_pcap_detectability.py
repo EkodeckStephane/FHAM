@@ -3,6 +3,7 @@
 from __future__ import annotations
 import argparse
 import json
+import os
 import shutil
 import subprocess
 from pathlib import Path
@@ -108,6 +109,18 @@ def _models():
                                                                        random_state=SEED)}
 
 
+def _find_tshark():
+    found = shutil.which("tshark")
+    if found:
+        return found
+    for base in (Path(os.environ.get("ProgramFiles", r"C:\Program Files")),
+                 Path(os.environ.get("ProgramFiles(x86)", r"C:\Program Files (x86)"))):
+        candidate = base / "Wireshark" / "tshark.exe"
+        if candidate.exists():
+            return str(candidate)
+    return None
+
+
 def _bootstrap_auc(y, score, groups, reps=10000):
     rng = np.random.default_rng(SEED)
     unique = np.unique(groups)
@@ -123,7 +136,7 @@ def _bootstrap_auc(y, score, groups, reps=10000):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--pcap", type=Path, required=True)
-    parser.add_argument("--tshark", default=shutil.which("tshark"))
+    parser.add_argument("--tshark", default=_find_tshark())
     args = parser.parse_args()
     if not args.tshark:
         raise SystemExit("tshark not found; install Wireshark and rerun")

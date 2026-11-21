@@ -1,0 +1,32 @@
+{
+  "protocol": "FHAM-1quater-v1",
+  "stage": "single-pass E validation",
+  "frozen_GQ2_lock_sha256": "0cc18a607cc12d0b7cd47a5061be11d29f00b27bf9d93f451d3c48de28598a52",
+  "selected_configuration": {
+    "config_id": 50,
+    "p": 10,
+    "q": 5,
+    "m": 2,
+    "B": 4,
+    "success_jpeg": 0.9616666666666666,
+    "success_noise": 0.9633333333333334,
+    "success_combined": 0.9616666666666666,
+    "feasibility": 0.975,
+    "b_assign": 14.122285067334337,
+    "b_total": 26.186491081559264
+  },
+  "E_manifest_sha256": "eceb54dcd83416ce4768333574da54328266cc5c2c140514c4bef57ffcdd345f",
+  "source_partition_manifest_sha256": "b82fef163e1a77281fb40abbd7841e0788e7a586dc2dd23bd23cc3ee83c893fe",
+  "E_images": 200,
+  "messages": 12,
+  "attempts": 2400,
+  "pixels_opened": {
+    "D_b": "previously analyzed",
+    "E": true,
+    "C": false,
+    "F": false
+  },
+  "opened_at_utc": "2026-11-21T11:22:20Z",
+  "script_sha256": "92af8c156c1c95208835df14e939800ce3ef9ac91d1cb8f7bd81c1d0972caee5",
+  "run_seconds": 207.93452790006995
+}

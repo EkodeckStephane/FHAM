@@ -1,0 +1,4 @@
+metric,mean,ci95_low,ci95_high,bootstrap_replicates,cluster_unit
+feasibility,0.9863605416666665,0.97625,0.9937499999999999,10000,E cover pool; two gallery candidates redrawn without replacement per attempt
+jpeg,0.9730552916666667,0.9583333333333334,0.9854166666666665,10000,E cover pool; two gallery candidates redrawn without replacement per attempt
+noise,0.9716916666666668,0.9575,0.9837499999999998,10000,E cover pool; two gallery candidates redrawn without replacement per attempt

@@ -1,0 +1,60 @@
+{
+  "selected_configuration": {
+    "config_id": 50,
+    "p": 10,
+    "q": 5,
+    "m": 2,
+    "B": 4,
+    "success_jpeg": 0.9616666666666666,
+    "success_noise": 0.9633333333333334,
+    "success_combined": 0.9616666666666666,
+    "feasibility": 0.975,
+    "b_assign": 14.122285067334337,
+    "b_total": 26.186491081559264
+  },
+  "E_images": 200,
+  "messages": 12,
+  "attempts": 2400,
+  "macro_success_jpeg": 0.9704166666666668,
+  "macro_success_noise": 0.9745833333333332,
+  "per_message_min_jpeg": 0.92,
+  "per_message_min_noise": 0.925,
+  "pooled_wilson_2400_jpeg": [
+    0.9628500657807982,
+    0.976479768853037
+  ],
+  "pooled_wilson_2400_noise": [
+    0.9674877387580898,
+    0.9801621121258237
+  ],
+  "N200_macro_wilson_jpeg": [
+    0.9361057075454807,
+    0.9861796856598887
+  ],
+  "N200_macro_wilson_noise": [
+    0.942821659593358,
+    0.9892752803482386
+  ],
+  "G_Q3_point_estimate_pass": true,
+  "G_Q3_N200_macro_wilson_pass": true,
+  "per_message_wilson_reported_separately": true,
+  "E_pixels_opened": true,
+  "C_pixels_opened": false,
+  "F_pixels_opened": false,
+  "cluster_bootstrap_10000": {
+    "feasibility": {
+      "ci95_low": 0.97625,
+      "ci95_high": 0.9937499999999999
+    },
+    "jpeg": {
+      "ci95_low": 0.9583333333333334,
+      "ci95_high": 0.9854166666666665
+    },
+    "noise": {
+      "ci95_low": 0.9575,
+      "ci95_high": 0.9837499999999998
+    }
+  },
+  "cluster_bootstrap_success_lower_ge_0_92": true,
+  "G_Q3_all_frozen_checks_pass": true
+}

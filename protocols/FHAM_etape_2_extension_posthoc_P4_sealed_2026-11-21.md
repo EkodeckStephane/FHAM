@@ -13,6 +13,7 @@ Poursuivre l’étude de la synchronisation malgré le plafond observé sous inv
 - D-b sert uniquement à mettre au point et à mesurer P4. E-geo, C-geo et F-geo sont tirés par manifeste hash-only, gelés avant ouverture des pixels, puis évalués une fois chacun. Tous les résultats E/C/F sont post hoc au regard du point d’arrêt v1.2.
 - E-geo et C-geo tirent chacun 200 couvertures du partage BOWS2-C, après exclusion des 200 images C de 1quater et l’un de l’autre. F-geo tire 200 images BOSSBase après exclusion des 400 candidates antérieures, des 200 images F de 1quater et des quasi-doublons déjà signalés. Chaque manifeste conserve les SHA-256 et indique `pixels_opened=false` avant la mesure.
 - Les images et messages ne sont pas remplacés si un chemin ou une empreinte échoue. Le corpus défaillant est rapporté comme incomplet.
+- Chaque corpus utilise 100 tirages de galerie par message, comme les 100 tentatives A4 de D-b. L’ordre des candidats est une permutation PCG64 générée par `SHA256("FHAM-step2-P4-posthoc|20261121|<corpus>|<message_id>|<segment>|<attempt>")`, premiers 64 bits en big-endian. Les transformations réutilisent le générateur déterministe G2 `SHA256("FHAM-G2|<image_sha256>|<attempt>")`. Toutes les tentatives, y compris infaisables, sont comptabilisées.
 
 ## 3. Grille P4 locale
 

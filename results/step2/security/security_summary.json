@@ -1,0 +1,313 @@
+{
+  "protocol_commit": "a4775ee",
+  "seed": 20261121,
+  "mutations_per_class": 1000,
+  "format": "FHAM V1, R0/R1, D-b 1quater assignment fixtures",
+  "D_b_image_manifest_sha256": "73d14ff3b9ce16c6668224215491b72a8995b72e4e555c9d1925078b5097ad9f",
+  "D_b_catalogue_sha256": "bb8193b1ed980a091148a3994f5d3593b556e2e4120f0fc26a45591a8730ef36",
+  "mutation_summary": [
+    {
+      "format": "V1",
+      "class": "catalogue",
+      "trials": 1000,
+      "accepted": 0,
+      "rejected": 1000,
+      "mechanism_mismatches": 0
+    },
+    {
+      "format": "V1",
+      "class": "ciphertext",
+      "trials": 1000,
+      "accepted": 0,
+      "rejected": 1000,
+      "mechanism_mismatches": 0
+    },
+    {
+      "format": "V1",
+      "class": "duplicate_replay",
+      "trials": 1000,
+      "accepted": 0,
+      "rejected": 1000,
+      "mechanism_mismatches": 0
+    },
+    {
+      "format": "V1",
+      "class": "extension",
+      "trials": 1000,
+      "accepted": 0,
+      "rejected": 1000,
+      "mechanism_mismatches": 0
+    },
+    {
+      "format": "V1",
+      "class": "frame_header",
+      "trials": 1000,
+      "accepted": 0,
+      "rejected": 1000,
+      "mechanism_mismatches": 0
+    },
+    {
+      "format": "V1",
+      "class": "header",
+      "trials": 1000,
+      "accepted": 0,
+      "rejected": 1000,
+      "mechanism_mismatches": 0
+    },
+    {
+      "format": "V1",
+      "class": "nonce",
+      "trials": 1000,
+      "accepted": 0,
+      "rejected": 1000,
+      "mechanism_mismatches": 0
+    },
+    {
+      "format": "V1",
+      "class": "offer_signature",
+      "trials": 1000,
+      "accepted": 0,
+      "rejected": 1000,
+      "mechanism_mismatches": 0
+    },
+    {
+      "format": "V1",
+      "class": "out_of_order",
+      "trials": 1000,
+      "accepted": 0,
+      "rejected": 1000,
+      "mechanism_mismatches": 0
+    },
+    {
+      "format": "V1",
+      "class": "parameters",
+      "trials": 1000,
+      "accepted": 0,
+      "rejected": 1000,
+      "mechanism_mismatches": 0
+    },
+    {
+      "format": "V1",
+      "class": "selected_cover",
+      "trials": 1000,
+      "accepted": 0,
+      "rejected": 1000,
+      "mechanism_mismatches": 0
+    },
+    {
+      "format": "V1",
+      "class": "sequence",
+      "trials": 1000,
+      "accepted": 0,
+      "rejected": 1000,
+      "mechanism_mismatches": 0
+    },
+    {
+      "format": "V1",
+      "class": "sequence_skip",
+      "trials": 1000,
+      "accepted": 0,
+      "rejected": 1000,
+      "mechanism_mismatches": 0
+    },
+    {
+      "format": "V1",
+      "class": "session",
+      "trials": 1000,
+      "accepted": 0,
+      "rejected": 1000,
+      "mechanism_mismatches": 0
+    },
+    {
+      "format": "V1",
+      "class": "stale_epoch",
+      "trials": 1000,
+      "accepted": 0,
+      "rejected": 1000,
+      "mechanism_mismatches": 0
+    },
+    {
+      "format": "V1",
+      "class": "tag",
+      "trials": 1000,
+      "accepted": 0,
+      "rejected": 1000,
+      "mechanism_mismatches": 0
+    },
+    {
+      "format": "V1",
+      "class": "truncation",
+      "trials": 1000,
+      "accepted": 0,
+      "rejected": 1000,
+      "mechanism_mismatches": 0
+    },
+    {
+      "format": "V1",
+      "class": "unknown_session",
+      "trials": 1000,
+      "accepted": 0,
+      "rejected": 1000,
+      "mechanism_mismatches": 0
+    }
+  ],
+  "V0_mutation_summary": [
+    {
+      "format": "V0",
+      "class": "ciphertext",
+      "trials": 1000,
+      "accepted": 0,
+      "rejected": 1000,
+      "mechanism_mismatches": 0
+    },
+    {
+      "format": "V0",
+      "class": "cover_substitution",
+      "trials": 1000,
+      "accepted": 0,
+      "rejected": 1000,
+      "mechanism_mismatches": 0
+    },
+    {
+      "format": "V0",
+      "class": "extension",
+      "trials": 1000,
+      "accepted": 0,
+      "rejected": 1000,
+      "mechanism_mismatches": 0
+    },
+    {
+      "format": "V0",
+      "class": "header",
+      "trials": 1000,
+      "accepted": 0,
+      "rejected": 1000,
+      "mechanism_mismatches": 0
+    },
+    {
+      "format": "V0",
+      "class": "nonce",
+      "trials": 1000,
+      "accepted": 0,
+      "rejected": 1000,
+      "mechanism_mismatches": 0
+    },
+    {
+      "format": "V0",
+      "class": "offer_signature",
+      "trials": 1000,
+      "accepted": 0,
+      "rejected": 1000,
+      "mechanism_mismatches": 0
+    },
+    {
+      "format": "V0",
+      "class": "replay",
+      "trials": 1000,
+      "accepted": 0,
+      "rejected": 1000,
+      "mechanism_mismatches": 0
+    },
+    {
+      "format": "V0",
+      "class": "sequence",
+      "trials": 1000,
+      "accepted": 0,
+      "rejected": 1000,
+      "mechanism_mismatches": 0
+    },
+    {
+      "format": "V0",
+      "class": "session",
+      "trials": 1000,
+      "accepted": 0,
+      "rejected": 1000,
+      "mechanism_mismatches": 0
+    },
+    {
+      "format": "V0",
+      "class": "tag",
+      "trials": 1000,
+      "accepted": 0,
+      "rejected": 1000,
+      "mechanism_mismatches": 0
+    },
+    {
+      "format": "V0",
+      "class": "truncation",
+      "trials": 1000,
+      "accepted": 0,
+      "rejected": 1000,
+      "mechanism_mismatches": 0
+    }
+  ],
+  "exhaustive_bit_sweep": {
+    "records": 20,
+    "bits_tested": 58880,
+    "rejected_mutations": 58880,
+    "accepted_mutations": 0
+  },
+  "I0_I1_size_comparison": {
+    "by_mode": [
+      {
+        "mode": 0,
+        "records": 10,
+        "mean_i0_record_bytes": 310.0,
+        "mean_i1_record_bytes": 320.0,
+        "mean_i0_minus_i1": -10.0,
+        "max_abs_delta": 13
+      },
+      {
+        "mode": 1,
+        "records": 10,
+        "mean_i0_record_bytes": 396.0,
+        "mean_i1_record_bytes": 396.0,
+        "mean_i0_minus_i1": 0.0,
+        "max_abs_delta": 0
+      }
+    ],
+    "I1_false_accept_upper_bound_K_2000": 5.8774717541114375e-36,
+    "I0_random_collision_upper_bound_K_54043": 1.2582866474986076e-05,
+    "I0_warning": "CRC-32 is not adversarial message authentication"
+  },
+  "message_integrity_trials": [
+    {
+      "mode": 0,
+      "trials": 10000,
+      "rejected": 10000,
+      "accepted": 0
+    },
+    {
+      "mode": 1,
+      "trials": 10000,
+      "rejected": 10000,
+      "accepted": 0
+    }
+  ],
+  "handshake_and_compromise": {
+    "honest_key_agreement": true,
+    "directional_keys_distinct": true,
+    "both_key_confirmations_pass": true,
+    "altered_offer_signature_rejected": true,
+    "identity_key_leak_does_not_decrypt_captured_record": true,
+    "session_keys_are_context_bound": true,
+    "stolen_A_cannot_impersonate_pinned_B": true,
+    "offer_frame_bytes": [
+      127,
+      127
+    ],
+    "confirmation_frame_bytes": [
+      42,
+      42
+    ],
+    "handshake_framed_bytes": 338,
+    "ephemeral_memory_zeroization": "not claimed; Python cannot guarantee physical erasure"
+  },
+  "replay_restart_and_rollback": {
+    "trials": 1000,
+    "restart_sequence_continuity_failures": 0,
+    "old_snapshot_acceptances": 0,
+    "trusted_epoch_provider": "external monotone test state; SQLite rollback alone is not prevented"
+  },
+  "V0_comparison": "completed for legacy-compatible checks; gallery-order and V1-parameter checks are not applicable to V0"
+}

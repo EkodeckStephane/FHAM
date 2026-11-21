@@ -1,0 +1,12 @@
+format,class,trials,accepted,rejected,mechanism_mismatches
+V0,ciphertext,1000,0,1000,0
+V0,cover_substitution,1000,0,1000,0
+V0,extension,1000,0,1000,0
+V0,header,1000,0,1000,0
+V0,nonce,1000,0,1000,0
+V0,offer_signature,1000,0,1000,0
+V0,replay,1000,0,1000,0
+V0,sequence,1000,0,1000,0
+V0,session,1000,0,1000,0
+V0,tag,1000,0,1000,0
+V0,truncation,1000,0,1000,0

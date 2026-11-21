@@ -1,0 +1,52 @@
+{
+  "grouping_key": "message SHA-256",
+  "counts_per_split": {
+    "train_sessions": 400,
+    "validation_sessions": 200,
+    "test_sessions": 1000,
+    "records_per_session": 5
+  },
+  "records_per_family_split": {
+    "train": 500,
+    "validation": 250,
+    "test": 1250
+  },
+  "content_groups_cross_split": false,
+  "sessions_per_condition": 1600,
+  "total_source_records_per_condition": 8000,
+  "family_group_details": {
+    "adversarial_repeated": {
+      "unique_hashes": 253,
+      "messages_per_split": {
+        "train": 500,
+        "validation": 250,
+        "test": 1250
+      }
+    },
+    "natural_text": {
+      "unique_hashes": 120,
+      "messages_per_split": {
+        "train": 500,
+        "validation": 250,
+        "test": 1250
+      }
+    },
+    "printable_ascii": {
+      "unique_hashes": 2000,
+      "messages_per_split": {
+        "train": 500,
+        "validation": 250,
+        "test": 1250
+      }
+    },
+    "uniform_bytes": {
+      "unique_hashes": 2000,
+      "messages_per_split": {
+        "train": 500,
+        "validation": 250,
+        "test": 1250
+      }
+    }
+  },
+  "candidate_manifest_sha256": "fe8c9482aea7f786a4b1f638c0d0a4421e7441a96cac929bfa0c9dc8dbbf7a73"
+}

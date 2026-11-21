@@ -1,0 +1,5 @@
+family,candidates,feasible,feasibility_rate,unique_contents,retained_for_D
+adversarial_repeated,2500,2500,1.0,253,2000
+natural_text,2500,2335,0.934,129,2000
+printable_ascii,2500,2434,0.9736,2500,2000
+uniform_bytes,2500,2473,0.9892,2500,2000

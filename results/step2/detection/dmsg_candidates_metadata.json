@@ -1,0 +1,16 @@
+{
+  "seed": 20261121,
+  "families": [
+    "adversarial_repeated",
+    "natural_text",
+    "printable_ascii",
+    "uniform_bytes"
+  ],
+  "candidates_per_family": 2500,
+  "total_candidates": 10000,
+  "source_bytes": 100,
+  "cover_manifest_sha256": "73d14ff3b9ce16c6668224215491b72a8995b72e4e555c9d1925078b5097ad9f",
+  "candidate_manifest_sha256": "fe8c9482aea7f786a4b1f638c0d0a4421e7441a96cac929bfa0c9dc8dbbf7a73",
+  "legacy_1quater_hash_overlaps": 0,
+  "generation": "seeded generate_messages for natural/ASCII/uniform; all-byte uniform repeated values, deterministic redraw on frozen-hash collision"
+}

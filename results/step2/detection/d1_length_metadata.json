@@ -1,0 +1,15 @@
+{
+  "records_per_family": 2000,
+  "total_records": 8000,
+  "grouping": "SHA-256 identical messages stay in one CV fold and bootstrap cluster",
+  "seed": 20261121,
+  "bootstrap_replicates": 10000,
+  "families": [
+    "adversarial_repeated",
+    "natural_text",
+    "printable_ascii",
+    "uniform_bytes"
+  ],
+  "R0_length_column": "R0_framed_bytes",
+  "R1_length_column": "R1_framed_bytes"
+}

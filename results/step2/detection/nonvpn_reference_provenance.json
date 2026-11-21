@@ -1,0 +1,38 @@
+{
+  "archives": [
+    {
+      "archive": "NonVPN-PCAPs-01.zip",
+      "pcap_members": 23,
+      "compressed_bytes": 839164750,
+      "sha256": "0ae9c45a0e8d1be6927d6716aa60a26f2f24873e3a86db81e0c54913ad1a102b"
+    },
+    {
+      "archive": "NonVPN-PCAPs-02.zip",
+      "pcap_members": 26,
+      "compressed_bytes": 12698509108,
+      "sha256": "ac80074ce163e4f3e3eb014048e66c59da0db55bcef93f90504ddefab18d9dc3"
+    },
+    {
+      "archive": "NonVPN-PCAPs-03.zip",
+      "pcap_members": 60,
+      "compressed_bytes": 10342707183,
+      "sha256": "a2dbb34900765181e4322405d16f75d5249c846a91688289fbedf8e9c9e25fb0"
+    }
+  ],
+  "archive_pcap_member_count": 109,
+  "mapped_feature_captures": 91,
+  "mapped_tls_flows": 1946,
+  "feature_table_sha256": "8f67eaf15855cdbb8c746a01953e9370683406381e2ea9756bc2e10836e0c76d",
+  "script_sha256": {
+    "scripts\\evaluate_nonvpn_tls_detectability.py": "b910155cf5b1f68161acf8bb0004a86e420fe76ec11eb42a98045b4ad83eabb6",
+    "scripts\\analyze_nonvpn_traces.py": "1d537f8d9518db102c8b1aa557453faaed00deb023935fda42fb0424f5ab7b19",
+    "scripts\\traffic_transport_pilot.py": "f601b43b2955ba7e0afc76ea82ab4f673d502ef86f46a5670460c6b3d89a10bf"
+  },
+  "result_sha256": {
+    "results\\nonvpn_tls_flow_features.csv": "8f67eaf15855cdbb8c746a01953e9370683406381e2ea9756bc2e10836e0c76d",
+    "results\\nonvpn_tls_detectability_cv.csv": "5b056c7039912e66c2656945e61ae3014edba04b195db803ec841c3e8caec83d"
+  },
+  "mapping": "each feature capture basename maps uniquely to a PCAP/PCAPNG member in the three source ZIP archives; ZIP member CRC32 and uncompressed size recorded",
+  "content_validation_limit": "the 91 mapped PCAP members were not decompressed and reparsed in this audit; archive SHA-256 anchors the source archives and prior extraction script/result hashes anchor the feature artifact",
+  "data_writes": "none to D:\\dataset; archives read in place"
+}

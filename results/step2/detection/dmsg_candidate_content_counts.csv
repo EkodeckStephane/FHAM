@@ -1,0 +1,5 @@
+family,candidates,unique_contents
+adversarial_repeated,2500,253
+natural_text,2500,129
+printable_ascii,2500,2500
+uniform_bytes,2500,2500

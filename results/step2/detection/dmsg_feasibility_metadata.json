@@ -1,0 +1,13 @@
+{
+  "candidate_manifest_sha256": "fe8c9482aea7f786a4b1f638c0d0a4421e7441a96cac929bfa0c9dc8dbbf7a73",
+  "catalogue_digest": "bb8193b1ed980a091148a3994f5d3593b556e2e4120f0fc26a45591a8730ef36",
+  "assignment_solves_cached": 11850,
+  "selected_per_family": {
+    "adversarial_repeated": 2000,
+    "natural_text": 2000,
+    "printable_ascii": 2000,
+    "uniform_bytes": 2000
+  },
+  "D_gate": "pass",
+  "elapsed_seconds": 82.73253150004894
+}

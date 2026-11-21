@@ -1,0 +1,3 @@
+mode,records,accuracy_grouped_5fold,chance_accuracy,mutual_information_bits,mutual_information_cluster_bootstrap_95,length_only_accuracy_cluster_bootstrap_95
+R0,8000,0.717875,0.25,1.305627070715077,"[1.2971288870642064, 1.3608691653044216]","[0.7587838397937303, 0.7923075838852063]"
+R1,8000,0.249625,0.25,0.0,"[0.0, 0.0]","[0.25, 0.25]"

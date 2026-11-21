@@ -25,6 +25,7 @@ dependencies = [
     "pandas>=2.2",
     "Pillow>=11",
     "PyYAML>=6",
+    "reedsolo==1.7.0",
     "scikit-image>=0.25",
     "scikit-learn>=1.7",
     "scipy>=1.17",

@@ -1,0 +1,18 @@
+{
+  "scope": "G development D-b only; E/C/F remain unopened",
+  "D_b_manifest_sha256": "73d14ff3b9ce16c6668224215491b72a8995b72e4e555c9d1925078b5097ad9f",
+  "config_id": 210,
+  "message_ids": [
+    "adversarial_repeated_100_00",
+    "natural_text_100_00",
+    "printable_ascii_100_00",
+    "uniform_bytes_100_00"
+  ],
+  "trial_rows": 387,
+  "segment_chain_rows": 6966,
+  "G0": "G-ref; receiver has the canonical pre-shared catalogue",
+  "unique_selected_covers": 96,
+  "bootstrap_replicates": 10000,
+  "runtime_seconds": null,
+  "runtime_note": "total wall time was not recorded by the first runner; per-registration runtime is recorded in the trial data"
+}

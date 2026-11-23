@@ -1,0 +1,18 @@
+{
+  "status": "failed_pre_pixel_access",
+  "dataset": "E_geo",
+  "scope": "post-hoc exploratory; sealed set opened once after P4 freeze",
+  "manifest_sha256": "f932eccd1dbef7cb4290891e3b7ea9b80d0eccb50c0d96cb12d5b93c22ef48aa",
+  "runner_sha256": "8f921f9fd6d0932291cb0aa60b3354c57336c91310873f8b1ce7ec0789444776",
+  "git_commit": "d84d604980810c090d47f5251989fde7e4f48e3f",
+  "pixels_opened": false,
+  "attempts_per_message": 100,
+  "incident_utc": "2026-11-23T08:29:18Z",
+  "incident": "Runner filter compared integer message index 0 with string 00, yielding no selected messages; no image pixels were read. Empty output files are retained as incident traces and excluded.",
+  "failed_runner_sha256": "4e421c9e9ce64e7de443f3a8b5c67e9954add4bbeaa8fd8ad6e70e5e236887db",
+  "incident_empty_outputs": [
+    "p4_E_geo_incident_empty_gallery_trials.csv",
+    "p4_E_geo_incident_empty_message_trials.csv",
+    "p4_E_geo_incident_empty_segment_trials.csv.gz"
+  ]
+}

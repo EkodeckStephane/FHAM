@@ -46,3 +46,7 @@ Avant toute ouverture d’E/C/F, le rapport D-b consigne : le code exact, la gri
 ## 6. Interprétation
 
 Ces mesures évaluent si une recherche locale apporte un gain empirique après recalage. Elles ne changent pas rétroactivement le point d’arrêt initial. Tout résultat positif est un résultat exploratoire à confirmer dans une nouvelle étude préenregistrée ; un échec demeure un résultat scientifique pertinent.
+
+### Incident logiciel avant ouverture effective d’E-geo — 23 novembre 2026
+
+Le premier lancement du runner E-geo a marqué à tort le manifeste comme ouvert avant d’énumérer les messages. Une erreur de type dans le filtre des identifiants (indice lu comme entier, comparé à la chaîne `"00"`) a produit zéro essai et des fichiers de sortie vides. L’inspection du chemin d’exécution confirme qu’aucun pixel d’E-geo n’a été lu : aucun message n’a satisfait le filtre, donc aucune image n’a été ouverte. Le statut est corrigé en `failed_pre_pixel_access`; le manifeste hash-only, sa sélection et la grille P4 restent inchangés. Le correctif ne change que la sélection du message 100 octets gelé (indice entier 0) et est gelé par commit et empreinte avant toute lecture de pixel. E-geo sera évalué une seule fois avec ce correctif; les sorties vides de la tentative avortée sont conservées comme traces d’incident et exclues des résultats.

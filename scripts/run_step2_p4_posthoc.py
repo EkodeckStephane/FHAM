@@ -466,7 +466,9 @@ def _new_dataset_trials(dataset, attempts_per_message):
     result = []
     messages = _messages()
     for message_id, (family, index, source, _compressed) in messages.items():
-        if family not in FAMILIES or str(index) != "00" or len(source) != 100:
+        # q4.compressed_messages returns the suffix index as an integer.  The
+        # frozen 100-byte message for each family is therefore index 0.
+        if family not in FAMILIES or int(index) != 0 or len(source) != 100:
             continue
         orders = []
         for segment in range(2):

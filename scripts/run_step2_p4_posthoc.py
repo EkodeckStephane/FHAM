@@ -545,9 +545,13 @@ def _summarize(dataset):
         labels = sorted(set(c0[c0 != ""]) | set(c1[c1 != ""]))
         if labels:
             idx = {v: i for i, v in enumerate(labels)}
-            left = np.asarray([idx[x] if x else len(labels) + i for i, x in enumerate(c0)])
-            right = np.asarray([idx[x] if x else len(labels) + i for i, x in enumerate(c1)])
-            cluster_count = len(labels) + int(np.sum((c0 == "") | (c1 == "")))
+            missing = (c0 == "") | (c1 == "")
+            missing_cluster = len(labels) + np.cumsum(missing, dtype=np.int32) - 1
+            left = np.asarray([idx[x] if x else missing_cluster[i] for i, x in enumerate(c0)])
+            right = np.asarray([idx[x] if x else missing_cluster[i] for i, x in enumerate(c1)])
+            left[missing] = missing_cluster[missing]
+            right[missing] = missing_cluster[missing]
+            cluster_count = len(labels) + int(missing.sum())
             draws = np.empty(10000, dtype=float)
             for b in range(len(draws)):
                 sampled = rng.integers(0, cluster_count, cluster_count)

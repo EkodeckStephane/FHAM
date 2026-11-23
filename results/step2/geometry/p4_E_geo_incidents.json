@@ -1,0 +1,23 @@
+{
+  "dataset": "E_geo",
+  "manifest_sha256": "f932eccd1dbef7cb4290891e3b7ea9b80d0eccb50c0d96cb12d5b93c22ef48aa",
+  "incidents": [
+    {
+      "incident": "failed_pre_pixel_access",
+      "utc": "2026-11-23T08:29:18Z",
+      "runner_sha256": "4e421c9e9ce64e7de443f3a8b5c67e9954add4bbeaa8fd8ad6e70e5e236887db",
+      "commit": "d84d604980810c090d47f5251989fde7e4f48e3f",
+      "pixels_read": false,
+      "description": "Integer message index 0 was compared with string 00; no message selected and no image pixels read. Empty output traces were archived."
+    },
+    {
+      "incident": "failed_first_codebook_write",
+      "runner_sha256": "8f921f9fd6d0932291cb0aa60b3354c57336c91310873f8b1ce7ec0789444776",
+      "commit": "07e4304",
+      "pixels_read": true,
+      "completed_message_trials": 0,
+      "description": "Corrected selector selected the four frozen messages and opened E-geo; first codebook write failed because results/step2/geometry/codebooks/E_geo was absent. No message trial or outcome completed. Patch creates the codebook parent; all frozen inputs and parameters remain unchanged.",
+      "recorded_utc": "2026-11-23T08:34:50Z"
+    }
+  ]
+}

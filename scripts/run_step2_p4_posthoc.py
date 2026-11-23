@@ -128,7 +128,7 @@ def _robust_codebook(image, cover_id, image_sha):
                        "hash_value": hashes, "jpeg_flips": flips["jpeg"],
                        "noise_flips": flips["noise"], "robust": robust.astype(np.uint8),
                        "s_hat": s_hat, "source_sha256": str(image_sha)})
-    CODEBOOKS.mkdir(parents=True, exist_ok=True)
+    path.parent.mkdir(parents=True, exist_ok=True)
     df.to_csv(path, index=False, compression="gzip")
     data = (locations, hashes, robust, s_hat.astype(np.float64))
     CODEBOOK_CACHE[cover_id] = data

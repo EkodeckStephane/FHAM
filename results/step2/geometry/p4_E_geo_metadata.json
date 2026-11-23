@@ -1,18 +1,50 @@
 {
-  "status": "failed_pre_pixel_access",
+  "scope": "post-hoc P4 extension; exploratory, not confirmatory",
+  "protocol": "protocols/FHAM_etape_2_extension_posthoc_P4_sealed_2026-11-21.md",
   "dataset": "E_geo",
-  "scope": "post-hoc exploratory; sealed set opened once after P4 freeze",
-  "manifest_sha256": "f932eccd1dbef7cb4290891e3b7ea9b80d0eccb50c0d96cb12d5b93c22ef48aa",
-  "runner_sha256": "8f921f9fd6d0932291cb0aa60b3354c57336c91310873f8b1ce7ec0789444776",
-  "git_commit": "d84d604980810c090d47f5251989fde7e4f48e3f",
-  "pixels_opened": false,
   "attempts_per_message": 100,
-  "incident_utc": "2026-11-23T08:29:18Z",
-  "incident": "Runner filter compared integer message index 0 with string 00, yielding no selected messages; no image pixels were read. Empty output files are retained as incident traces and excluded.",
-  "failed_runner_sha256": "4e421c9e9ce64e7de443f3a8b5c67e9954add4bbeaa8fd8ad6e70e5e236887db",
-  "incident_empty_outputs": [
-    "p4_E_geo_incident_empty_gallery_trials.csv",
-    "p4_E_geo_incident_empty_message_trials.csv",
-    "p4_E_geo_incident_empty_segment_trials.csv.gz"
-  ]
+  "timing_definition": {
+    "p4_budget": "60 seconds active process CPU time per message-transformation cell, shared across both segments; ORB/RANSAC included",
+    "reported": "P4 CPU seconds and wall-clock seconds, separately"
+  },
+  "p4_grid_candidates_per_segment": 625,
+  "p4_max_candidates_per_message": 1250,
+  "p4_grid": {
+    "angle_deg": [
+      -0.5,
+      -0.25,
+      0.0,
+      0.25,
+      0.5
+    ],
+    "relative_scale": [
+      0.9,
+      0.95,
+      1.0,
+      1.05,
+      1.1
+    ],
+    "dx_base_px": [
+      -4,
+      -2,
+      0,
+      2,
+      4
+    ],
+    "dy_base_px": [
+      -4,
+      -2,
+      0,
+      2,
+      4
+    ]
+  },
+  "D_b_manifest_sha256": null,
+  "sealed_manifest_sha256": "f932eccd1dbef7cb4290891e3b7ea9b80d0eccb50c0d96cb12d5b93c22ef48aa",
+  "sealed_pixels_opened": true,
+  "runner_sha256": "57f0ea2301ed169e1e1bf26185e9961a6a7ab7a0e563c2daec85d72ca520bfef",
+  "git_commit": "565161f61c62055aaa4de4e80eebeb74736bb1fd",
+  "grid_unique_candidates": 625,
+  "seed": 20261121,
+  "status": "completed"
 }

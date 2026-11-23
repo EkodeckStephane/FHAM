@@ -1,0 +1,33 @@
+{
+  "dataset": "C_geo",
+  "manifest_sha256": "02920231b222ec61b192d364c308af37f87fd19e92eb8159e8b3bca212e04fbe",
+  "incidents": [
+    {
+      "incident": "execution_terminated_during_codebook_creation",
+      "recorded_utc": "2026-11-23T09:33:43Z",
+      "runner_sha256": "57f0ea2301ed169e1e1bf26185e9961a6a7ab7a0e563c2daec85d72ca520bfef",
+      "commit": "fd85a5442d97a34703330b0f11de8d6fd6df9c56",
+      "codebooks_written": 184,
+      "codebooks_expected": 200,
+      "message_trials_completed": 0,
+      "details": "First execution ended with exit code 1 after 184/200 valid codebooks; no message trial had yet been written. A later continuation reused those files."
+    },
+    {
+      "incident": "post_orange_partial_resume_and_stop",
+      "recorded_utc": "2026-11-23T09:37:52Z",
+      "runner_sha256_before_gate": "57f0ea2301ed169e1e1bf26185e9961a6a7ab7a0e563c2daec85d72ca520bfef",
+      "runner_sha256_after_gate": "42789d90788e78e454513fd16e7f6676bacc61a892328f2426d42ade6ca0d5e1",
+      "codebooks_written": 200,
+      "assignment_archives_written": 4,
+      "message_rows_written": 168,
+      "complete_attempt_groups": 14,
+      "details": "Before the G-G2 orange guard became visible, a continuation completed codebook generation and wrote 14 partial message attempts (11 for adversarial_repeated; one each for natural_text, printable_ascii, and uniform_bytes). These partial outputs are excluded from efficacy estimates. A subsequent invocation was refused by the runner guard. No further C_geo or F_geo evaluation is authorized under the current stop gate."
+    },
+    {
+      "incident": "stop_guard_enforced_after_partial_C_geo_opening",
+      "recorded_utc": "2026-11-23T09:43:46Z",
+      "runner_sha256": "42789d90788e78e454513fd16e7f6676bacc61a892328f2426d42ade6ca0d5e1",
+      "details": "The updated G-G2 gate refuses any C_geo rerun after pixels_opened=true. The attempted invocation exited before image access or new output. C_geo partial outputs remain excluded; F_geo remains sealed."
+    }
+  ]
+}

@@ -1,41 +1,57 @@
-# P4 post hoc — E-geo (BOWS2-C)
+# Étape 2 — résultats P4 sur E-geo
 
 **Date d’exécution :** 23 novembre 2026  
-**Portée :** extension exploratoire post hoc, distincte du protocole Étape 2 v1.2  
-**Manifeste SHA-256 :** `f932eccd1dbef7cb4290891e3b7ea9b80d0eccb50c0d96cb12d5b93c22ef48aa`  
-**Runner SHA-256 :** `57f0ea2301ed169e1e1bf26185e9961a6a7ab7a0e563c2daec85d72ca520bfef`
+**Statut :** extension exploratoire post hoc; les résultats ne constituent pas une validation confirmatoire du protocole initial.  
+**Protocole :** `protocols/FHAM_etape_2_extension_posthoc_P4_sealed_2026-11-21.md`  
+**Manifeste E-geo SHA-256 :** `f932eccd1dbef7cb4290891e3b7ea9b80d0eccb50c0d96cb12d5b93c22ef48aa`  
+**Runner SHA-256 :** `57f0ea2301ed169e1e1bf26185e9961a6a7ab7a0e563c2daec85d72ca520bfef`  
+**Commit du runner :** `565161f61c62055aaa4de4e80eebeb74736bb1fd`
 
-## Résultat
+## Exécution et intégrité
 
-E-geo comprend 200 couvertures BOWS2-C à leur résolution native de 256 × 256, quatre messages gelés de 100 octets et 100 tirages de galerie par message. Les 400 tirages ont tous été conservés; 385/400 (96,25 %) ont permis une affectation. Les 12 cellules par tirage (trois transformations × quatre chaînes) donnent 4 800 lignes de résultats message.
+Le premier lancement n’a sélectionné aucun message et n’a lu aucun pixel. Le deuxième a ouvert E-geo, puis s’est arrêté lors de l’écriture du premier codebook, avant toute tentative de message. Ces deux incidents sont consignés dans `results/step2/geometry/p4_E_geo_incidents.json`; leurs sorties vides ne sont pas incluses dans les résultats.
 
-| Transformation | P1 coordonnées fixes | P2 ORB/RANSAC | P3 inverse exact | P4 recherche locale |
+Le passage corrigé a utilisé le manifeste hash-only gelé, le même ensemble de messages, la même grille P4, les mêmes graines et l’ordre déterministe préenregistré dans l’extension. Il s’est terminé avec le statut `completed`. Les quatre messages ont chacun 100 tentatives de galerie. Le tableau message contient 4 800 lignes (400 tentatives × 3 transformations × 4 chaînes P1–P4); les tentatives infaisables restent dans les dénominateurs. Le taux de faisabilité des affectations est de 96,25 % (385/400). Le SHA-256 du manifeste correspond à celui attendu par le runner.
+
+## Récupération exacte du message
+
+Les intervalles sont des IC bootstrap à 95 % par grappes de couvertures, tels que calculés par le runner. La barrière G-G2 porte sur la borne basse de l’exactitude message P4 pour chacune des trois familles de transformations.
+
+| Transformation | P1, coordonnées fixes | P2, ORB/RANSAC | P3, inverse oracle | P4, recherche locale |
 |---|---:|---:|---:|---:|
-| Crop-restauration | 0/400 (0 %) | 0/400 (0 %) | 6/400 (1,50 %; IC 95 % [0; 3,84]) | 0/400 (0 %) |
-| Rotation | 0/400 (0 %) | 60/400 (15,00 %; [8,72; 21,46]) | 67/400 (16,75 %; [10,22; 23,47]) | 60/400 (15,00 %; [8,67; 21,53]) |
-| Réduction-restauration | 375/400 (93,75 %; [82,90; 95,56]) | 372/400 (93,00 %; [82,08; 95,12]) | 375/400 (93,75 %; [83,04; 95,64]) | 372/400 (93,00 %; [81,98; 95,26]) |
+| Recadrage-restauration | 0,00 % [0,00 ; 0,00] | 0,00 % [0,00 ; 0,00] | 1,50 % [0,00 ; 3,84] | 0,00 % [0,00 ; 0,00] |
+| Rotation | 0,00 % [0,00 ; 0,00] | 15,00 % [8,72 ; 21,46] | 16,75 % [10,22 ; 23,47] | 15,00 % [8,67 ; 21,53] |
+| Redimensionnement-restauration | 93,75 % [82,90 ; 95,56] | 93,00 % [82,08 ; 95,12] | 93,75 % [83,04 ; 95,64] | 93,00 % [81,98 ; 95,26] |
 
-Les intervalles sont des IC bootstrap à 95 % par couverture, calculés par le résumeur gelé. ORB/RANSAC a réussi pour 100 % des segments évalués. Ce recalage ne suffit donc pas à assurer la récupération exacte après rotation ou crop. P4 ne dépasse pas P3 sur ces trois transformations dans E-geo; pour crop, sa récupération exacte est nulle alors que P3 récupère 6 messages.
+## Résultats P4 par famille de message
 
-La récupération par famille confirme une forte dépendance au contenu. Pour P4 sous rotation, les taux sont de 39 % (répétition adversariale), 11 % (texte naturel), 9 % (ASCII imprimable) et 1 % (octets uniformes). Sous réduction-restauration, ils sont respectivement 100 %, 89 %, 87 % et 96 %. Ces taux ne décrivent que les quatre messages choisis et ne généralisent pas à toutes les distributions de même famille.
+| Famille | Recadrage-restauration | Rotation | Redimensionnement-restauration |
+|---|---:|---:|---:|
+| Répétition adversariale | 0 % | 39 % [22,83 ; 58,00] | 100 % [100 ; 100] |
+| Texte naturel | 0 % | 11 % [2,40 ; 22,00] | 89 % [67,50 ; 95,50] |
+| ASCII imprimable | 0 % | 9 % [1,19 ; 19,30] | 87 % [64,24 ; 94,83] |
+| Octets uniformes | 0 % | 1 % [0 ; 5,71] | 96 % [79,13 ; 100] |
 
-## Coût de P4 et intégrité d’exécution
+La moyenne agrégée masque donc une forte dépendance au type de message pour la rotation et le redimensionnement. Le recadrage ne donne aucune récupération exacte P4 dans les 400 tentatives.
 
-P4 a testé en moyenne 1 175 candidats/message pour crop, 766 pour rotation et 22 pour réduction-restauration. Le temps CPU maximal observé par segment est 4,58 s, sous la limite de 60 s CPU actifs par cellule message-transformation. Temps mural et CPU sont conservés séparément dans les données brutes.
+## Barrière G-G2
 
-Vérifications de complétude : 4 800 lignes message; 400 observations pour chaque cellule transformation-chaîne; 2 310 lignes segment; 200 codebooks; aucune image de remplacement. Les SHA du manifeste et du runner correspondent aux valeurs gelées. Toutes les tentatives infaisables restent dans le dénominateur.
+Le seuil gelé est une borne basse de l’IC à 95 % d’au moins 0,80 pour au moins deux des trois familles de transformations. Une seule famille le satisfait : le redimensionnement-restauration (borne basse P4 : 0,8198). La rotation (0,0867) et le recadrage (0,0000) échouent au seuil.
 
-Deux interruptions logicielles préalables à cette exécution complète sont consignées dans `p4_E_geo_incidents.json` et dans le protocole. La première n’a ouvert aucun pixel; la seconde s’est arrêtée à la première écriture de codebook. Elles ne sont pas comptées parmi les mesures. L’évaluation complète utilise le correctif gelé avant la reprise et les mêmes sélections déterministes.
+**Verdict G-G2 : orange** — une seule famille sur trois atteint le seuil. Selon le point d’arrêt du protocole, cette barrière n’autorise pas l’ouverture de C-geo ou F-geo. La présente mesure étant post hoc, ce verdict est un diagnostic exploratoire et ne remplace pas une validation confirmatoire préenregistrée.
 
-## Conclusion circonscrite
+### Incident C-geo après le verdict
 
-Sur ce jeu exploratoire BOWS2-C et ces conditions, la recherche P4 ne lève pas la limite géométrique sous rotation ou crop; P3 reste légèrement meilleur en récupération exacte. La réduction-restauration demeure le cas favorable, avec 93 % de récupération exacte sous P4. Ces résultats justifient de garder la synchronisation géométrique comme limite du profil actuel. Ils ne constituent ni une validation confirmatoire, ni une preuve d’impossibilité d’améliorations avec un autre descripteur ou un protocole de synchronisation différent.
+Après l’évaluation G-G2, C-geo a été ouvert à 09:30:23 UTC. Avant que le garde-fou orange soit visible dans le runner, une première exécution s’est arrêtée avec 184/200 codebooks; une reprise a créé les 200 codebooks et quatre archives d’affectation. Des sorties partielles contiennent 14 tentatives message complètes au sens du format de ligne (11 pour le message répété, une pour chacun des trois autres messages), sans couverture suffisante pour une estimation. Elles ne constituent pas une mesure P4 exploitable et sont exclues des résultats. Le point d’arrêt orange est maintenant appliqué : C-geo ne sera pas relancé et F-geo reste fermé. Les artefacts partiels et les interruptions sont conservés dans `results/step2/geometry/p4_C_geo_*` et détaillés dans `results/step2/geometry/p4_C_geo_incidents.json`.
 
-## Artefacts
+## Coût P4 et artefacts
 
-- `results/step2/geometry/p4_E_geo_message_trials.csv` — 4 800 résultats message.
-- `results/step2/geometry/p4_E_geo_segment_trials.csv.gz` — 2 310 résultats segment.
-- `results/step2/geometry/p4_E_geo_summary.csv` — résumé par famille, transformation et chaîne.
-- `results/step2/geometry/p4_E_geo_complete_metrics.csv` — métriques complètes au niveau symbole et P4.
-- `results/step2/geometry/p4_E_geo_metadata.json` — statut, provenance, paramètres et empreintes.
-- `results/step2/geometry/p4_E_geo_incidents.json` — journal des incidents préalables.
+Le nombre moyen de candidats P4 par tentative est de 1 175,0 pour le recadrage, 766,3 pour la rotation et 22,2 pour le redimensionnement. Le temps CPU moyen par tentative est respectivement de 3,61 s, 2,57 s et 0,65 s. Aucune cellule message-transformation n’a dépassé le budget CPU actif gelé de 60 s.
+
+- `results/step2/geometry/p4_E_geo_metadata.json` — statut, commit, runner et manifeste.
+- `results/step2/geometry/p4_E_geo_gallery_trials.csv` — tirages de galerie et faisabilité.
+- `results/step2/geometry/p4_E_geo_message_trials.csv` — résultats message.
+- `results/step2/geometry/p4_E_geo_segment_trials.csv.gz` — résultats segment et symbole.
+- `results/step2/geometry/p4_E_geo_summary.csv` — taux et IC bootstrap.
+- `results/step2/geometry/p4_E_geo_complete_metrics.csv` — faisabilité, exactitude segment, effacements, erreurs et coût.
+- `results/step2/geometry/p4_E_geo_incidents.json` — journal des deux lancements avortés.

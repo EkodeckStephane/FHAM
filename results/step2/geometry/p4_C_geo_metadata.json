@@ -1,0 +1,18 @@
+{
+  "status": "stopped_at_orange_gate_partial_outputs_excluded",
+  "dataset": "C_geo",
+  "scope": "post-hoc exploratory; sealed set opened once after P4 freeze",
+  "manifest_sha256": "02920231b222ec61b192d364c308af37f87fd19e92eb8159e8b3bca212e04fbe",
+  "runner_sha256": "57f0ea2301ed169e1e1bf26185e9961a6a7ab7a0e563c2daec85d72ca520bfef",
+  "git_commit": "fd85a5442d97a34703330b0f11de8d6fd6df9c56",
+  "pixels_opened": true,
+  "pixels_opened_utc": "2026-11-23T09:35:35Z",
+  "attempts_per_message": 100,
+  "partial_outputs_excluded": true,
+  "codebooks_written": 200,
+  "assignment_archives_written": 4,
+  "message_rows_written": 168,
+  "complete_attempt_groups": 14,
+  "stop_gate": "G-G2 orange; do not resume C_geo or open F_geo",
+  "stop_guard_runner_sha256": "42789d90788e78e454513fd16e7f6676bacc61a892328f2426d42ade6ca0d5e1"
+}

@@ -90,3 +90,9 @@ La transformation exacte ne sauve pas la récupération après recadrage ou rota
 - `scripts/audit_step2_nonvpn_reference.py` — empreintes et correspondances d’archives.
 - `scripts/run_step2_geometry_development.py` et `scripts/summarize_step2_geometry_development.py` — mesures G sur D-b.
 - `results/step2/security/`, `results/step2/detection/` et `results/step2/geometry/` — données, résumés et manifestes.
+
+## Addendum du 23 novembre 2026 — extension P4 post hoc sur E-geo
+
+Le point d’arrêt G-2 ci-dessus décrit la décision prise après l’analyse initiale de D-b. À la demande de l’auteur, une extension exploratoire P4 a ensuite été menée séparément sur D-b, puis sur E-geo selon le protocole post hoc `protocols/FHAM_etape_2_extension_posthoc_P4_sealed_2026-11-21.md`. Ces mesures ne sont pas confirmatoires et ne modifient pas rétrospectivement le protocole v1.2.
+
+Le passage E-geo terminé le 23 novembre donne une borne basse bootstrap de 0,8198 pour le redimensionnement-restauration, de 0,0867 pour la rotation et de 0 pour le recadrage-restauration. Une seule des trois familles géométriques atteint le seuil G-G2 (borne basse ≥ 0,80). Le verdict est **orange**. C-geo a été ouvert avant que le garde-fou orange soit visible dans le runner. Une reprise a ensuite produit 200 codebooks, quatre archives d’affectation et 14 tentatives partielles; ces données sont exclues de toute estimation P4. Le point d’arrêt est désormais appliqué : C-geo ne sera pas relancé et F-geo reste fermé. Les artefacts sont conservés dans `results/step2/geometry/p4_C_geo_*`; les incidents et l’état réel des fichiers sont consignés dans `results/step2/geometry/p4_C_geo_incidents.json`.

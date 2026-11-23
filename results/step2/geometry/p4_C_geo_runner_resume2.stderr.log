@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "C:\Users\User\Documents\Articles\FHAM_HC_CIS\FHAM\scripts\run_step2_p4_posthoc.py", line 625, in <module>
+    main()
+  File "C:\Users\User\Documents\Articles\FHAM_HC_CIS\FHAM\scripts\run_step2_p4_posthoc.py", line 598, in main
+    rows, _ = _new_dataset_trials(args.dataset, args.attempts_per_message)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\Documents\Articles\FHAM_HC_CIS\FHAM\scripts\run_step2_p4_posthoc.py", line 453, in _new_dataset_trials
+    raise RuntimeError(
+RuntimeError: C_geo pixels were already opened; refusing a rerun after the frozen G-G2 stop gate

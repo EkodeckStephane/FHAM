@@ -54,3 +54,7 @@ Le premier lancement du runner E-geo a marqué à tort le manifeste comme ouvert
 ### Incident d’écriture des codebooks pendant l’ouverture d’E-geo — 23 novembre 2026
 
 Après le correctif du filtre, le deuxième lancement a sélectionné les quatre messages attendus et a commencé l’ouverture effective d’E-geo. Il s’est arrêté à l’écriture du premier codebook, car le sous-dossier local propre à E-geo n’était pas créé. Aucun essai de message ni aucune mesure de résultat n’a été terminé. Le correctif crée le parent immédiat du codebook avant l’écriture; les paramètres, les manifestes, les messages, les graines et l’ordre des évaluations restent gelés. L’exécution reprend E-geo depuis les artefacts locaux présents et les mêmes tirages déterministes. Cette interruption et son empreinte de code sont conservées dans `p4_E_geo_incidents.json`.
+
+### Point d’arrêt après E-geo — 23 novembre 2026
+
+Le protocole source de l’Étape 2 et son addendum gelé prévalent sur l’ordre exploratoire E/C/F de cette extension : si G-G2 n’est pas vert sur E-geo, l’arrêt s’applique avant C-geo et F-geo. G-G2 est orange (une seule des trois familles atteint la borne basse de 0,80). Aucun calcul d’efficacité ne doit être poursuivi sur C-geo ou F-geo. C-geo a toutefois été ouvert avant que le garde-fou d’arrêt soit appliqué; ses codebooks, archives d’affectation et sorties partielles sont journalisés séparément, exclus des estimations et conservés comme incident. C-geo ne doit pas être relancé; F-geo reste fermé.

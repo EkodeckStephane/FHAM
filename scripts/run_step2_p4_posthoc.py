@@ -449,6 +449,10 @@ def _new_dataset_trials(dataset, attempts_per_message):
     run_state = OUT / f"p4_{dataset}_metadata.json"
     if run_state.exists():
         prior = json.loads(run_state.read_text(encoding="utf-8"))
+        if dataset == "C_geo" and prior.get("pixels_opened"):
+            raise RuntimeError(
+                "C_geo pixels were already opened; refusing a rerun after the frozen G-G2 stop gate"
+            )
         if prior.get("status") == "completed":
             raise RuntimeError(f"{dataset} has already been opened and completed; refusing a second evaluation")
     git_commit = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, check=True,

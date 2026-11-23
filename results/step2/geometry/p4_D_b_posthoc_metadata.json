@@ -1,0 +1,50 @@
+{
+  "scope": "post-hoc P4 extension; exploratory, not confirmatory",
+  "protocol": "protocols/FHAM_etape_2_extension_posthoc_P4_sealed_2026-11-21.md",
+  "dataset": "D_b_posthoc",
+  "attempts_per_message": 100,
+  "timing_definition": {
+    "p4_budget": "60 seconds active process CPU time per message-transformation cell, shared across both segments; ORB/RANSAC included",
+    "reported": "P4 CPU seconds and wall-clock seconds, separately"
+  },
+  "p4_grid_candidates_per_segment": 625,
+  "p4_max_candidates_per_message": 1250,
+  "p4_grid": {
+    "angle_deg": [
+      -0.5,
+      -0.25,
+      0.0,
+      0.25,
+      0.5
+    ],
+    "relative_scale": [
+      0.9,
+      0.95,
+      1.0,
+      1.05,
+      1.1
+    ],
+    "dx_base_px": [
+      -4,
+      -2,
+      0,
+      2,
+      4
+    ],
+    "dy_base_px": [
+      -4,
+      -2,
+      0,
+      2,
+      4
+    ]
+  },
+  "D_b_manifest_sha256": "73d14ff3b9ce16c6668224215491b72a8995b72e4e555c9d1925078b5097ad9f",
+  "sealed_manifest_sha256": null,
+  "sealed_pixels_opened": false,
+  "runner_sha256": "4e421c9e9ce64e7de443f3a8b5c67e9954add4bbeaa8fd8ad6e70e5e236887db",
+  "git_commit": "22c822a29c0cf3d6675cb8bf793917a13f1fe388",
+  "grid_unique_candidates": 625,
+  "seed": 20261121,
+  "status": "completed"
+}

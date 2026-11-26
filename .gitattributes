@@ -1,0 +1,6 @@
+
+submission/SPIC_revision_2026-11/supplementary/FHAM_SPIC_Supplementary_Material_S2_Reproducibility_Artifact_revision_candidate_2026-11-24.zip filter=lfs diff=lfs merge=lfs -text
+*.pdf binary
+*.png binary
+*.tex text eol=lf
+*.md text eol=lf

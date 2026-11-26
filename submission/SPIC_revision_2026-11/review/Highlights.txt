@@ -1,0 +1,5 @@
+FHAM formulates bounded injective assignment for fixed-cover hash mapping.
+Hall feasibility links symbol multiplicity to local hash-location capacity.
+At B=2, AFR is 100% through 200 symbols on controlled covers.
+Recovery reaches 94.00-98.75%; records cost 2.5-2.6x direct AES-GCM.
+V1 rejects protocol and message alterations; tested traffic AUC is 1.00.

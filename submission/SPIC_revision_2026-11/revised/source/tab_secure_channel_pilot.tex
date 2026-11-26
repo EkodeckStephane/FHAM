@@ -1,0 +1,13 @@
+\begin{tabular}{p{0.45\linewidth}p{0.47\linewidth}}
+\toprule
+\textbf{Protocol check} & \textbf{Observed outcome} \\
+\midrule
+V1 mutation classes & 0/18,000 accepted across 18 classes \\
+Single-bit record alterations & 58,880/58,880 rejected \\
+Message-integrity alterations & 20,000/20,000 rejected \\
+Restart and rollback trials & 1,000; 0 old-snapshot acceptances with trusted monotonic epoch \\
+Identity-key compromise & Captured records remained undecryptable; pinned-peer substitution was rejected \\
+Authenticated handshake & 338 bytes, including frame overhead \\
+Ephemeral-key memory erasure & Physical zeroization is not claimed for the Python implementation \\
+\bottomrule
+\end{tabular}

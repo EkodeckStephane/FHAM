@@ -1,0 +1,24 @@
+\begin{tabular}{lrrrrr}
+\toprule
+\textbf{Method} & \textbf{Length} & \textbf{Success} & \textbf{Mean $D_1$} & \textbf{Mean Max $|\delta|$} & \textbf{Time (ms)} \\
+\midrule
+Exact matching (A1) & 50 & 20.00\% & 0.00 & 0.00 & 0.10 \\
+Exact matching (A1) & 100 & 1.25\% & 0.00 & 0.00 & 0.11 \\
+Exact matching (A1) & 200 & 0.00\% & -- & -- & 0.10 \\
+Greedy & 50 & 100.00\% & 1.98 & 0.81 & 2.68 \\
+Greedy & 100 & 100.00\% & 5.94 & 1.14 & 5.51 \\
+Greedy & 200 & 100.00\% & 26.31 & 2.11 & 10.60 \\
+Global $L_1$ & 50 & 100.00\% & 1.91 & 0.81 & 1.32 \\
+Global $L_1$ & 100 & 100.00\% & 5.74 & 1.14 & 2.68 \\
+Global $L_1$ & 200 & 100.00\% & 23.73 & 1.76 & 4.76 \\
+Bottleneck (A4) & 50 & 100.00\% & 1.91 & 0.80 & 1.70 \\
+Bottleneck (A4) & 100 & 100.00\% & 5.74 & 1.01 & 4.37 \\
+Bottleneck (A4) & 200 & 100.00\% & 23.76 & 1.25 & 8.53 \\
+Random feasible (A6) & 50 & 100.00\% & 62.71 & 2.00 & 5.70 \\
+Random feasible (A6) & 100 & 100.00\% & 121.19 & 2.00 & 11.12 \\
+Random feasible (A6) & 200 & 95.00\% & 248.29 & 2.00 & 21.06 \\
+Stability-aware & 50 & 100.00\% & 13.51 & 1.52 & 25.23 \\
+Stability-aware & 100 & 100.00\% & 30.23 & 1.84 & 51.38 \\
+Stability-aware & 200 & 100.00\% & 90.56 & 2.00 & 99.94 \\
+\bottomrule
+\end{tabular}

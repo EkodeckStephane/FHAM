@@ -3,25 +3,38 @@
 Reproducible implementation, tests, dataset manifests, and experimental
 results underlying the FHAM manuscript.
 
-**This repository contains the reproducible artefact only** (code, tests,
-configuration, dataset manifests, generated figures, and raw/processed
-results). The manuscript itself, is
-maintained and submitted separately and is **not** included here.
+This repository contains the FHAM implementation, experimental evidence,
+and the original and revised SPIC manuscript package under
+[`submission/SPIC_revision_2026-11/`](submission/SPIC_revision_2026-11/).
+The package includes the revised article, original article, point-by-point
+response, cover letter, blue-only comparison, Highlights, and supplementary
+materials. The large reproducibility archive is delivered through Git LFS.
 
 ## Table of contents
 
 1. [What FHAM is](#what-fham-is)
-2. [Key results](#key-results)
-3. [Repository layout](#repository-layout)
-4. [Installation](#installation)
-5. [Quick start](#quick-start)
-6. [Full reproduction and external datasets](#full-reproduction-and-external-datasets)
-7. [Pipeline stages and scripts](#pipeline-stages-and-scripts)
-8. [Tests](#tests)
-9. [Reproducibility guarantees](#reproducibility-guarantees)
-10. [Known limitations (by design)](#known-limitations-by-design)
-11. [Authors](#authors)
-12. [License](#license)
+2. [SPIC manuscript and revision package](#spic-manuscript-and-revision-package)
+3. [Key results](#key-results)
+4. [Repository layout](#repository-layout)
+5. [Installation](#installation)
+6. [Quick start](#quick-start)
+7. [Full reproduction and external datasets](#full-reproduction-and-external-datasets)
+8. [Pipeline stages and scripts](#pipeline-stages-and-scripts)
+9. [Tests](#tests)
+10. [Reproducibility guarantees](#reproducibility-guarantees)
+11. [Known limitations (by design)](#known-limitations-by-design)
+12. [Authors](#authors)
+13. [License](#license)
+
+
+## SPIC manuscript and revision package
+
+The original article and its revised version are available in
+[`submission/SPIC_revision_2026-11/`](submission/SPIC_revision_2026-11/).
+The revision package includes the manuscript PDF and LaTeX source, response
+to reviewers, cover letter, blue-only diff, Highlights, Supplementary Material
+S1, and S2 evidence archives. See the package README for file roles and
+reproduction instructions.
 
 ## What FHAM is
 
@@ -56,14 +69,15 @@ communication protocol, nor a novel robust image hash.
 
 ## Key results
 
-All numbers below are produced by the pipeline in this repository from raw,
-version-controlled results (`results/*.csv`, `results/*_raw.csv`); none are
-hand-typed into the manuscript. See
-[Reproducibility guarantees](#reproducibility-guarantees).
+Each quantitative statement below is traceable to version-controlled results
+or to the corresponding S2 evidence archive. See
+[Reproducibility guarantees](#reproducibility-guarantees) and the
+[SPIC revision package](submission/SPIC_revision_2026-11/README.md).
 
 | Question | Result |
 |---|---|
 | Assignment success at 200 bytes, `B=2` | **100%** on 8 controlled images, **74.4%** on a 219-image stress corpus |
+| Message-family effect at length 200, `B=2` | **100%** for uniform bytes and printable ASCII, **12.5%** for templated text, and **0%** for repeated bytes |
 | Same protocol, Abdulsattar (exact match) | 0% / 0.46% |
 | Same protocol, WYSAWIS cover adequacy | 37.5% / 50.7% |
 | Is the gain from the assignment rule or the descriptor? | Causal ablation across 4 codebooks (3 descriptors + Abdulsattar's own): exact matching fails on **all four** (0%); switching only the assignment rule restores **92.5-100%** on all four |
@@ -71,104 +85,32 @@ hand-typed into the manuscript. See
 | Protected envelope size at 200 bytes | Unbounded serialization sweep: compact 549.40 bytes (2.27x direct AES-GCM). Under the principal `B=2` assignment, a paired 80-message cohort is feasible in 80/80 cases and averages 549.88 bytes (2.27x direct). Traffic-shaped: fixed 852 bytes for all tested lengths up to 200 bytes. Direct AES-GCM is smaller in all these measurements. |
 | Does the envelope leak message length? | Compact: yes, raw size carries the full 2.32 bits at 5 tested lengths and 64-byte classes still leak 1.92 bits. Traffic-shaped fixed-capacity envelopes reduce the tested size-only leakage to 0.00 bits |
 | Robustness to transformations | Fixed-coordinate extraction from transformed pixels reaches no exact recovery across the 36-condition matrix. A separate closed-set pilot identifies 8/8 covers in a 219-image canonical gallery and recovers 40/40 messages per tested geometric transform using the retrieved canonical cover. |
-| Authenticated session pilot | Across 40 records: session-key agreement, exact recovery, rejection of cover substitution, persistent replay rejection, and rejection of altered signed offers each succeed in 40/40 trials. |
+| V1 authenticated-record and endpoint evaluation | 18,000 protocol mutations, 58,880 altered record bits, and 20,000 message-integrity alterations were rejected. Four local TCP/TLS profiles and the grouped TLS reference comparison achieved held-out AUC 1.00 under the reported conditions. |
 
 ## Security scope
 
-FHAM leaves each cover's pixels unchanged. An image-only observer therefore
-sees no per-image signal caused by pixel modifications during assignment.
-An unchanged aggregate distribution of transmitted covers also requires
-cover inclusion to be independent of message feasibility: selecting a cover
-only after a successful assignment, or suppressing failed transmissions, can
-make the observed cover distribution message-dependent. No image-only
-steganalysis classifier is claimed here.
+FHAM uses an unchanged reference image and an external authenticated record.
+For a fixed image, assignment preserves pixel values. Image-only
+classification under a cover-selection policy conditioned on message
+feasibility remains unmeasured because such selection can change the
+distribution of transmitted covers.
 
-The assignment record is protected with AES-256-GCM. The current associated
-The compact and shaped envelope baselines use a constant format label as
-associated data. A separate session profile now binds AES-GCM authentication
-to a canonical reference-image digest, a session identifier, and a sequence
-number. It derives session keys from ephemeral X25519 exchanges, authenticates
-key offers with Ed25519, and uses HKDF for key derivation. It requires the
-peer identity public keys to be provisioned or pinned by the application. A
-durable SQLite replay guard rejects duplicate and out-of-order records for
-registered sessions. The pilot exercised key agreement, cover substitution,
-altered offers, and replay rejection in 40/40 trials. It does not evaluate
-identity-key compromise.
+The V1 authenticated-record protocol binds the ordered catalogue digest and
+protocol parameters to ephemeral X25519 key agreement authenticated with
+Ed25519. Directional AES-GCM keys are derived with HKDF. Tests rejected
+18,000 protocol mutations across 18 classes, 58,880 single-bit record
+alterations, and 20,000 altered-message integrity attempts. Restart and
+rollback trials rejected stale records when supplied with an external trusted
+monotonic epoch. The prototype does not claim physical zeroization of
+ephemeral key material; identity-key provisioning and durable monotonic state
+remain deployment requirements.
 
-The reported H0/H1 classifier contrasts envelope-level features with
-matched-shape decoys. A separate synthetic transport pilot generates raw-TCP
-and TLS 1.3/TCP positive flows and scans reassembled TCP streams in the
-available NonVPN captures. The custom application marker appears in all 80
-raw-TCP positive flows and in none of the 80 TLS 1.3/TCP payload streams. Four
-of 5,398 background TCP flows contain the unversioned four-byte `FHAM`
-substring; none is a versioned candidate in the observed reassembled regions.
-Three other background streams hit the parser's 1-MB pending-buffer cap, so
-the latter result is limited to successfully reassembled regions.
-
-For each synthetic profile and message length, flow size and packet count
-individually fall within the central 10th--90th percentile range of the
-background distributions. This marginal overlap is not a trained classifier
-or an indistinguishability result. The background comprises labeled
-application sessions captured with unrelated applications closed, not mixed
-ordinary traffic. The positive captures are synthesized from controlled
-software exchanges; the PCAPs in that pilot are synthesized. A second pilot
-uses real loopback TCP sockets and a transparent byte-stream relay to compare
-FHAM with HTTP/1.1 JSON controls of exactly matched request/response sizes.
-Each transport profile has 240 pairs across three independent runs. On raw
-TCP, the versioned FHAM marker appears in all 240 FHAM streams and in none of
-the 240 controls. Under TLS 1.3, the marker appears in neither class; all 240
-pairs have equal directional TLS record-length sequences and wire-byte totals.
-
-A logistic-regression detector trained on two runs and tested on the third
-gets AUC 0.500 from byte/record-size features. A detector using relay
-read-chunk and timing features gets held-out AUCs of 0.461, 0.498, and 0.481
-for raw TCP, and 0.514, 0.536, and 0.514 for TLS 1.3. All six paired-bootstrap
-95% intervals include 0.50. Message length remains visible in total volume:
-TLS client streams are 720 bytes at 40 characters and 1,360 bytes at 200.
-These results measure a controlled local TCP-flow comparison against matched
-HTTP controls. A separate detector comparison uses 1,946 TLS flows extracted
-from 91 of the 109 captured NonVPN files. With each FHAM run and one third of
-the background capture files held out by group, byte totals alone give AUC
-0.650--0.739, record counts 0.768--0.857, and their combination
-0.830--0.892. First-four-record lengths give 0.883--0.921; combined counts,
-byte totals, and the first sixteen record lengths give 0.957--0.986 (mean
-0.976).
-The result establishes detectability for this concrete FHAM endpoint and
-framing against the available 2016 application-capture corpus. Matched HTTP
-controls remain at AUC 0.50 because their directional sizes and record
-sequences were matched to FHAM. Generalization to contemporary mixed-network
-traffic and other TLS stacks remains open. See
-[`reports/traffic_transport_pilot.md`](reports/traffic_transport_pilot.md) and
-[`reports/socket_tls_detectability_pilot.md`](reports/socket_tls_detectability_pilot.md),
-[`reports/nonvpn_tls_detectability.md`](reports/nonvpn_tls_detectability.md),
-and [`reports/schannel_tls_padding_pilot.md`](reports/schannel_tls_padding_pilot.md).
-
-A Schannel TLS 1.2 padding/fragmentation pilot samples record counts and
-directional volumes from a disjoint training subset of captures. Against 60
-held-out capture groups, the mean AUC for counts plus byte totals falls from
-0.929 to 0.781; adding those features to the first 16 record lengths yields
-AUC 0.955. The padding profile therefore reduces the tested size/count signal
-and leaves a TLS-record-length signal measurable.
-
-The fixed-size record profile reduces the tested payload-size leakage; it is
-not evidence of indistinguishability within ordinary network traffic.
-
-The communication-size baseline also sets a clear limit on the claim: direct
-AES-GCM transmission of the message is smaller than the measured FHAM records.
-FHAM is evaluated for its fixed-cover assignment question—whether the
-message's symbol multiplicities admit an injective bounded mapping, and the
-minimum-cost mapping when feasible—not as a byte-efficient replacement for
-direct encryption. Its controlled-codebook ablation shows the assignment
-gain relative to exact hash matching; it does not establish an end-to-end
-communication advantage over direct AES-GCM.
-
-Geometric recovery is evaluated through transformed-pixel decoding and
-canonical-cover retrieval. In the closed-set pilot, ORB/RANSAC identifies all
-8 transformed query covers in a 219-image gallery for both tested attacks;
-the receiver then recovers all 40 messages per attack from canonical copies.
-Decoding the inverse-warped pixels themselves remains at 0/40 exact recovery.
-The retrieval result depends on the correct canonical cover being present in
-the gallery and does not measure open-set rejection or near-duplicate covers.
+Network observation was evaluated on 12,800 local TCP/TLS sessions and a
+grouped comparison using 254 TLS NonVPN reference flows from 14 capture
+groups. Held-out AUC was 1.00 in the four specified local profiles and the
+reference comparison. These endpoint-observation results describe the tested
+features, splits, and reference corpus; they do not measure image-only
+steganalysis or establish transport concealment across other networks.
 
 ## Repository layout
 
@@ -219,8 +161,8 @@ FHAM/
 │                                   experiment inventory (all human-readable Markdown)
 ├── references/                    Bibliography audit trail (offline + online Crossref)
 ├── paper/                         Only `fig_*.png` and `cover/*.png` (generated figures
-│                                   and dataset image copies) — the manuscript itself is
-│                                   excluded from this repository, see `.gitignore`
+│                                   and dataset image copies) — the manuscript package is
+│                                   included under `submission/`
 ├── run_pipeline.py                Main orchestrator (paper-scale experiments)
 ├── reproduce.ps1 / reproduce.sh   One-shot reproduction scripts (Windows / Unix)
 ├── requirements.txt               Python dependencies
@@ -446,10 +388,9 @@ message-manifest coverage.
 - The compact auxiliary envelope leaks most message-length information
   through its raw size, even after fixed-class padding; the traffic-shaped
   envelope removes the tested size-only leakage at a substantial byte cost.
-- The ISCXVPN2016 baseline checks packet-local marker collisions only. No
-  FHAM-positive network traces, TCP-stream reassembly, flow/timing detection,
-  TLS encapsulation, image-only steganalysis, or identity-key lifecycle and
-  compromise study is included.
+- Image-only classification under message-conditioned cover selection is not measured.
+- The network results cover the specified endpoint profiles and TLS reference corpus.
+- Rollback protection assumes an external monotonic epoch; key provisioning and physical zeroization remain deployment concerns.
 - Geometric catalog recovery is a closed-set result over the bundled 219-image
   stress catalog; open-set rejection and near-duplicate references remain to
   be measured.

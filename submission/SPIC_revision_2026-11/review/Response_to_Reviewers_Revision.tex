@@ -1,0 +1,193 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{hyperref}
+\hypersetup{hidelinks}
+\usepackage{xurl}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{parskip}
+\usepackage{graphicx}
+\setlength{\emergencystretch}{2em}
+\newcommand{\revcomment}[1]{\par\medskip\noindent\textbf{Review concern:} #1\par\smallskip}
+\newcommand{\responsechanges}[1]{\par\noindent\textbf{Response and changes:} #1\par}
+\newcommand{\locations}[1]{\par\noindent\textbf{Locations:} #1\par}
+
+\newcommand{\evidence}[1]{\par\noindent\textbf{Evidence:} #1\par\smallskip}
+\begin{document}
+\begin{center}
+{\Large\bfseries Response to Reviewers}\\[0.5em]
+{\large Signal Processing: Image Communication --- Manuscript IMAGE-D-26-01586}\\[0.3em]
+{\large Bounded Intra-Cover Hash Assignment for Coverless Image Steganography}\\[0.3em]
+{\normalsize \today}
+\end{center}
+\hrule\vspace{1em}
+We thank the reviewers for their detailed comments. The revision clarifies the assignment problem and the relation between assignment feasibility, message recovery, and the surrounding communication architecture. It reports the message-family, record-cost, traffic, and geometric results with their evaluated conditions. Each reviewer comment is reproduced verbatim, followed by the response and changes, final manuscript locations, and supporting evidence.
+
+\paragraph{Overview of major changes.}
+The manuscript now presents FHAM as a bounded intra-cover assignment layer, defines the Hall-feasibility and global-optimization objectives, distinguishes assignment feasibility from recovered-message outcomes, and aligns each result with its population and configuration. The revision also expands the motivation, literature positioning, practical complexity discussion, record-cost analysis, communication threat model, and synchronization analysis.
+
+\paragraph{Positive results.}
+For raw-byte messages at $B=2$, assignment feasibility reaches 100\% through 200 symbols on eight controlled covers and 74.4\% at length 200 on 219 stress covers. At length 200, feasibility is 100\% for uniform-byte and printable-ASCII messages, 12.5\% for templated text, and 0\% for repeated-byte messages. A separate multi-corpus profile recovers 94.00--98.75\% of 100-byte messages under JPEG quality 75 and Gaussian noise $\sigma=2$, with cover-bootstrap uncertainty reported for each image group.
+
+\paragraph{Additional measured outcomes and evaluation scope.}
+Protected assignment records are 2.5--2.6 times the size of direct AES-GCM protection in the multi-corpus profile. Across two geometric cohorts, exact recovery is 0\%, 15\%, and 93\% after crop, rotation, and resize in one cohort, and 0.75\%, 10.50\%, and 89.75\% in the other. Rotation recovery also varies by message family. Image-only steganalysis remains an open empirical question, and the measured transport profiles retain observable traffic features.
+
+\begin{center}\small
+\begin{tabular}{p{0.30\linewidth}p{0.62\linewidth}}
+\toprule\textbf{Measure} & \textbf{Observed result}\\\midrule
+Assignment feasibility & 100\% through 200 symbols on controlled covers; 74.4\% at length 200 on stress covers.\\
+Message-family dependence & At 200 symbols, feasibility ranges from 0\% for repeated bytes to 100\% for uniform bytes and printable ASCII.\\
+Multi-corpus recovery & 94.00--98.75\% exact recovery; protected-record cost is 2.5--2.6 times direct AES-GCM.\\
+Geometric recovery & Two cohorts report crop/rotation/resize exact-recovery rates of 0/15/93\% and 0.75/10.50/89.75\%.\\
+\bottomrule\end{tabular}\end{center}
+
+\vspace{1em}\hrule\vspace{1em}
+\section*{Detailed point-by-point response}
+\section*{Reviewer 1}
+
+\subsection*{R1.1 --- Message/metadata overhead relationship}
+
+\revcomment{In Sections 3.2--3.4, the auxiliary metadata plays an important role in message reconstruction, while the proposed framework relies on location--residual records for auxiliary information transmission. It would be useful to further analyze the overhead relationship between the message and the auxiliary metadata, in order to clarify the practical communication efficiency of FHAM as an assignment layer.}
+\responsechanges{We compare source-message bytes, protected assignment-record bytes, direct AES-GCM bytes, and fixed-capacity shaped-record size for the stated profiles. The discussion relates record overhead to message length and reports the measured cost alongside recovery results.}
+\locations{Protected Assignment-Record Representation, Section~5.17, pp.~32--34; multi-corpus recovery profile, Section~5.16, pp.~31--32}
+\evidence{the protected-record size tables and matching cohort summaries}
+
+\subsection*{R1.2 --- Effective payload, overhead, and Hall feasibility}
+
+\revcomment{In the experimental section, the relationship between effective payload and auxiliary metadata overhead is not sufficiently analyzed. Although Table 14 reports the metadata size for a 200-character message, a further comparison of message size, metadata size, and effective payload efficiency would strengthen the evaluation. In addition, Table 13 shows that different message distributions can substantially affect assignment success; therefore, the authors are encouraged to further discuss the relationship between character-frequency distributions and Hall-type feasibility.}
+\responsechanges{The revision distinguishes source-message length, protected-record length, and transmitted record size, and relates feasibility to symbol multiplicities and neighboring hash-location capacity. It reports all four message-family outcomes and keeps the multi-corpus profile separate from B=2 results.}
+\locations{Metrics and Terminology, Section~5.2, p.~17; Message Family and Length Coverage, Section~5.14; record-size results, Section~5.17, pp.~32--34}
+\evidence{the message-family and protected-record tables}
+
+\subsection*{R1.3 --- Geometry, synchronization, and scope}
+
+\revcomment{In the robustness experiments in Section 5, geometric transformations have a noticeable impact on message recovery performance, particularly for rotation and crop-restore operations. The authors are encouraged to further summarize this limitation in the Conclusion and discuss its relationship with location synchronization and the assumption of consistent covers at the sender and receiver sides, thereby providing a clearer characterization of the applicable scope of the proposed method.}
+\responsechanges{The conclusion describes the shared canonical-cover assumption and reports both geometric cohorts. Exact recovery was 0\%, 15\%, and 93\% after crop, rotation, and resize in the first cohort, and 0.75\%, 10.50\%, and 89.75\% in the second; rotation recovery in the second ranged from 0\% for natural text to 36\% for repeated-byte messages.}
+\locations{Location Detection Errors and Synchronization, Section~5.32, pp.~48--50; Conclusion, p.~51}
+\evidence{the two geometric-cohort summaries and transformation trial data in Supplementary Material S2}
+
+\subsection*{R1.4 --- Suggested related-work DOIs}
+
+\revcomment{Some related works should be discussed, such as \url{10.1109/TDSC.2020.3004708}, \url{10.1109/TCSVT.2023.3278310}, \url{10.1109/TCSVT.2024.3510355}, \url{10.1109/TMM.2024.3415415}}
+\responsechanges{The work identified by DOI \url{10.1109/TDSC.2020.3004708} allocates payload across multiple images, so it is adjacent image-steganography research; we cite it to distinguish that setting from FHAM's fixed single-cover assignment. The other three suggested papers address screen-shooting watermark recovery or deepfake-video detection. Those tasks do not study hash-location assignment, Hall feasibility, or FHAM's communication model, so they fall outside this paper's scope.}
+\locations{Related Work, Section~2.2, p.~6}
+\evidence{The four DOI/title records and the supplied PDF files.}
+
+\section*{Reviewer 2}
+
+\subsection*{R2.1 --- Motivation and scientific significance}
+
+\revcomment{The motivation of this paper is not clear. This work focuses on intra cover hash assignment within a single cover image, but the scientific significance of this problem is not clearly articulated. The authors should analysis the practical limitations in existing approaches, identify the research gaps that can be filled by solving this assignment problem, and explicitly justify why this problem deserves dedicated investigation.}
+\responsechanges{We rewrote the motivation around the exact-match limitation: repeated-symbol demand can exceed the available exact-hash locations even when other cover locations remain. The manuscript formulates bounded injective assignment, derives Hall feasibility, and states the problem's relation to retrieval, generation, and transport.}
+\locations{Introduction, pp.~2--4; Positioning and Research Gap, Section~2.4, pp.~7--8}
+\evidence{the revised introduction and related-work comparison}
+
+\subsection*{R2.2 --- Security evaluation of the complete chain}
+
+\revcomment{Secret information is not embedded within image pixels in this paper. Instead, the image merely serves as a reference dictionary for hash lookup, while the actual secret payload is carried by external auxiliary metadata protected by AES GCM. The paper lacks systematic security evaluation tailored to this specific architecture. Analysis of security risks over the complete communication chain should be added.}
+\responsechanges{We expanded the security analysis with the tested V1 authenticated-record protocol. Eighteen mutation classes (1,000 trials each), 58,880 single-bit record alterations, and 20,000 message-integrity alterations were rejected. Across 1,000 restart/rollback trials, no old snapshot was accepted with an external trusted monotonic epoch; identity-key disclosure did not decrypt captured records in the tested configuration. Four endpoint-observed TCP/TLS profiles reconstructed every genuine FHAM message and yielded held-out traffic-detection AUC 1.00. The manuscript states the remaining trust assumptions: authenticated identity/catalogue provisioning, external rollback state, and the Python key-zeroization boundary.}
+\locations{Threat Model and Scope, Section~3.3 and Table~3, pp.~8--9; Authenticated Record Protocol and Session Evaluation, Section~5.25, pp.~41--42; Conclusion, p.~51; Supplementary Material S1, V1 protocol and transport sections}
+\evidence{V1 security summary and mutation trials, endpoint-detection summaries and held-out predictions in the companion S2 security-and-endpoint evidence archive}
+
+\subsection*{R2.3 --- State architecture in abstract and introduction}
+
+\revcomment{Manuscript writing could improvement. The critical design that secret information resides in external metadata and no secret is carried by the image itself should be explicitly stated in the abstract and the opening paragraph of the introduction, to prevent misinterpretation by readers.}
+\responsechanges{The first sentences of the abstract and introduction state that the shared image remains unchanged and serves as a hash-location reference, while reconstruction data are carried in an external protected record. The abstract defines FHAM as an assignment layer.}
+\locations{Abstract, p.~1; opening paragraph of the Introduction, p.~2}
+\evidence{the abstract and opening paragraph of the introduction}
+
+\subsection*{R2.4 --- Distinguish assignment success from message recovery}
+
+\revcomment{The metric assignment success rate is extensively used throughout the paper. It only evaluates whether symbol to location assignment can be accomplished on the original distortion free cover, and does not equate to successful message recovery after channel transmission. This distinction may be easily confused by readers. Explanations differentiating these two concepts should be added across the manuscript to clarify the true meaning and applicable scope of this metric.}
+\responsechanges{We define assignment feasibility and the Assignment Feasibility Rate (AFR) on the original preprocessed cover, separately from exact-message recovery after channel or transformation effects. The held-out cross-corpus evaluation shows the distinction directly: assignment feasibility was 100\% across the tested cells, while exact recovery was 735/57,888 trials (1.27\%).}
+\locations{Metrics and Terminology, Section~5.2, p.~17; Held-Out Cross-Corpus Transformation Evaluation, Section~5.30, p.~46; Conclusion, p.~51}
+\evidence{the metrics definition and held-out transformation results in Supplementary Material S2}
+
+\section*{Reviewer 3}
+
+\subsection*{R3.1 --- Scope and layer responsibilities}
+
+\revcomment{The paper repeatedly emphasizes that FHAM serves as an intermediate assignment layer rather than a complete steganographic communication protocol. Nevertheless, certain statements in the abstract and introduction may mislead readers into treating it as an end-to-end coverless image steganography system. I suggest reinforcing this boundary at the beginning of the abstract and the contributions section, and explicitly distinguishing the responsibilities of the assignment layer, feature descriptors, and transmission protocols.}
+\responsechanges{The abstract and introduction identify the shared unchanged image as a hash-location reference and the external AES-256-GCM record as the carrier of reconstruction data. The manuscript defines FHAM's assignment-layer role and distinguishes it from descriptor generation and the surrounding communication protocol.}
+\locations{Abstract, p.~1; Introduction and Contributions, pp.~2--4}
+\evidence{the revised abstract, introduction, and contributions}
+
+\subsection*{R3.2 --- Practical cost of Hall feasibility}
+
+\revcomment{Engineering implementation of the Hall-theorem-based feasibility criterion is insufficiently discussed. Only theoretical necessary-and-sufficient conditions are provided, while fast-verification implementations for large-scale message scenarios are absent. Inferring feasibility solely by solving the assignment problem incurs considerable computational cost. I recommend adding a brief analysis of the computational cost of this criterion in practical engineering deployments.}
+\responsechanges{We added a practical complexity discussion for the aggregated value network and distinguish a feasibility-only maximum-flow check from the implemented minimum-cost assignment solver. The section gives the network-size bound, a conservative solver complexity, and implementation-specific timing results.}
+\locations{Formal Assignment Model, bounded feasibility discussion, pp.~10--11; solver comparison in Results, Section~5.5}
+\evidence{the bounded-feasibility analysis and solver timing results in Supplementary Material S2}
+
+\subsection*{R3.3 --- Suggested robust-feature references}
+
+\revcomment{For hash-feature robustness in coverless image steganography, I suggest citing ``From simple to complex scenes: Learning robust feature representations for accurate human parsing'' and ``Mask-guided mamba fusion for drone-based visible-infrared vehicle detection''. These two papers investigate robust feature learning and cross-modal feature fusion under complex scenes. Since the FHAM assignment framework suffers severely from geometric transformations, feature-enhancement ideas from these references may be adopted to improve hash descriptor resilience against rotation and cropping and mitigate performance degradation caused by fixed block coordinates.}
+\responsechanges{We cite both works as task-specific learned-feature research that may inform future descriptor design. Their semantic human-parsing and visible-infrared detection settings provide context for robustness research; the manuscript characterizes FHAM's fixed block-hash representation and geometric sensitivity on its own evidence.}
+\locations{Related Work, Section~2.1, p.~5; geometric limitation, Sections~5.32 and 6, pp.~48 and 50--52}
+\evidence{the cited source papers and the geometric robustness results}
+
+\subsection*{R3.4 --- Steganalysis of the cover image}
+
+\revcomment{The security analysis exhibits noticeable limitations. Only traffic leakage from auxiliary metadata envelopes is evaluated, whereas steganographic security -namely steganalysis detection performance when an adversary observes only the cover image - is completely unaddressed. I recommend adding discussions on whether FHAM introduces detectable statistical biases into cover images.}
+\responsechanges{For each fixed reference image, assignment preserves every pixel value across messages, so the assignment operation itself introduces no pixel-level signal. We now distinguish this invariance from selection effects: choosing covers according to assignment feasibility can change the distribution of transmitted images. The manuscript describes that condition and bounds the result to the fixed-cover image representation; message-conditioned image-only classification remains unmeasured. The V1 network experiments are reported separately and show AUC 1.00 for the tested local TCP/TLS profiles.}
+\locations{Threat Model and Scope, Section~3.3 and Table~3, pp.~8--9; Authenticated Record Protocol and Session Evaluation, Section~5.25, pp.~41--42; Conclusion, p.~51; Supplementary Material S1, endpoint-observed transport detectability}
+\evidence{pixel-invariance statement, cover-selection risk analysis, and endpoint-detection results in the revised manuscript and the companion S2 security-and-endpoint evidence archive}
+
+\subsection*{R3.5 --- Suggested watermarking/deepfake reference}
+
+\revcomment{Regarding steganographic detection, watermarking and security evaluation for hidden signals, I advise including ``Focus on Finding Deepfakes: A Robust Proactive Detection Method Based on Orthogonal Moment Watermarking''. This work studies proactive watermarking and deepfake detection approaches. As the current paper only examines envelope-related traffic leakage and lacks risk assessment for the cover itself, its evaluation paradigm can be referenced to enrich discussions on statistical leakage risks of FHAM-processed cover images.}
+\responsechanges{The suggested orthogonal-moment paper studies proactive watermark-based deepfake forensics. That task does not evaluate image-only steganalysis of FHAM's unchanged reference cover, so we do not cite it as evidence for FHAM security. We clarify the distinction between pixel invariance and image-only detectability in our threat model. The threat model distinguishes pixel invariance from image-only steganalysis and identifies the latter as an unevaluated security question.}
+\locations{Threat Model and Scope, Section~3.3, pp.~8--9; Conclusion, p.~51}
+\evidence{The task described in the reviewer comment and the revised threat-model discussion.}
+\subsection*{R3.6 --- Quantitative keypoint detection baseline}
+
+\revcomment{Experiments on repetition-based error correction demonstrate that such codes cannot cope with geometric distortions such as rotation and cropping, and the paper merely mentions future integration of keypoint-based synchronization. I suggest adding quantitative analysis in the experimental section to report the required keypoint detection success rate for viable combination with the FHAM assignment model, establishing reference baselines for follow-up research.}
+\responsechanges{We added a quantitative synchronization analysis. Under an explicit independent-detection model with perfect correspondence and stable hashes, a 95\% exact-message target requires per-location rates of 99.872\%, 99.949\%, 99.974\%, and 99.987\% for messages of 40, 100, 200, and 400 locations. The held-out image evaluation reports registration rates alongside exact-message recovery.}
+\locations{Held-Out Cross-Corpus Transformation Evaluation, p.~46; Location Detection Errors and Synchronization, Section~5.32, pp.~48--49}
+\evidence{the synchronization model and held-out registration summaries in Supplementary Material S2}
+
+\subsection*{R3.7 --- Message-distribution dependence}
+
+\revcomment{Performance discrepancies induced by different message distributions are not highlighted in the abstract or conclusion. The system fails rapidly for adversarial repeated-byte messages, yet the abstract only reports results for general-purpose messages, which may mislead readers regarding effective capacity. I propose adding one sentence in the abstract to state that practical capacity heavily depends on the statistical multiplicity of symbols within transmitted messages.}
+\responsechanges{The abstract and conclusion report the B=2 message-family results: at length 200, feasibility is 100\% for uniform-byte and printable-ASCII messages, 12.5\% for templated text, and 0\% for repeated-byte messages. The separate multi-corpus recovery configuration is reported with its own message-level results. The abstract and conclusion report the B=2 message-family results: at length 200, feasibility is 100\% for uniform-byte and printable-ASCII messages, 12.5\% for templated text, and 0\% for repeated-byte messages.}
+\locations{Abstract, p.~1; Message Family and Length Coverage, Section~5.14, p.~28; Conclusion, p.~51}
+\evidence{the message-family table and the multi-corpus recovery table}
+
+\subsection*{R3.8 --- Suggested chaotic-encryption references}
+
+\revcomment{For discussions on image/video chaotic encryption, key management and auxiliary metadata protection, please cite ``A 3D memristive cubic map with dual discrete memristors: design, implementation, and application in image encryption'', ``Encrypt a Story: A Video Segment Encryption Method Based on the Discrete Sinusoidal Memristive Rulkov Neuron'', and ``Chaos-Based Video Encryption Techniques: A Review''. Since this work protects assignment metadata with AES-GCM, short discussions on alternative metadata encryption schemes drawing upon these chaotic-encryption references can broaden analytical perspectives on communication-layer security.}
+\responsechanges{We cite the three works as multimedia-encryption research and explain that AES-GCM is the mechanism evaluated for the assignment record. The discussion identifies authentication, nonce handling, and key management as the criteria for a future record-specific comparison.}
+\locations{Related Work, Section~2.1, p.~5; Threat Model and Scope, Section~3.3, pp.~8--9}
+\evidence{the cited encryption papers and the AES-GCM record description}
+
+\subsection*{R3.9 --- Fixed lambda and distribution shift}
+
+\revcomment{The stability-aware cost function is tested only over discrete sampled $\lambda$ values, and adaptive $\lambda$-selection strategies are not discussed. I recommend briefly describing potential performance-degradation risks when fixing $\lambda=0.75$ under distribution shifts between development and validation datasets.}
+\responsechanges{We report the sampled lambda grid and distinguish development from validation transformations. The revised discussion presents lambda=0.75 as the operating point for the evaluated data and explains how message family, cover corpus, or channel shifts may change the accuracy-displacement trade-off.}
+\locations{Stability-Aware Cost and Lambda Selection, Section~5.8, pp.~22--24; descriptor-stability result, p.~30}
+\evidence{the lambda-transfer table and its supporting trial data in Supplementary Material S2}
+
+\subsection*{R3.10 --- Hall characterization with missed/misdetections}
+
+\revcomment{All robustness experiments rely on pre-stored fixed coordinates, which become invalid once geometric distortion is applied to cover images. I suggest adding a short subsection describing how the original feasibility conditions derived from Hall's theorem change under positional detection omissions or misdetections.}
+\responsechanges{We define the detected-location set and its induced bipartite graph. Hall's condition remains necessary and sufficient for that graph; missed detections remove candidate vertices or edges, while false detections add candidates. The text distinguishes combinatorial feasibility from sender-receiver correspondence and stable hash values.}
+\locations{Location Detection Errors and Synchronization, Section~5.32, pp.~48--49}
+\evidence{the detected-location graph definition and synchronization analysis}
+
+\subsection*{R3.11 --- Distinguish CIS paradigms}
+
+\revcomment{I recommend clarifying conceptual boundaries in related work among database-retrieval-oriented coverless steganography, multi-cover generative coverless steganography, and intra-cover-mapping coverless steganography. Several existing paragraphs risk confusing the research objectives of these three distinct paradigms.}
+\responsechanges{We reorganized related work to distinguish database retrieval, generated carriers, multi-cover allocation, and single-cover assignment. The research gap now identifies fixed-cover bounded assignment as the problem evaluated in this study.}
+\locations{Related Work, Sections~2.1--2.4, pp.~5--8}
+\evidence{the related-work comparison and research-gap section}
+
+\section*{Closing}
+We hope the revised manuscript and these point-by-point responses address the reviewers' concerns. The revision ties its conclusions to the measured assignment, recovery, record-cost, and transport evidence described above.
+
+\end{document}
+
+

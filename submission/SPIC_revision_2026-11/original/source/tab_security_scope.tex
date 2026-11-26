@@ -1,0 +1,14 @@
+\begin{tabular}{p{0.16\linewidth}p{0.30\linewidth}p{0.49\linewidth}}
+\toprule
+\textbf{Asset / interface} & \textbf{Risk considered} & \textbf{Protection or evidence} \\
+\midrule
+Message and assignment record & Passive reading or active record modification & AES-256-GCM protects and authenticates records under the session-key and nonce assumptions. \\
+Session key setup & Key agreement and active key substitution & Ephemeral X25519 offers are Ed25519-signed and HKDF-derived; identity public keys require authenticated provisioning. \\
+Cover--record binding & Substitution or modification of the reference image & The session profile authenticates the canonical cover digest as associated data; substitution was rejected in 40/40 pilot trials. \\
+Session state & Replay or reordering of valid records & Authenticated sequence numbers and durable SQLite state rejected replay in 40/40 pilot trials. \\
+Cover pixels & Image-only steganalysis & Assignment leaves each image unchanged; aggregate cover statistics may depend on message-conditioned inclusion or suppression. No image-only classifier is evaluated. \\
+Cover selection & Message-dependent cover distribution & Feasibility-driven cover selection may correlate transmitted covers with message content; policy-level detection remains unevaluated. \\
+Envelope observation & Size leakage and ordinary-traffic detection & Matched-decoy envelope tests; captured NonVPN TLS tests: AUC 0.976 for the TLS~1.3 profile and 0.955 for the combined first-16-record profile in the Schannel shaping pilot. \\
+Channel and synchronization & Geometric distortion and reference identification & Fixed-coordinate decoding from warped pixels gives 0/40 exact recovery; closed-set retrieval identifies 8/8 covers in a 219-image gallery and recovers 40/40 messages per transformation. \\
+\bottomrule
+\end{tabular}

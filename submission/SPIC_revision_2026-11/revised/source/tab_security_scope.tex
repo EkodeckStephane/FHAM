@@ -1,0 +1,14 @@
+\begin{tabular}{p{0.16\linewidth}p{0.30\linewidth}p{0.49\linewidth}}
+\toprule
+\textbf{Asset / interface} & \textbf{Risk considered} & \textbf{Protection or evidence} \\
+\midrule
+Message and assignment record & Passive reading or active record modification & AES-256-GCM protects and authenticates records under the session-key and nonce assumptions. \\
+Session key setup & Key agreement and active key substitution & Ephemeral X25519 offers are Ed25519-signed and HKDF-derived; identity public keys require authenticated provisioning. \\
+Cover--record binding & Substitution or modification of the reference image & V1 binds the ordered catalogue digest and protocol parameters; all 18,000 tested protocol mutations were rejected. \\
+Session state & Replay, reordering, or snapshot rollback & Sequence/replay mutations were rejected; 1,000 restart/rollback trials had zero old-snapshot acceptances with an external trusted monotonic epoch. \\
+Cover pixels & Image-only steganalysis & Each fixed reference image is pixel-invariant across assignments; detectability under message-conditioned cover selection remains unmeasured. \\
+Cover selection & Message-dependent cover distribution & Feasibility-driven cover selection may correlate transmitted covers with message content; policy-level detection remains unevaluated. \\
+Envelope observation & Size leakage and ordinary-traffic detection & Four local TCP/TLS endpoint profiles achieved held-out AUC 1.00; the grouped TLS NonVPN comparison also achieved AUC 1.00. These are endpoint-observation results, not packet-capture measurements. \\
+Channel and synchronization & Geometric distortion and reference identification & Fixed-coordinate decoding from warped pixels gives 0/40 exact recovery; closed-set retrieval identifies 8/8 covers in a 219-image gallery and recovers 40/40 messages per transformation. \\
+\bottomrule
+\end{tabular}

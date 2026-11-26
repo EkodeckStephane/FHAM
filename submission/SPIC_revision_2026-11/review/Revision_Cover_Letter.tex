@@ -1,0 +1,42 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper,margin=2.2cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{8pt}
+\begin{document}
+
+\begin{flushright}
+Prof. Ren\'e Ndoundam\\
+University of Bertoua\\
+P.O. Box 416, Bertoua, Cameroon\\
+\href{mailto:ndoundam@gmail.com}{ndoundam@gmail.com}\\
+24 November 2026
+\end{flushright}
+
+The Editor-in-Chief\\
+\textit{Signal Processing: Image Communication}\\
+Elsevier
+
+Dear Editor-in-Chief,
+
+We submit the revised version of manuscript IMAGE-D-26-01586, ``Bounded Intra-Cover Hash Assignment for Coverless Image Steganography,'' for reconsideration in \textit{Signal Processing: Image Communication}.
+
+The revision clarifies that FHAM is an intra-cover assignment layer: the shared image remains unchanged, while reconstruction data are carried in an external AES-256-GCM-protected record. We have strengthened the motivation and practical discussion of Hall feasibility, separated assignment feasibility from exact-message recovery, and clarified the roles of descriptors, assignment, and the surrounding communication protocol.
+
+The results distinguish the raw-byte $B=2$ assignment study from a separately preregistered $B=4$, $L=12$ multi-corpus recovery configuration. This configuration recovered 94.00--98.75\% of 100-byte messages under JPEG and noise, with protected-record costs 2.5--2.6 times the direct AES-GCM baseline. The V1 authenticated-record tests rejected 18,000 protocol mutations and 20,000 message alterations; 12,800 endpoint-observed TCP/TLS sessions were evaluated with exact recovery of genuine FHAM messages. Traffic classifiers achieved AUC 1.00 in the tested profiles, so the manuscript reports network detectability as measured. It also distinguishes pixel invariance for a fixed reference image from the unmeasured effect of message-conditioned cover selection.
+
+The accompanying point-by-point response reproduces all 19 reviewer comments and identifies the corresponding changes by section and page. The revised submission includes the separate Highlights file, S1, the S2 reproducibility archive, and its V1 security-and-endpoint evidence companion, documenting the protocols, derived outputs, and provenance for the reported results. External image datasets and source packet captures remain with their original distributors; acquisition paths and hash-manifest requirements are documented.
+
+The work fits the journal's scope in image communication and coverless image mapping. Its claims concern a formal assignment component, measured recovery under specified image transformations, and the observed metadata and transport costs.
+
+Thank you for considering the revision.
+
+Yours sincerely,\\[8pt]
+\textbf{Prof. Ren\'e Ndoundam}\\
+Corresponding Author\\
+\href{mailto:ndoundam@gmail.com}{ndoundam@gmail.com}
+
+\end{document}

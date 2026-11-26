@@ -1,0 +1,19 @@
+\begin{tabular}{llrrrrr}
+\toprule
+Transport & Length & Flows & Exact & Marker & Median & Median IP \\
+profile & (chars) & & recovery & visible & packets & bytes \\
+\midrule
+Raw TCP & 40  & 40 & 40/40 & 40/40 & 8  & 837  \\
+Raw TCP & 200 & 40 & 40/40 & 40/40 & 8  & 1,477 \\
+TLS~1.3/TCP & 40  & 40 & 40/40 & 0/40 & 13 & 3,261 \\
+TLS~1.3/TCP & 200 & 40 & 40/40 & 0/40 & 13 & 3,901 \\
+\bottomrule
+\end{tabular}
+
+\vspace{2pt}
+\parbox{\linewidth}{\footnotesize The marker column reports detection of the
+versioned application-frame signature in reassembled TCP payloads. Median TCP
+payload bytes were 517, 1,157, 2,741, and 3,381, respectively. For each row,
+100\% of flows fell individually within the background central 10th--90th
+percentile ranges for both packet count and IP-byte size; these marginal
+comparisons are not a joint classifier.}

@@ -1,0 +1,10 @@
+\begin{tabular}{lrrrrr}
+\toprule
+\textbf{Message family} & \textbf{Coded bytes} & \textbf{Compact FHAM} & \textbf{Packed FHAM prototype} & \textbf{Direct AES-GCM} & \textbf{Packed/direct} \\
+\midrule
+Repeated byte & 12 & 97.92 & 87.00 & 41.00 & 2.12 \\
+Templated text & 116 & 349.79 & 284.92 & 145.00 & 1.96 \\
+Printable ASCII & 201 & 535.92 & 422.88 & 230.00 & 1.84 \\
+Uniform bytes & 211 & 557.08 & 438.17 & 240.00 & 1.83 \\
+\bottomrule
+\end{tabular}

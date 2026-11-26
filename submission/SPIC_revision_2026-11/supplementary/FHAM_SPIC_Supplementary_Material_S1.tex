@@ -1,0 +1,203 @@
+﻿\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper,margin=2.2cm]{geometry}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlist{nosep}
+\newcommand{\code}[1]{\texttt{#1}}
+\begin{document}
+
+\begin{center}
+{\Large\bfseries Supplementary Information}\\[6pt]
+{\large\bfseries Bounded Intra-Cover Hash Assignment for Coverless Image Steganography}\\[5pt]
+\textit{Signal Processing: Image Communication}\\[10pt]
+Habibatou Mindja; Ibrahima Tour\'e; St\'ephane Ga\"el R. Ekodeck; Serge Alain Ebele; Leonel Moyou Metcheka; Daniel Tieudjo; Ren\'e Ndoundam\\[8pt]
+\textbf{Affiliations:} University of Yaound\'e I, LIRIMA, Team GRIMCAPE, P.O. Box 812, Yaound\'e, Cameroon; Institut Sup\'erieur des Technologies de Mamou, B.P. 063 Mamou, Republic of Guinea; University of Bertoua, P.O. Box 416, Bertoua, Cameroon; IRD, UMI UMMISCO, IRD France Nord, F-93143 Bondy, France;\\[5pt]
+\textbf{Corresponding author:} Ren\'e Ndoundam, \href{mailto:ndoundam@gmail.com}{ndoundam@gmail.com}
+\end{center}
+
+\hrule
+\vspace{7pt}
+
+\section{Purpose and relation to the manuscript}
+This Supplementary Material records protocol details needed to interpret and reproduce the experiments reported in the manuscript. Supplementary Material S2 contains the executable artefact, controlled/stress inputs, manifests, raw and processed outputs, and audit evidence referenced below. Third-party external corpora are not redistributed.
+
+
+\section{Datasets and provenance}
+\subsection{Controlled and stress corpora}
+The controlled corpus contains eight standard reference images distributed through the scientific Python image ecosystem and used as fixed covers. The stress corpus contains 219 fixed images, including 200 face photographs from the scikit-image Labeled Faces in the Wild subset plus 19 additional reference/stress images. Exact preprocessed images and manifests used by the reported controlled/stress experiments are included in Supplementary Material S2.
+
+\subsection{External corpora}
+Three third-party corpora were used for cross-dataset checks: BOSSBase~1.01, BOWS2, and the COCO~2017 validation split. The submission artefact contains manifest rows with relative path, SHA-256 digest, dimensions, mode, split label, and preprocessing note for \textbf{10,000 BOSSBase images}, \textbf{10,000 BOWS2 images}, and \textbf{5,000 COCO validation images}. The image files themselves are not redistributed because reuse remains subject to the original distributors' terms.
+
+The manifests include source paths and relative filenames with SHA-256 digests. Reproduction uses the relative filenames and digests: obtain the original corpora, verify the files, and point the pipeline to the local dataset roots.
+
+\section{Message manifest and terminology}
+The deterministic message manifest contains 160 entries: four message families, eight lengths, and five seeded messages per family--length combination. The families are uniform random bytes, printable ASCII, templated natural-language text, and an adversarial repeated-byte construction. The dataset identifier \code{natural\_text} denotes \emph{templated} natural-language text generated deterministically from a sentence template; it is not a sampled natural-language corpus.
+
+This distinction is material at long lengths. In the controlled message-family experiment at $B=2$, without source preprocessing, the templated family succeeds in 97.5\% of the 100-byte trials but 12.5\% of the 200-byte trials, whereas printable ASCII and uniform bytes succeed in all 200-byte trials. The adversarial repeated family fails in all 200-byte trials. These outcomes are interpreted as multiplicity/coverage effects rather than as estimates of language-level performance.
+
+\section{Pre-assignment compression and parameter ablation}
+We compare raw message bytes with zlib level-9 preprocessing before the
+unchanged FHAM assignment procedure. The ablation screens block sizes 12, 18,
+24, 30, 36, and 48 with spectral, DCT-ordinal, and wavelet-gradient
+descriptors on the eight controlled covers. Candidate profiles are evaluated
+on 200 LFW face images with three seeded messages per family (600
+image--message cases per family); the selected spectral $12\times12$ profile
+is checked separately on 11 non-face stress images (33 cases per family).
+Each message is 200 bytes before compression. The exact codebook counts,
+minimum feasible bounds, preprocessing lengths, and trial-level outcomes are
+provided in S2 under
+\path{results/revision_ablation/}.
+
+On the LFW set, the spectral $12\times12$ profile provides 7056 hash
+locations. At $B=2$, compression raises feasibility for repeated-byte
+messages from 0\% to 97.8\% and for templated text from 80.5\% to 92.2\%.
+At $B=4$, the compressed rates are 98.5\% and 97.2\%; at $B=8$, they are
+99.3\% and 98.3\%. The scene holdout reports 100\% for compressed
+repeated-byte messages and 97.0\% for compressed templated text at $B=2$.
+Uniform-byte and printable-ASCII messages compress to 211 and 201 bytes in
+these trials, respectively, so compression alone provides little capacity
+gain for those distributions. Smaller blocks increase codebook-construction
+time: the controlled-corpus means are 428~ms for size 12 and 121~ms for size
+24.
+
+The size comparison uses the current compact FHAM record, a packed-record
+prototype, and direct AES-GCM protection of the same zlib-preprocessed source.
+The prototype encodes a location token and bounded residual in fixed-width
+bits, applies zlib and AES-GCM, and verifies exact identity-channel recovery
+of all encoded pairs. At $B=2$, the packed FHAM envelope ranges from 87 bytes
+for repeated-byte messages to 439 bytes for uniform random bytes, compared
+with 53--252 bytes for direct protection. This lowers FHAM metadata relative
+to the current compact record but leaves it larger than direct protection in
+each measured family. The compact format exposes compressed-record length;
+the 200-record shaped format remains 852 bytes.
+
+\begin{table}[h]
+\centering
+\small
+\caption{Preprocessing and Feasibility at 200 Source Bytes}
+\resizebox{\linewidth}{!}{\input{../01_MAIN_MANUSCRIPT/02_REVISION_SOURCE/tab_preprocessing_capacity.tex}}
+\end{table}
+
+\begin{table}[h]
+\centering
+\small
+\caption{Protected FHAM Metadata and Direct-Encryption Baseline (Bytes)}
+\resizebox{\linewidth}{!}{\input{../01_MAIN_MANUSCRIPT/02_REVISION_SOURCE/tab_preprocessed_metadata.tex}}
+\end{table}
+
+\section{Descriptor selection and separation of evaluation roles}
+Three descriptor families were compared under the same bounded-assignment protocol: spectral, DCT-ordinal, and wavelet-gradient. A disjoint 100-image BOSSBase validation sample was evaluated at 200 bytes and $B=2$. Assignment success was 0.992 for spectral, 0.990 for DCT-ordinal, and 0.870 for wavelet-gradient. The spectral descriptor was selected under the recorded eligibility/selection rule.
+
+This experiment provides 200-byte evidence outside the eight-image controlled corpus and 219-image stress corpus. The 200-byte descriptor comparison uses the independent BOSSBase validation sample. The BOWS2/COCO benchmark below evaluates messages at 50 and 100 bytes.
+
+\section{Stability-aware cost and lambda selection}
+The composite assignment cost is
+\[
+c=\lambda\,\mathrm{normalized\_residual}+(1-\lambda)(1-\mathrm{stability}).
+\]
+Per-location stability was estimated on three \emph{development} transformations: JPEG quality 90, downscale/restore factor 0.9, and Gaussian noise with $\sigma=1$. Recovery used a disjoint \emph{validation} transformation set: JPEG quality 75, $1^\circ$ rotation, and Gaussian noise with $\sigma=2$.
+
+The sweep uses validation results to choose the operating value of $\lambda$; these measurements describe the tuning set and are not an independent final test set.
+
+\begin{table}[h]
+\centering
+\caption{Lambda sweep at $B=8$, length 100.}
+\begin{tabular}{rrrr}
+\toprule
+$\lambda$ & Assignment success & Validation char. accuracy & Mean total displacement\\
+\midrule
+0.00 & 1.000 & 0.5543 & 731.975\\
+0.25 & 1.000 & 0.5513 & 54.775\\
+0.50 & 1.000 & 0.5514 & 54.775\\
+0.75 & 1.000 & 0.5508 & 50.775\\
+1.00 & 1.000 & 0.3378 & 5.425\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+All five settings have zero exact recovery under the validation transformations. The highest observed character accuracy is 55.4\% at $\lambda=0$, with mean total displacement 731.98. The selected operating value $\lambda=0.75$ gives 55.1\% accuracy with mean total displacement 50.78. It represents an accuracy--displacement trade-off in this tuning set; the sweep does not establish a universally optimal value. At $\lambda=0$, the hard residual feasibility bound remains enforced while residual magnitude receives zero weight in the objective.
+
+Transfer was evaluated on the 11 non-face stress images disjoint from the
+controlled tuning corpus, using three compressed templated messages per image,
+the spectral $12\times12$ profile, and $B=2$. Values $0.25$, $0.5$, and
+$0.75$ produced the same mean displacement (21.97) and closely matched byte
+accuracies. Weight 0 had a larger displacement (211.47) with slightly lower
+accuracy; weight 1 reduced displacement to 2.78 while lowering accuracy.
+Exact source recovery remained 0/99 for each weight across the three
+evaluation transformations. The 11-image external sample supports the
+mid-range trade-off on the sampled data but does not establish a universal
+parameter setting.
+
+\begin{table}[h]
+\centering
+\small
+\caption{Stability-Weight Transfer on the Scene Holdout}
+\resizebox{\linewidth}{!}{\input{../01_MAIN_MANUSCRIPT/02_REVISION_SOURCE/tab_lambda_transfer.tex}}
+\end{table}
+
+\section{External-corpus sampling and unequal trial counts}
+The cross-dataset assignment check samples 60 images from BOSSBase, BOWS2, and COCO~2017 validation. Each dataset--family cell has five 50-byte messages and one 100-byte message per image, for 300 and 60 trials, respectively. A deterministic round-robin quota sets these counts; the 100-byte proportions therefore serve as corroborative checks alongside the 50-byte results.
+
+At 100 bytes, printable ASCII and uniform bytes succeed in all 60 trials for each corpus. The templated family succeeds in 100\% (BOSSBase), 98.33\% (BOWS2), and 95.0\% (COCO). The adversarial repeated family succeeds in 0\% on all three. At 50 bytes, the adversarial family succeeds in 84.67\%, 90.33\%, and 90.67\%, respectively; the other three families succeed in all reported trials.
+
+A separate stratified robustness run evaluates one 100-byte message per image on 1,998 BOSSBase images, 1,998 BOWS2 images, and 1,999 COCO validation images across eight conditions. Identity recovery is exact for every image. Rotation by $1^\circ$ is the most damaging tested condition, with character accuracy between 7.31\% and 7.84\%; the remaining tested non-identity transformations produce partial, not exact, recovery at corpus scale.
+
+\section{Protected auxiliary record and traffic-feature interpretation}
+The assignment record stores the information needed to reconstruct the selected locations/residuals. Without pre-assignment source compression, the compact authenticated/encrypted envelope averages 549.40 bytes in the unbounded length sweep and 549.88 bytes in the bounded $B=2$ cohort; the fixed-capacity shaped envelope is 852 bytes. The directly protected message averages 242.10 bytes in the matched cohort. These measurements quantify assignment-layer metadata overhead.
+
+Envelope detection compares compact and shaped records with matched-shape decoys: the four learned classifiers reach AUC 1.0 for compact records and AUC 0.5 for shaped records in that feature model. A separate transport evaluation measures TLS record features against captured NonVPN TLS traffic. Across 1,946 captured flows from 91 files, the OpenSSL TLS~1.3 profile reaches mean AUC 0.976 for directional record counts, byte totals, and the first 16 record lengths. With Windows Schannel TLS~1.2, empirical padding and fragmentation reduce the combined byte-total/record-count AUC from 0.929 to 0.781 on a disjoint set of 1,244 flows; the combined profile including the first 16 record lengths reaches AUC 0.955. Matched HTTP controls reproduce FHAM wire sizes and record sequences. The measurement identifies a residual TLS record-length signal in the tested Schannel profile.
+
+\section{Evidence and scope}
+\section{V1 authenticated-record and session-security evaluation}
+The measured record protocol uses an ordered reference-image catalogue bound by its digest and by protocol parameters in authenticated data. Ephemeral X25519 agreement is authenticated with Ed25519 signatures; HKDF derives directional AES-GCM keys, and the peers confirm the session key. Records bind the catalogue, session identifier, and sequence state. The receiver maintains persistent replay state.
+
+The V1 implementation rejected all 18,000 mutations in 18 classes, all 58,880 single-bit alterations across 20 records, and all 20,000 tested message-integrity alterations. A separate 1,000-trial restart/rollback check accepted no old snapshots when supplied with an external trusted monotonic epoch. In the key-compromise checks, captured records remained undecryptable after identity-key disclosure, and the tested peer-key substitution was rejected. The framed handshake measured 338 bytes.
+
+These tests characterize the stated implementation and trust assumptions. Physical zeroization of ephemeral keys is not claimed for the Python implementation. Rollback protection depends on an external trusted monotonic epoch; distribution and revocation of identity keys and the reference catalogue were not evaluated. The tests provide experimental evidence for the record protocol and do not constitute a formal proof or deployment certification. Supplementary Material S2 contains the machine-readable summaries, trial-level outputs, implementation, and analysis scripts.
+
+\section{Endpoint-observed transport detectability}
+Four local endpoint profiles compare compact and fixed-size records over TCP and TLS~1.3. For each profile, session groups are split into training, validation, and held-out test partitions; each class contributes 400 training, 200 validation, and 1,000 test flows. The HTTP controls use the same source messages as their paired FHAM sessions. The selected classifiers use a visible application marker and directional byte totals for TCP; TLS features comprise record lengths, record counts, and byte totals. Endpoint instrumentation records the actual socket/TLS observations; the local experiment is not a packet capture.
+
+The held-out AUC is 1.00 (cluster-bootstrap 95\% CI [1.00, 1.00]) for each of the four profiles. A grouped comparison of both record representations with 254 TLS NonVPN reference flows from 14 capture groups also yields AUC 1.00. These scores characterize the tested feature sets, sessions, and reference corpus. They describe detectability of the tested network exchange; they do not measure image-only steganalysis.
+
+For a fixed reference image, assignment preserves pixel values across messages. The image-only detectability of a cover-selection policy conditioned on assignment feasibility remains unmeasured; such selection can alter the distribution of transmitted covers. Supplementary Material S2 contains the held-out predictions, split metadata, source code, and trial-level session manifest for the endpoint analyses.
+
+\section{Evidence and scope}
+The experiments establish a formal bounded assignment layer, its feasibility/optimization properties, and empirical behavior under the reported descriptors, datasets, messages, and transformations. The V1 tests evaluate authenticated record construction, message integrity, peer authentication, session-key separation, and persistent replay handling under provisioned identity keys and a trusted monotonic epoch. Endpoint-observation experiments quantify traffic detectability for the stated local profiles and capture corpus. Image-only analysis of message-conditioned cover selection, identity-key lifecycle, physical key zeroization, and production deployment remain outside the measured study. Geometric recovery measurements cover fixed-coordinate extraction, ORB/RANSAC registration, and closed-set reference retrieval. Broader catalogue synchronization is a direction for further work.
+
+\section{Evidence map and reproduction entry points}
+Supplementary Material S2 contains the following principal entry points.
+
+\begin{longtable}{p{0.33\linewidth}p{0.61\linewidth}}
+\toprule
+\textbf{Path / command} & \textbf{Role}\\
+\midrule
+\code{python -m pytest -q} & Unit/integration regression suite.\\
+\code{run\_pipeline.py} & Reproduction entry point for analyses with locally available source datasets.\\
+\path{dataset/message_manifests/message_seeds.csv} & Deterministic 160-message manifest.\\
+\path{dataset/manifests/*.csv} & Third-party external-corpus provenance and SHA-256 manifests.\\
+\code{results/} & Raw, processed, ablation, robustness, traffic, and acceptance outputs.\\
+\path{paper/tables/generated/}, \path{paper/figures/generated/} & Generated manuscript evidence with provenance sidecars.\\
+\bottomrule
+\end{longtable}
+
+Third-party images are inputs to the corresponding external-corpus analyses. Supplementary Material S2 includes their manifests and generated results; the image files are obtained from their original distributors.
+
+\section{Reproducibility package}
+The manuscript uses the Elsevier \code{elsarticle} LaTeX class. Supplementary Material S1 is this protocol document. Supplementary Material S2 contains the reproducibility archive corresponding to public repository commit \href{https://github.com/EkodeckStephane/FHAM/tree/a7849bb}{a7849bb}. The companion archive \code{FHAM\_SPIC\_Supplementary\_Material\_S2\_V1\_Security\_and\_Endpoint\_Evidence\_2026-11-24.zip} contains the V1 implementation, session and endpoint-detection analyses, trial outputs, and supporting manifests.
+
+\end{document}
+
+
